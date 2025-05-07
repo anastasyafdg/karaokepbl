@@ -9,10 +9,14 @@ use App\Http\Controllers\AdmDashboardController;
 use App\Http\Controllers\PengunjungController;
 use App\Http\Controllers\AdmRuanganController;
 use App\Http\Controllers\AdmPaketController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PembayaranSelesaiController;
+
 
 Route::get('/', function () {
     return view('welcome');
-});
+    });
 
 Route::get('/dashboard1', [Dashboard1Controller::class, 'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -22,3 +26,6 @@ Route::get('/admin_dashboard', [AdmDashboardController::class, 'index'])->name('
 Route::get('/data_pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
 Route::get('/data_ruangan', [AdmRuanganController::class, 'index'])->name('data_ruangan');
 Route::get('/paket_admin', [AdmPaketController::class, 'index'])->name('paket_admin');
+Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm']);
+Route::get('/konfirmasi_pembayaran', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
+Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
