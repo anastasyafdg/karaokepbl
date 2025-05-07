@@ -39,7 +39,7 @@
     <!-- Navbar -->
     <div class="flex items-center justify-between bg-white p-4 shadow-md">
       <div class="flex items-center space-x-4">
-        <img src="imageslogo.png" alt="Logo" class="w-12 h-12 rounded-full object-cover">
+        <img src="images/logo.png" alt="Logo" class="w-12 h-12 rounded-full object-cover">
         <div>
           <h4 class="text-lg font-semibold">Halo, Semangat Kerjanya</h4>
           <small class="text-gray-500">Admin (@admin)</small>
