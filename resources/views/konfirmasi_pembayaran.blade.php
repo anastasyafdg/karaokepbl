@@ -89,7 +89,7 @@
         <input type="hidden" name="catatan" value="Tidak ada">
         <input type="hidden" name="metode_pembayaran" value="Bank Transfer">
         <input type="hidden" name="total_harga" value="150000">
-        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 hover:bg-blue-600 text-white font-semibold py-2 rounded">
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded">
           Bayar Sekarang
         </button>
       </form>

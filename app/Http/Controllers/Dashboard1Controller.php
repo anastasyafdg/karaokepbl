@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class Dashboard1Controller extends Controller
 {
-    public function index()
+    public function landing()
     {
         return view('dashboard1'); // render file dashboard1.blade.php
     }
