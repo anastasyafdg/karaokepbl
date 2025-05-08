@@ -10,7 +10,7 @@
 <body class="bg-slate-900 font-['Roboto']">
   <!-- Header -->
   <header class="bg-blue-200 shadow-md">
-  <nav class="container mx-auto px-6 py-4">
+  <nav class="max-w-9xl mx-auto px-6 py-4">
     <div class="flex items-center">
       <!-- Menu Tengah -->
       <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">

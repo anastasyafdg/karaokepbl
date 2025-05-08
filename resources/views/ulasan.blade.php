@@ -5,69 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ulasan - RUN & RUN Karaoke</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+    .rating-star {
+      transition: all 0.2s ease;
+    }
+    .rating-star:hover {
+      transform: scale(1.2);
+    }
+  </style>
 </head>
-<body class="font-['Roboto'] bg-gray-900 text-gray-100">
+<body class="font-['Poppins'] bg-gray-900 text-gray-100">
 
 <!-- Header & Navigation -->
-<header class="bg-blue-200 shadow-md">
-  <nav class="container mx-auto px-6 py-4">
-    <div class="flex items-center">
-      <!-- Menu Tengah -->
+<header class="bg-blue-200 text-black shadow-md fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-9xl mx-auto px-4 sm:px-8 lg:px-8">
+    <div class="flex justify-between items-center h-16"> 
+      <!-- Desktop Menu -->
       <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="halaman.php" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
-        <li><a href="ruangan.php" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
+        <li><a href="landing" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
+        <li><a href="ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
         <li class="mx-4 md:mx-8">
-        <img src="images/logo.png" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto">
-
-</li>
-
-        <li><a href="ulasan.php" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
-        <li><a href="kontak.php" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
+        <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto"></li>
+        <li><a href="ulasan" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
+        <li><a href="kontak" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
       </ul>
       
       <!-- Profile Icon di Kanan -->
-      <div class="relative group ml-auto">
-        <button class="focus:outline-none">
+      <div id="profile-dropdown-container" class="relative group ml-auto">
+        <button id="profile-button" class="focus:outline-none">
           <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
-               alt="Profile" 
-               class="w-8 h-8 rounded-full border-2 border-blue-300">
+              alt="Profile" 
+              class="w-8 h-8 rounded-full border-2 border-blue-300">
         </button>
-        
+
         <!-- Dropdown Menu -->
-        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block group-focus:block z-50">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
+        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden z-50">
+          <a href="edit_profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
+          <a href="riwayat" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
           <hr class="border-gray-200 my-1">
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
         </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+      <a href="halaman" class="block py-2 text-gray-800 hover:text-yellow-500 transition">Beranda</a>
+      <a href="ruangan" class="block py-2 text-gray-800 hover:text-yellow-500 transition">Ruangan</a>
+      <a href="ulasan" class="block py-2 text-yellow-500 font-medium">Ulasan</a>
+      <a href="kontak" class="block py-2 text-gray-800 hover:text-yellow-500 transition">Kontak</a>
+      <div class="mt-4 pt-4 border-t border-gray-300">
+        <a href="login" class="block py-2 text-gray-800 font-medium">Login</a>
       </div>
     </div>
   </nav>
 </header>
 
 <!-- Ulasan Section -->
-<section id="ulasan" class="py-16">
+<section id="ulasan" class="py-12">
   <div class="max-w-4xl mx-auto px-6">
-    <div class="bg-gray-600 p-8 rounded-2xl shadow-2xl">
-      <div class="flex justify-between items-center mb-10">
-        <h2 class="text-3xl font-bold text-teal-400">Ulasan Pengunjung</h2>
+    <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold text-teal-400 mb-4 md:mb-0">Ulasan Pengunjung</h2>
         <button id="openModal"
-                class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-lg shadow-md transition">
-          + Tambah Ulasan
+                class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-lg shadow-md transition flex items-center">
+          <i class="fas fa-plus mr-2"></i> Tambah Ulasan
         </button>
       </div>
 
-      <!-- Review Card -->
-      <div class="space-y-6">
-        <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition">
-          <div class="flex justify-between items-center">
-            <div class="flex items-center">
+      <!-- Review Cards Container -->
+      <div class="space-y-6" id="reviews-container">
+        <!-- Review Card 1 -->
+        <div class="bg-gray-700 p-6 rounded-xl shadow-md transform hover:scale-[1.02] transition duration-300">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+            <div class="flex items-center mb-4 md:mb-0">
               <div class="bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">A</div>
               <div class="ml-4">
-                <h3 class="text-lg font-bold text-gray-800">Andi</h3>
-                <p class="text-sm text-gray-500">21 April 2025</p>
+                <h3 class="text-lg font-bold text-white">Andi</h3>
+                <p class="text-sm text-gray-400">21 April 2025</p>
               </div>
             </div>
             <div class="flex text-yellow-400 text-lg space-x-1">
@@ -78,7 +107,28 @@
               <i class="fas fa-star"></i>
             </div>
           </div>
-          <p class="mt-4 text-gray-700">Tempatnya sangat nyaman dan lagu-lagunya lengkap. Pengalaman karaoke yang luar biasa!</p>
+          <p class="mt-4 text-gray-300">Tempatnya sangat nyaman dan lagu-lagunya lengkap. Pengalaman karaoke yang luar biasa!</p>
+        </div>
+        
+        <!-- Review Card 2 -->
+        <div class="bg-gray-700 p-6 rounded-xl shadow-md transform hover:scale-[1.02] transition duration-300">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+            <div class="flex items-center mb-4 md:mb-0">
+              <div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">B</div>
+              <div class="ml-4">
+                <h3 class="text-lg font-bold text-white">Budi</h3>
+                <p class="text-sm text-gray-400">15 Maret 2025</p>
+              </div>
+            </div>
+            <div class="flex text-yellow-400 text-lg space-x-1">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <p class="mt-4 text-gray-300">Pelayanan sangat ramah dan makanan enak. Hanya saja beberapa lagu terbaru belum tersedia.</p>
         </div>
       </div>
     </div>
@@ -86,52 +136,202 @@
 </section>
 
 <!-- Modal Tambah Ulasan -->
-<div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white p-8 rounded-2xl shadow-2xl w-96 relative animate-fadeIn">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Tambah Ulasan</h2>
-    <form class="space-y-4">
-      <input type="text" placeholder="Nama" class="w-full p-3 rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500">
-      <div class="flex justify-center space-x-1" id="ratingStars">
-        <i class="far fa-star text-3xl text-yellow-400 cursor-pointer"></i>
-        <i class="far fa-star text-3xl text-yellow-400 cursor-pointer"></i>
-        <i class="far fa-star text-3xl text-yellow-400 cursor-pointer"></i>
-        <i class="far fa-star text-3xl text-yellow-400 cursor-pointer"></i>
-        <i class="far fa-star text-3xl text-yellow-400 cursor-pointer"></i>
+<div id="reviewModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 p-4 hidden">
+  <div class="flex items-center justify-center h-full">
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md relative animate-fadeIn border border-teal-500/30">
+    <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+      <i class="fas fa-times text-xl"></i>
+    </button>
+    
+    <h2 class="text-2xl font-bold mb-6 text-teal-400 text-center">Tambah Ulasan</h2>
+    
+    <form id="reviewForm" class="space-y-6">
+      <div>
+        <label for="reviewerName" class="block text-gray-300 mb-2">Nama Anda</label>
+        <input type="text" id="reviewerName" placeholder="Masukkan nama" 
+               class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-teal-500 border border-gray-600">
       </div>
-      <textarea placeholder="Tulis ulasan Anda..." class="w-full p-3 rounded-lg bg-gray-100 text-gray-800 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500"></textarea>
-      <div class="flex justify-end space-x-3 pt-4">
-        <button type="button" id="closeModal" class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500">Batal</button>
-        <button type="submit" class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">Kirim</button>
+      
+      <div class="text-center">
+        <label class="block text-gray-300 mb-3">Rating</label>
+        <div class="flex justify-center space-x-2" id="ratingStars">
+          <i class="far fa-star rating-star text-3xl text-yellow-400 cursor-pointer" data-rating="1"></i>
+          <i class="far fa-star rating-star text-3xl text-yellow-400 cursor-pointer" data-rating="2"></i>
+          <i class="far fa-star rating-star text-3xl text-yellow-400 cursor-pointer" data-rating="3"></i>
+          <i class="far fa-star rating-star text-3xl text-yellow-400 cursor-pointer" data-rating="4"></i>
+          <i class="far fa-star rating-star text-3xl text-yellow-400 cursor-pointer" data-rating="5"></i>
+        </div>
+        <input type="hidden" id="selectedRating" value="0">
+      </div>
+      
+      <div>
+        <label for="reviewText" class="block text-gray-300 mb-2">Ulasan Anda</label>
+        <textarea id="reviewText" placeholder="Bagikan pengalaman Anda..." 
+                  class="w-full p-3 rounded-lg bg-gray-700 text-white h-32 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 border border-gray-600"></textarea>
+      </div>
+      
+      <div class="flex justify-end space-x-3 pt-2">
+        <button type="button" id="cancelReview" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">Batal</button>
+        <button type="submit" class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition flex items-center">
+          <i class="fas fa-paper-plane mr-2"></i> Kirim
+        </button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Dropdown Profile Functionality
+  const profileButton = document.getElementById('profile-button');
+  const profileDropdown = document.getElementById('profile-dropdown');
+  const profileContainer = document.getElementById('profile-dropdown-container');
+
+  // Toggle dropdown
+  profileButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle('hidden');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!profileContainer.contains(e.target)) {
+      profileDropdown.classList.add('hidden');
+    }
+  });
+
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Review Modal Functionality
   const openModal = document.getElementById('openModal');
   const closeModal = document.getElementById('closeModal');
+  const cancelReview = document.getElementById('cancelReview');
   const reviewModal = document.getElementById('reviewModal');
+  const ratingStars = document.querySelectorAll('#ratingStars i');
+  const selectedRating = document.getElementById('selectedRating');
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewsContainer = document.getElementById('reviews-container');
 
+  // Open modal
   openModal.addEventListener('click', () => {
     reviewModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
   });
 
-  closeModal.addEventListener('click', () => {
+  // Close modal
+  function closeReviewModal() {
     reviewModal.classList.add('hidden');
-  });
+    document.body.style.overflow = ''; // Re-enable scrolling
+    // Reset form
+    reviewForm.reset();
+    selectedRating.value = '0';
+    // Reset stars
+    ratingStars.forEach(star => {
+      star.classList.remove('fas');
+      star.classList.add('far');
+    });
+  }
 
-  // Rating klik-able
-  const stars = document.querySelectorAll('#ratingStars i');
-  stars.forEach((star, index1) => {
+  closeModal.addEventListener('click', closeReviewModal);
+  cancelReview.addEventListener('click', closeReviewModal);
+
+  // Rating stars functionality
+  ratingStars.forEach(star => {
     star.addEventListener('click', () => {
-      stars.forEach((s, index2) => {
-        s.classList.toggle('fas', index2 <= index1);
-        s.classList.toggle('far', index2 > index1);
+      const rating = parseInt(star.getAttribute('data-rating'));
+      selectedRating.value = rating;
+      
+      ratingStars.forEach((s, index) => {
+        if (index < rating) {
+          s.classList.remove('far');
+          s.classList.add('fas');
+        } else {
+          s.classList.remove('fas');
+          s.classList.add('far');
+        }
+      });
+    });
+    
+    // Hover effect
+    star.addEventListener('mouseover', () => {
+      const hoverRating = parseInt(star.getAttribute('data-rating'));
+      ratingStars.forEach((s, index) => {
+        if (index < hoverRating) {
+          s.classList.add('text-yellow-300');
+        } else {
+          s.classList.remove('text-yellow-300');
+        }
+      });
+    });
+    
+    star.addEventListener('mouseout', () => {
+      const currentRating = parseInt(selectedRating.value);
+      ratingStars.forEach((s, index) => {
+        s.classList.remove('text-yellow-300');
+        if (index < currentRating) {
+          s.classList.remove('far');
+          s.classList.add('fas');
+        } else {
+          s.classList.remove('fas');
+          s.classList.add('far');
+        }
       });
     });
   });
+
+  // Form submission
+  reviewForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('reviewerName').value;
+    const rating = selectedRating.value;
+    const text = document.getElementById('reviewText').value;
+    
+    if (!name || !rating || !text) {
+      alert('Harap lengkapi semua field!');
+      return;
+    }
+    
+    // Create new review element
+    const newReview = document.createElement('div');
+    newReview.className = 'bg-gray-700 p-6 rounded-xl shadow-md transform hover:scale-[1.02] transition duration-300';
+    newReview.innerHTML = `
+      <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+        <div class="flex items-center mb-4 md:mb-0">
+          <div class="bg-${getRandomColor()}-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold">${name.charAt(0).toUpperCase()}</div>
+          <div class="ml-4">
+            <h3 class="text-lg font-bold text-white">${name}</h3>
+            <p class="text-sm text-gray-400">${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+          </div>
+        </div>
+        <div class="flex text-yellow-400 text-lg space-x-1">
+          ${'<i class="fas fa-star"></i>'.repeat(parseInt(rating))}
+          ${'<i class="far fa-star"></i>'.repeat(5 - parseInt(rating))}
+        </div>
+      </div>
+      <p class="mt-4 text-gray-300">${text}</p>
+    `;
+    
+    // Add new review to the top
+    reviewsContainer.insertBefore(newReview, reviewsContainer.firstChild);
+    
+    // Close modal
+    closeReviewModal();
+    
+    // Show success message
+    alert('Terima kasih atas ulasan Anda!');
+  });
+
+  // Helper function for random colors
+  function getRandomColor() {
+    const colors = ['blue', 'purple', 'green', 'red', 'pink', 'indigo'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
 </script>
 </body>
 </html>
