@@ -10,34 +10,30 @@
 <body class="bg-slate-900 text-white">
 
   <!-- Navbar -->
-  <nav class="bg-slate-200 text-black p-4">
+  <nav class="bg-blue-200 text-black p-4">
     <div class="max-w-7xl mx-auto flex items-center justify-between relative">
 
       <!-- Tengah Navbar -->
       <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center space-x-8">
         <!-- Kiri Menu -->
         <div class="flex space-x-6">
-          <a href="#" class="font-semibold hover:underline">Beranda</a>
-          <a href="#" class="font-semibold hover:underline">Ruangan</a>
+          <a href="dashboard1" class="font-semibold hover:underline">Beranda</a>
+          <a href="ruangan" class="font-semibold hover:underline">Ruangan</a>
         </div>
 
         <!-- Logo -->
-        <img 
-         src="{{ asset('images/logo.png') }}" 
-         alt="Logo" 
-         class="w-12 h-12 object-cover rounded-full">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-12 h-12 object-cover rounded-full">
         <!-- Kanan Menu -->
         <div class="flex space-x-6">
-          <a href="#" class="font-semibold hover:underline">Ulasan</a>
-          <a href="#" class="font-semibold hover:underline">Kontak</a>
+          <a href="ulasan" class="font-semibold hover:underline">Ulasan</a>
+          <a href="kontak" class="font-semibold hover:underline">Kontak</a>
         </div>
       </div>
 
       <!-- Pojok Kanan: Button -->
       <div class="ml-auto">
-        <button class="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700">Masuk</button>
+        <a href="login" class="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 inline-block">Masuk</a>
       </div>
-
     </div>
   </nav>
 
@@ -109,7 +105,7 @@
    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
     <!-- Package A -->
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-            <img src="images/paketA.webp" alt="Paket A" class="w-full h-48 object-cover">
+          <img src="{{ asset('images/paketA.png') }}" alt="Paket A" class="w-full h-48 object-cover">
             <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
               <div>
                 <div class="flex items-center justify-between mb-2">
@@ -134,7 +130,7 @@
           
     <!-- Package B -->
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-            <img src="images/paketB.webp" alt="Paket B" class="w-full h-48 object-cover">
+          <img src="{{ asset('images/paketB.png') }}" alt="Paket B" class="w-full h-48 object-cover">
             <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
               <div>
                 <div class="flex items-center justify-between mb-2">
@@ -159,7 +155,7 @@
           
     <!-- Package C -->
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-            <img src="images/paketC.webp" alt="Paket C" class="w-full h-48 object-cover">
+          <img src="{{ asset('images/paketB.png') }}" alt="Paket C" class="w-full h-48 object-cover">
             <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
               <div>
                 <div class="flex items-center justify-between mb-2">
@@ -191,7 +187,7 @@
         <!-- Brand Info -->
         <div class="mb-8 md:mb-0 max-w-md">
           <div class="flex items-center mb-4">
-            <img src="logo.png" alt="Logo Mikkeu Pangpang" class="mr-4 rounded-full" width="50" height="50">
+          <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="mr-4 rounded-full" width="50" height="50">
             <div>
               <h1 class="text-yellow-500 text-2xl font-bold">Mikkeu Pangpang</h1>
               <p class="text-gray-400">Executive Karaoke</p>

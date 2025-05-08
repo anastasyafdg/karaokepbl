@@ -63,7 +63,7 @@
           <i class="fas fa-key mr-2"></i> Ganti Password
         </button>
         
-        <a href="halaman.php"
+        <a href="landing"
           class="block w-full bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-xl font-medium text-center transition-all duration-300 border border-white/20 hover:border-white/30">
           <i class="fas fa-arrow-left mr-2"></i> Kembali
         </a>

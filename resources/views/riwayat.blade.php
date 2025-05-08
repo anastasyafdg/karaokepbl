@@ -98,7 +98,7 @@
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div class="mb-8 md:mb-0 max-w-md">
           <div class="flex items-center mb-4">
-            <img src="logo.png" alt="Logo" class="mr-4 rounded-full w-[50px] h-[50px]">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="mr-4 rounded-full w-[50px] h-[50px]">
             <div>
               <h1 class="text-yellow-500 text-2xl font-bold">Mikkeu Pangpang</h1>
               <p class="text-gray-400">Executive Karaoke</p>

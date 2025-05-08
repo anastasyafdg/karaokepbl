@@ -34,13 +34,13 @@
         <a href="ganti.php" class="hover:underline">Lupa Password?</a>
       </div>
       <div class="mt-2 text-center text-sm text-gray-700">
-        Tidak punya akun? <a href="registrasi.php" class="font-bold hover:underline">Daftar Disini</a>
+        Tidak punya akun? <a href="registrasi" class="font-bold hover:underline">Daftar Disini</a>
       </div>
     </div>
 
     <!-- Gambar -->
     <div class="hidden md:flex w-1/2 items-center justify-center p-10">
-      <img src="images/burung.png.png" alt="Karaoke Bird" class="max-w-xs">
+    <img src="{{ asset('images/burung.png') }}" alt="Karaoke Bird" class="max-w-xs">
     </div>
   </div>
 

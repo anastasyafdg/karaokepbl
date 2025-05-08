@@ -8,41 +8,35 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-white">
-
 <header class="bg-blue-200 shadow-md">
   <nav class="container mx-auto px-6 py-4">
     <div class="flex items-center">
       <!-- Menu Tengah -->
       <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="halaman.php" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
-        <li><a href="ruangan.php" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
+        <li><a href="landing" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
+        <li><a href="ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
         <li class="mx-4 md:mx-8">
-    <img 
-        src="logo.png"
-        alt="Logo Mikkeu Pangpang" 
-        class="h-10 w-10 rounded-full object-cover mx-auto"
-    >
-</li>
-
-        <li><a href="ulasan.php" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
-        <li><a href="kontak.php" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
+        <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto">
+        </li>
+        <li><a href="ulasan" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
+        <li><a href="kontak" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
       </ul>
       
       <!-- Profile Icon di Kanan -->
       <div class="relative group ml-auto">
-        <button class="focus:outline-none">
+        <button id="profile-button" class="focus:outline-none">
           <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
-               alt="Profile" 
-               class="w-8 h-8 rounded-full border-2 border-blue-300">
+              alt="Profile" 
+              class="w-8 h-8 rounded-full border-2 border-blue-300">
         </button>
-        
         <!-- Dropdown Menu -->
-        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block group-focus:block z-50">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
+        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden z-50">
+          <a href="edit_profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
+          <a href="riwayat" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
           <hr class="border-gray-200 my-1">
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
         </div>
+      </div>
       </div>
     </div>
   </nav>
@@ -117,17 +111,18 @@
   <!-- Packages Section -->
     <section class="mt-16">
     <div class="container mx-auto px-6">
-        <div class="flex justify-end items-center mb-6">
-        <button class="bg-gray-600 text-white px-8 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors">
-            Lihat Semua Ruangan
-        </div>
+      <div class="flex justify-end items-center mb-6">
+      <a href="ruangan" class="bg-gray-600 text-white px-8 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors">
+          Lihat Semua Ruangan
+      </a>
+    </div>
     </div>
        
   <!-- Package Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
     <!-- Package A -->
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-          <img src="paketA.webp" alt="Paket A" class="w-full h-48 object-cover">
+          <img src="{{ asset('images/paketA.png') }}" alt="Paket A" class="w-full h-48 object-cover">
             <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
               <div>
                 <div class="flex items-center justify-between mb-2">
@@ -152,7 +147,7 @@
           
     <!-- Package B -->
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-          <img src="paketB.webp" alt="Paket B" class="w-full h-48 object-cover">
+          <img src="{{ asset('images/paketB.png') }}" alt="Paket B" class="w-full h-48 object-cover">
             <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
               <div>
                 <div class="flex items-center justify-between mb-2">
@@ -177,7 +172,7 @@
           
     <!-- Package C -->
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-          <img src="paketC.webp" alt="Paket C" class="w-full h-48 object-cover">
+          <img src="{{ asset('images/paketC.png') }}" alt="Paket C" class="w-full h-48 object-cover">
             <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
               <div>
                 <div class="flex items-center justify-between mb-2">
@@ -269,8 +264,7 @@
               <p class="text-sm text-black">Rp 250.000/jam</p>
               <div class="flex justify-end items-center mt-2">
                 <button class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  <i class="fas fa-arrow-right mr-1"></i>
-                  Reservasi
+                  <i class="fas fa-arrow-right mr-1"></i> Reservasi
                 </button>
               </div>
             </div>
@@ -347,7 +341,7 @@
     </div>
   </div>
 </section>
-  </main>
+</main>
 
   <!-- Footer -->
   <footer id="contact" class="bg-gray-900 py-8">
@@ -356,7 +350,7 @@
         <!-- Brand Info -->
         <div class="mb-8 md:mb-0 max-w-md">
           <div class="flex items-center mb-4">
-          <img src="logo.png" alt="Logo Mikkeu Pangpang" class="mr-4 rounded-full" width="50" height="50">
+          <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="mr-4 rounded-full" width="50" height="50">
             <div>
               <h1 class="text-yellow-500 text-2xl font-bold">Mikkeu Pangpang</h1>
               <p class="text-gray-400">Executive Karaoke</p>
@@ -445,6 +439,21 @@
     
     // Auto slide every 5 seconds
     setInterval(nextSlide, 5000);
+    const profileButton = document.getElementById('profile-button');
+    const dropdownMenu = document.getElementById('profile-dropdown');
+    
+    // Toggle dropdown ketika tombol diklik
+    profileButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('hidden');
+    });
+    
+    // Tutup dropdown ketika klik di luar
+    document.addEventListener('click', (e) => {
+      if (!dropdownMenu.contains(e.target) && e.target !== profileButton) {
+        dropdownMenu.classList.add('hidden');
+      }
+    });
   </script>
 </body>
 </html>

@@ -41,11 +41,11 @@
             <input type="password" id="konfirmasi" placeholder="********" class="mt-1 w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"/>
         </div>
         <button type="submit" class="w-full bg-[#0f1f2f] text-white py-2 rounded-lg font-semibold hover:bg-[#152b3d] transition">Kirim</button>
-        <p class="text-center text-sm mt-2">Sudah punya akun? <a href="login.php" class="text-red-600 font-medium hover:underline">Masuk Sini</a></p>
+        <p class="text-center text-sm mt-2">Sudah punya akun? <a href="login" class="text-red-600 font-medium hover:underline">Masuk Sini</a></p>
       </form>
 
       <div class="hidden md:flex w-1/2 items-center justify-center p-10">
-        <img src="burung.png.png" alt="Gambar" class="w-[300px] md:w-[380px] h-auto object-contain drop-shadow-xl" style="background: transparent;"/>
+      <img src="{{ asset('images/burung.png') }}" alt="Gambar" class="w-[300px] md:w-[380px] h-auto object-contain drop-shadow-xl" style="background: transparent;"/>
       </div>
     </div>
   </body>
