@@ -18,6 +18,9 @@ use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\PembayaranInformasiController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\RegistrasiController;
+use App\Http\Controllers\UlasanController;
+use App\Http\Controllers\GantiSandiController;
+use App\Http\Controllers\KontakController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,3 +43,6 @@ Route::get('/ruangan', [RuanganController::class, 'index']);
 Route::get('/riwayat', [RiwayatController::class, 'index']);
 Route::get('/pembayaran_informasi', [PembayaranInformasiController::class, 'index']);
 Route::get('/edit_profile', [EditProfileController::class, 'index']);
+Route::get('/ulasan', [UlasanController::class, 'index']);
+Route::get('/ganti_sandi', [GantiSandiController::class, 'index']);
+Route::get('/kontak', [KontakController::class, 'index']);
