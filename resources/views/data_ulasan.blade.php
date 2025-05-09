@@ -14,7 +14,9 @@
   <div class="w-64 bg-gradient-to-b from-blue-300 to-blue-800 text-white p-6 flex flex-col">
         <h3 class="text-2xl font-bold mb-6"><i class="fas fa-th-large mr-2"></i> Menu</h3>
         <nav class="flex flex-col gap-3">
-        </a>
+          <a href="{{ route('admin_dashboard') }}" class="flex items-center gap-2 hover:bg-blue-700 p-2 rounded">
+              <i class="fas fa-home"></i> Beranda
+          </a>
           <a href="{{ route('data_pengunjung') }}" class="flex items-center gap-2 hover:bg-blue-700 p-2 rounded">
               <i class="fas fa-users"></i> Data Pengunjung
           </a>
