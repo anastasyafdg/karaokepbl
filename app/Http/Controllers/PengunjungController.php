@@ -8,6 +8,6 @@ class PengunjungController extends Controller
 {
     public function index()
     {
-        return view('data_pengunjung');
+        return view('admin.data_pengunjung');
     }
 }
