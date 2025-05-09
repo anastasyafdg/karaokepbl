@@ -8,6 +8,6 @@ class RegistrasiController extends Controller
 {
     public function index()
     {
-        return view('registrasi'); 
+        return view('auth.registrasi'); 
     }
 }

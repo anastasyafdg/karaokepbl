@@ -8,6 +8,6 @@ class UlasanController extends Controller
 {
     public function index()
     {
-        return view('ulasan');
+        return view('users.ulasan');
     }
 }

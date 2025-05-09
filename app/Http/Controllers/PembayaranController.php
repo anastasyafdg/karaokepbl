@@ -8,6 +8,6 @@ class PembayaranController extends Controller
 {
     public function konfirmasi()
     {
-        return view('konfirmasi_pembayaran');
+        return view('users.konfirmasi_pembayaran');
     }
 }

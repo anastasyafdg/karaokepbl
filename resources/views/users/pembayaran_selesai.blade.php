@@ -1,49 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pembayaran Selesai</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-slate-900 min-h-screen">
+@extends('layouts.app')
 
-  <!-- Navbar -->
-  <header class="bg-blue-200 shadow-md">
-  <nav class="container mx-auto px-6 py-4">
-    <div class="flex items-center">
-      <!-- Menu Tengah -->
-      <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="halaman" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
-        <li><a href="ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
-        <li class="mx-4 md:mx-8">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto">
-        </li>
-        <li><a href="ulasan" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
-        <li><a href="kontak" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
-      </ul>
-      
-      <!-- Profile Icon di Kanan -->
-      <div class="relative group ml-auto">
-        <button class="focus:outline-none">
-          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
-               alt="Profile" 
-               class="w-8 h-8 rounded-full border-2 border-blue-300">
-        </button>
-        
-        <!-- Dropdown Menu -->
-        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block group-focus:block z-50">
-          <a href="edit_profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
-          <a href="riwayat" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
-          <hr class="border-gray-200 my-1">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
-
+@section('content')
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-8">
     <div class="flex flex-col lg:flex-row justify-center items-start gap-6">
@@ -149,29 +106,6 @@
       </div>
     </div>
   </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8 mt-12">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10">
-          <p class="mt-2 text-gray-400 text-sm">Karaoke MikkeuPangpang © 2025</p>
-        </div>
-        <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
   const profileButton = document.querySelector('.relative.group button');
@@ -195,5 +129,4 @@
   });
 });
   </script>
-</body>
-</html>
+@endsection

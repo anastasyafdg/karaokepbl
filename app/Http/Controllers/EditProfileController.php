@@ -8,6 +8,6 @@ class EditProfileController extends Controller
 {
     public function index()
     {
-        return view('edit_profile');
+        return view('users.edit_profile');
     }
 }

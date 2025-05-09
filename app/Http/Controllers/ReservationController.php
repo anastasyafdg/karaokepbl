@@ -8,6 +8,6 @@ class ReservationController extends Controller
 {
     public function showReservationForm()
     {
-        return view('halaman_reservasi');
+        return view('users.halaman_reservasi');
     }
 }

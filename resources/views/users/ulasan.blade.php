@@ -1,79 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ulasan - RUN & RUN Karaoke</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fadeIn {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-    .rating-star {
-      transition: all 0.2s ease;
-    }
-    .rating-star:hover {
-      transform: scale(1.2);
-    }
-  </style>
-</head>
-<body class="font-['Poppins'] bg-gray-900 text-gray-100">
+@extends('layouts.app')
 
-<!-- Header & Navigation -->
-<header class="bg-blue-200 text-black shadow-md fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-9xl mx-auto px-4 sm:px-8 lg:px-8">
-    <div class="flex justify-between items-center h-16"> 
-      <!-- Desktop Menu -->
-      <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="landing" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
-        <li><a href="ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
-        <li class="mx-4 md:mx-8">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto"></li>
-        <li><a href="ulasan" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
-        <li><a href="kontak" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
-      </ul>
-      
-      <!-- Profile Icon di Kanan -->
-      <div id="profile-dropdown-container" class="relative group ml-auto">
-        <button id="profile-button" class="focus:outline-none">
-          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
-              alt="Profile" 
-              class="w-8 h-8 rounded-full border-2 border-blue-300">
-        </button>
-
-        <!-- Dropdown Menu -->
-        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden z-50">
-          <a href="edit_profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
-          <a href="riwayat" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
-          <hr class="border-gray-200 my-1">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-        </div>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
-        <i class="fas fa-bars text-xl"></i>
-      </button>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
-      <a href="halaman" class="block py-2 text-gray-800 hover:text-yellow-500 transition">Beranda</a>
-      <a href="ruangan" class="block py-2 text-gray-800 hover:text-yellow-500 transition">Ruangan</a>
-      <a href="ulasan" class="block py-2 text-yellow-500 font-medium">Ulasan</a>
-      <a href="kontak" class="block py-2 text-gray-800 hover:text-yellow-500 transition">Kontak</a>
-      <div class="mt-4 pt-4 border-t border-gray-300">
-        <a href="login" class="block py-2 text-gray-800 font-medium">Login</a>
-      </div>
-    </div>
-  </nav>
-</header>
+@section('content')
 
 <!-- Ulasan Section -->
 <section id="ulasan" class="py-12">
@@ -333,5 +260,4 @@
     return colors[Math.floor(Math.random() * colors.length)];
   }
 </script>
-</body>
-</html>
+@endsection

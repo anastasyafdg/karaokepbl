@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Profil - Mikkeu Pangpang</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: url('https://i.pinimg.com/736x/65/36/09/65360951a05dd0d6a5f232268c870a3f.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
-    .backdrop-blur {
-      backdrop-filter: blur(5px);
-    }
-  </style>
-</head>
+@extends('layouts.app')
+
+@section('content')
 <body class="min-h-screen flex items-center justify-center p-4">
   <!-- Main Container -->
   <div class="backdrop-blur bg-white/10 rounded-2xl overflow-hidden shadow-2xl w-full max-w-md border border-white/20">
@@ -228,5 +211,4 @@
       }
     });
   </script>
-</body>
-</html>
+@endsection

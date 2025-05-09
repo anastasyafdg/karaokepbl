@@ -46,3 +46,4 @@ Route::get('/edit_profile', [EditProfileController::class, 'index']);
 Route::get('/ulasan', [UlasanController::class, 'index']);
 Route::get('/ganti_sandi', [GantiSandiController::class, 'index']);
 Route::get('/kontak', [KontakController::class, 'index']);
+Route::get('/search', [VisitorController::class, 'search'])->name('search');

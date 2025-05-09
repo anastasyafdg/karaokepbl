@@ -8,6 +8,6 @@ class PembayaranSelesaiController extends Controller
 {
     public function index()
     {
-        return view('pembayaran_selesai'); // sesuai nama file yang Anda inginkan
+        return view('users.pembayaran_selesai'); 
     }
 }

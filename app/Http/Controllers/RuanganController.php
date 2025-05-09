@@ -8,6 +8,6 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        return view('ruangan');
+        return view('users.ruangan');
     }
 }

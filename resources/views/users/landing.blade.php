@@ -1,48 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mikkeu Pangpang Karaoke</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="bg-slate-900 text-white">
-<header class="bg-blue-200 shadow-md">
-  <nav class="max-w-9xl mx-auto px-6 py-4">
-    <div class="flex items-center">
-      <!-- Menu Tengah -->
-      <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="halaman" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
-        <li><a href="ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
-        <li class="mx-4 md:mx-8">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto">
-        </li>
+@extends('layouts.app')
 
-        <li><a href="ulasan" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
-        <li><a href="kontak" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
-      </ul>
-      
-      <!-- Profile Icon di Kanan -->
-      <div class="relative group ml-auto">
-        <button id="profile-button" class="focus:outline-none">
-          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
-              alt="Profile" 
-              class="w-8 h-8 rounded-full border-2 border-blue-300">
-        </button>
-        <!-- Dropdown Menu -->
-        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden z-50">
-          <a href="edit_profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit Profil</a>
-          <a href="riwayat" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pemesanan</a>
-          <hr class="border-gray-200 my-1">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-        </div>
-      </div>
-      </div>
-    </div>
-  </nav>
-</header>
-
+@section('content')
   <!-- Hero Section -->
   <section class="text-center p-8">
     <h1 class="text-3xl md:text-4xl text-gray-300 font-bold mb-2">Karaoke Bagus di Batam</h1>
@@ -94,7 +52,7 @@
 
         <!-- Search Bar -->
         <div class="search-bar relative mx-auto mt-6 max-w-2xl">
-            <form action="search.php" method="GET" class="flex w-full">
+            <form action="{{ route('search') }}" method="GET" class="flex w-full">
             <div class="flex items-center bg-white rounded-l-full overflow-hidden w-full">
                 <span class="flex items-center justify-center px-4 text-gray-500"><i class="fas fa-user"></i></span>
                 <input type="text" name="query" class="w-full py-2 px-4 focus:outline-none text-gray-700" placeholder="Cari Ruangan..." required>
@@ -113,7 +71,7 @@
     <section class="mt-16">
     <div class="container mx-auto px-6">
       <div class="flex justify-end items-center mb-6">
-      <a href="ruangan" class="bg-gray-600 text-white px-8 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors">
+      <a href="{{ url('/ruangan') }}" class="bg-gray-600 text-white px-8 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors">
           Lihat Semua Ruangan
       </a>
     </div>
@@ -343,80 +301,7 @@
   </div>
 </section>
 </main>
-
-  <!-- Footer -->
-  <footer id="contact" class="bg-gray-900 py-8">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-        <!-- Brand Info -->
-        <div class="mb-8 md:mb-0 max-w-md">
-          <div class="flex items-center mb-4">
-          <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="mr-4 rounded-full" width="50" height="50">
-            <div>
-              <h1 class="text-yellow-500 text-2xl font-bold">Mikkeu Pangpang</h1>
-              <p class="text-gray-400">Executive Karaoke</p>
-            </div>
-          </div>
-          <p class="text-gray-400 mb-4">
-            Rasakan pengalaman karaoke terbaik hanya di Mikkeu Pangpang Karaoke. Booking sekarang!
-          </p>
-          <p class="text-gray-400">
-            Open Daily : 14.00 – 05.00 WIB
-          </p>
-        </div>
-        
-        <!-- Contact Info -->
-        <div class="flex flex-col md:flex-row justify-between w-full md:w-auto">
-          <div class="mb-8 md:mb-0 md:mr-8">
-            <h2 class="text-white font-bold mb-4">Contact Us:</h2>
-            <div class="flex items-center mb-2">
-              <i class="fas fa-phone-alt text-yellow-500 mr-2"></i>
-              <p class="text-gray-400">Telepon : 081382341800</p>
-            </div>
-            <div class="flex items-center mb-2">
-              <i class="fab fa-instagram text-yellow-500 mr-2"></i>
-              <p class="text-gray-400">Instagram : mikkeu_pangpang</p>
-            </div>
-          </div>
-          
-          <!-- Address -->
-          <div class="mb-8 md:mb-0 md:mr-8">
-            <h2 class="text-white font-bold mb-4">Address:</h2>
-            <div class="flex items-center">
-              <i class="fas fa-map-marker-alt text-yellow-500 mr-2"></i>
-              <p class="text-gray-400">
-                Jl. Senayan No.87, RT.7/RW.2, Rw. Bar., Kec. Kby. Baru, Kota Jakarta Selatan, 
-                Daerah Khusus Ibukota Jakarta 12180
-              </p>
-            </div>
-          </div>
-          
-          <!-- Quick Links -->
-          <div>
-            <h2 class="text-white font-bold mb-4">Quick Links:</h2>
-            <div class="flex flex-col space-y-2">
-              <a href="https://maps.google.com/?q=Batam+Centre" target="_blank" class="text-gray-400 hover:text-white footer-link">
-                <i class="fas fa-map-marker-alt text-yellow-500 mr-2"></i>
-                Mikkeu Pangpang Location
-              </a>
-              <a href="https://wa.me/yourwhatsappnumber" target="_blank" class="text-gray-400 hover:text-white footer-link">
-                <i class="fab fa-whatsapp text-green-500 mr-2"></i>WhatsApp Contact
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Copyright -->
-    <div class="border-t border-gray-700 mt-8 pt-4 text-center">
-      <p class="text-gray-400">
-        © 2024 Mikkeu Pangpang Karaoke. All Rights Reserved. Published by www.eda.co.id
-      </p>
-    </div>
-  </footer>
-
-  <!-- JavaScript -->
+<!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Carousel functionality
@@ -458,3 +343,4 @@
   </script>
 </body>
 </html>
+@endsection
