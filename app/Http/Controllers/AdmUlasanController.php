@@ -9,6 +9,6 @@ class AdmUlasanController extends Controller
     public function index()
     {
         // Tidak perlu mengirim data kalau isi view-nya statis
-        return view('data_ulasan');
+        return view('admin.data_ulasan');
     }
 }

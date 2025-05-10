@@ -8,6 +8,6 @@ class AdmRuanganController extends Controller
 {
     public function index()
     {
-        return view('data_ruangan');
+        return view('admin.data_ruangan');
     }
 }

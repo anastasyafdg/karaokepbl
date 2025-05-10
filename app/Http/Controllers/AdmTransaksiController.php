@@ -8,6 +8,6 @@ class AdmTransaksiController extends Controller
 {
     public function index()
     {
-        return view('data_transaksi');
+        return view('admin.data_transaksi');
     }
 }
