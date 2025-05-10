@@ -8,6 +8,6 @@ class GantiSandiController extends Controller
 {
     public function index()
     {
-        return view('ganti_sandi');
+        return view('auth.ganti_sandi');
     }
 }

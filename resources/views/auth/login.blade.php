@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Karaoke</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen flex items-center justify-center bg-blue-100">
+@extends('layouts.auth')
+
+@section('content')
   <div class="flex bg-white bg-opacity-40 rounded-3xl shadow-lg overflow-hidden max-w-5xl w-full">
     <!-- Form -->
     <div class="w-full md:w-1/2 p-10">
@@ -62,5 +56,4 @@
       }
     });
   </script>
-</body>
-</html>
+@endsection

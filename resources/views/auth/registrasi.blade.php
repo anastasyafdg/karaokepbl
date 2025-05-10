@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.auth')
 
 @section('content')
   <body class="bg-[#d3e2fc] min-h-screen flex items-center justify-center p-4">
