@@ -1,41 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Profil - Mikkeu Pangpang</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
     body {
       font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-image: url('https://i.pinimg.com/736x/63/e3/82/63e3827fb94ba9f1104f713fb2ce9c6a.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .glass-card {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+
+    /* Overlay dengan efek blur */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4); /* Gelap transparan */
+      backdrop-filter: blur(8px); /* Efek blur pada background */
+      z-index: -1; /* Menjaga overlay tetap di belakang konten */
     }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-  <!-- Main Container -->
-  <div class="backdrop-blur bg-white/10 rounded-2xl overflow-hidden shadow-2xl w-full max-w-md border border-/20">
-    <!-- Header with Centered Logo -->
-    <div class="bg-blue-200 p-6 text-center relative">
-      <!-- Logo FULLY INSIDE the box -->
-      <div class="mx-auto w-20 h-20 bg-blue-200 rounded-full flex items-center justify-center mb-4 shadow-md">
-      <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="rounded-full w-20 h-20">
+
+<body class="min-h-screen">
+  <!-- Overlay untuk efek blur -->
+  <div class="overlay"></div>
+
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md border">
+    <div class="bg-blue-200 p-6 text-center">
+      <div class="mx-auto w-20 h-20 rounded-full overflow-hidden mb-4 shadow-md">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="w-full h-full object-cover">
       </div>
-      
       <h1 class="text-2xl font-bold text-black">MIKKEU PANGPANG</h1>
       <p class="text-black">Karaoke Premium Experience</p>
     </div>
 
-    <!-- Profile Info -->
     <div class="p-6">
-      <div class="bg-white/20 rounded-xl p-4 mb-6 backdrop-blur-sm">
+      <div class="bg-gray-100 rounded-xl p-4 mb-6">
         <div class="flex items-center mb-3">
-          <i class="fas fa-user text-blacks mr-3"></i>
+          <i class="fas fa-user text-black mr-3"></i>
           <div>
             <p class="text-xs text-black">Nama</p>
             <p class="font-medium text-black">Mikkeu Pangpang</p>
@@ -50,20 +69,19 @@
         </div>
       </div>
 
-      <!-- Action Buttons -->
       <div class="space-y-3">
-        <button onclick="showModal('editProfileModal')"
-          class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl">
+        <button data-modal-target="editProfileModal" data-modal-toggle="editProfileModal"
+          class="w-full text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center shadow-md">
           <i class="fas fa-user-edit mr-2"></i> Edit Profil
         </button>
-        
-        <button onclick="showModal('changePasswordModal')"
-          class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl">
+
+        <button data-modal-target="changePasswordModal" data-modal-toggle="changePasswordModal"
+          class="w-full text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center shadow-md">
           <i class="fas fa-key mr-2"></i> Ganti Password
         </button>
-        
+
         <a href="landing"
-          class="block w-full bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-xl font-medium text-center transition-all duration-300 border border-white/20 hover:border-white/30">
+          class="block w-full bg-white hover:bg-gray-100 text-black py-2.5 px-5 rounded-lg font-medium text-center border border-gray-200">
           <i class="fas fa-arrow-left mr-2"></i> Kembali
         </a>
       </div>
@@ -71,54 +89,39 @@
   </div>
 
   <!-- Edit Profile Modal -->
-  <div id="editProfileModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/50"></div>
-    <div class="relative flex items-center justify-center h-full p-4">
-      <div class="bg-white rounded-2xl w-full max-w-md animate-popup overflow-hidden">
-        <!-- Modal Header with Logo -->
-        <div class="bg-blue-200 p-4 flex items-center">
-          <div class="bg-blue-200 rounded-full p-2 mr-3">
-            <div class="flex items-center justify-center bg-blue-200 rounded-full w-12 h-12">
-              <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="rounded-full w-12 h-12">
-            </div>
-          </div>
-          <h3 class="text-xl font-bold text-black">Edit Profil</h3>
+  <div id="editProfileModal" tabindex="-1" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto h-full">
+    <div class="relative w-full max-w-md mx-auto">
+      <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex justify-between items-center p-4 border-b bg-blue-200 rounded-t">
+          <h3 class="text-xl font-semibold text-gray-900">Edit Profil</h3>
+          <button type="button" class="text-gray-400 hover:text-gray-900" data-modal-hide="editProfileModal">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
-        
-        <form class="p-6">
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-              <div class="relative">
-                <input type="text" 
-                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                  placeholder="Masukkan nama lengkap"
-                  required>
-                <i class="fas fa-user absolute left-3 top-3 text-gray-400"></i>
+        <form class="p-6 space-y-4">
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nama Lengkap</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fas fa-user text-gray-500"></i>
               </div>
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
-              <div class="relative">
-                <textarea 
-                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-h-[100px]"
-                  placeholder="Masukkan alamat lengkap"
-                  required></textarea>
-                <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
-              </div>
+              <input type="text" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" placeholder="Masukkan nama lengkap" required>
             </div>
           </div>
-          
-          <div class="flex justify-end space-x-3 mt-6">
-            <button type="button" onclick="hideModal('editProfileModal')"
-              class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-              Batal
-            </button>
-            <button type="submit"
-              class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white rounded-lg hover:from-purple-700 hover:to-indigo-800 transition-all shadow-md">
-              Simpan Perubahan
-            </button>
+
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Alamat</label>
+            <div class="relative">
+              <div class="absolute top-2.5 left-3 text-gray-500">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <textarea class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" placeholder="Masukkan alamat lengkap" required></textarea>
+            </div>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button type="button" data-modal-hide="editProfileModal" class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
+            <button type="submit" class="px-4 py-2 text-sm text-white bg-purple-600 hover:bg-purple-700 rounded-lg">Simpan</button>
           </div>
         </form>
       </div>
@@ -126,104 +129,54 @@
   </div>
 
   <!-- Change Password Modal -->
-  <div id="changePasswordModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/50"></div>
-    <div class="relative flex items-center justify-center h-full p-4">
-      <div class="bg-white rounded-2xl w-full max-w-md animate-popup overflow-hidden">
-        <!-- Modal Header with Logo -->
-        <div class="bg-blue-200 p-4 flex items-center">
-          <div class="bg-blue-200 rounded-full p-2 mr-3">
-            <div class="flex items-center justify-center bg-blue-200 rounded-full w-12 h-12">
-              <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="rounded-full w-12 h-12">
-            </div>
-          </div>
-          <h3 class="text-xl font-bold text-black">Ganti Password</h3>
+  <div id="changePasswordModal" tabindex="-1" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto h-full">
+    <div class="relative w-full max-w-md mx-auto">
+      <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="flex justify-between items-center p-4 border-b bg-blue-200 rounded-t">
+          <h3 class="text-xl font-semibold text-gray-900">Ganti Password</h3>
+          <button type="button" class="text-gray-400 hover:text-gray-900" data-modal-hide="changePasswordModal">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
-        
-        <form class="p-6">
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Password Lama</label>
-              <div class="relative">
-                <input type="password" 
-                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
-                  required>
-                <i class="fas fa-lock absolute left-3 top-3 text-gray-400"></i>
+        <form class="p-6 space-y-4">
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Password Lama</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fas fa-lock text-gray-500"></i>
               </div>
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Password Baru</label>
-              <div class="relative">
-                <input type="password" 
-                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
-                  required>
-                <i class="fas fa-lock absolute left-3 top-3 text-gray-400"></i>
-              </div>
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password Baru</label>
-              <div class="relative">
-                <input type="password" 
-                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
-                  required>
-                <i class="fas fa-redo absolute left-3 top-3 text-gray-400"></i>
-              </div>
+              <input type="password" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500" required>
             </div>
           </div>
-          
-          <div class="flex justify-end space-x-3 mt-6">
-            <button type="button" onclick="hideModal('changePasswordModal')"
-              class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-              Batal
-            </button>
-            <button type="submit"
-              class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-md">
-              Ganti Password
-            </button>
+
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Password Baru</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fas fa-lock text-gray-500"></i>
+              </div>
+              <input type="password" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500" required>
+            </div>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Konfirmasi Password Baru</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fas fa-redo text-gray-500"></i>
+              </div>
+              <input type="password" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500" required>
+            </div>
+          </div>
+
+          <div class="flex justify-end space-x-3">
+            <button type="button" data-modal-hide="changePasswordModal" class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
+            <button type="submit" class="px-4 py-2 text-sm text-white bg-cyan-600 hover:bg-cyan-700 rounded-lg">Ganti Password</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+</body>
 
-  <script>
-    // Modal functions
-    function showModal(id) {
-      document.getElementById(id).classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function hideModal(id) {
-      document.getElementById(id).classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modal when clicking outside
-    window.addEventListener('click', (event) => {
-      if (event.target.classList.contains('bg-black/50')) {
-        document.querySelectorAll('[id$="Modal"]').forEach(modal => {
-          hideModal(modal.id);
-        });
-      }
-    });
-
-    // Sample data population
-    document.addEventListener('DOMContentLoaded', () => {
-      // Mock data - replace with actual data from your backend
-      document.getElementById('current-nama').textContent = 'Mikkeu Pangpang';
-      document.getElementById('current-alamat').textContent = 'Jl. Karaoke No. 123, Jakarta';
-      
-      // Add logo animation on hover
-      const logoIcon = document.querySelector('.logo-icon');
-      if (logoIcon) {
-        logoIcon.parentElement.addEventListener('mouseenter', () => {
-          logoIcon.style.transform = 'scale(1.1) rotate(-5deg)';
-        });
-        logoIcon.parentElement.addEventListener('mouseleave', () => {
-          logoIcon.style.transform = 'scale(1) rotate(0)';
-        });
-      }
-    });
-  </script>
+</html>
