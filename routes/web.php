@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard1Controller;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmTransaksiController;
 use App\Http\Controllers\AdmUlasanController;
 use App\Http\Controllers\AdmDashboardController;
@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard1', [Dashboard1Controller::class, 'index']);
 Route::get('/landing', [LandingController::class, 'index']);
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/registrasi', [registrasiController::class, 'index']);
 Route::get('/data_transaksi', [AdmTransaksiController::class, 'index'])->name('transaksi');
 Route::get('/data_ulasan', [AdmUlasanController::class, 'index'])->name('ulasan');

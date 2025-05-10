@@ -1,9 +1,25 @@
-@extends('layouts.app')
-
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profil - Mikkeu Pangpang</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .glass-card {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
 <body class="min-h-screen flex items-center justify-center p-4">
   <!-- Main Container -->
-  <div class="backdrop-blur bg-white/10 rounded-2xl overflow-hidden shadow-2xl w-full max-w-md border border-white/20">
+  <div class="backdrop-blur bg-white/10 rounded-2xl overflow-hidden shadow-2xl w-full max-w-md border border-/20">
     <!-- Header with Centered Logo -->
     <div class="bg-blue-200 p-6 text-center relative">
       <!-- Logo FULLY INSIDE the box -->
@@ -19,17 +35,17 @@
     <div class="p-6">
       <div class="bg-white/20 rounded-xl p-4 mb-6 backdrop-blur-sm">
         <div class="flex items-center mb-3">
-          <i class="fas fa-user text-blue-200 mr-3"></i>
+          <i class="fas fa-user text-blacks mr-3"></i>
           <div>
-            <p class="text-xs text-blue-100">Nama</p>
-            <p class="font-medium text-white">Mikkeu Pangpang</p>
+            <p class="text-xs text-black">Nama</p>
+            <p class="font-medium text-black">Mikkeu Pangpang</p>
           </div>
         </div>
         <div class="flex items-center">
-          <i class="fas fa-map-marker-alt text-blue-200 mr-3"></i>
+          <i class="fas fa-map-marker-alt text-black mr-3"></i>
           <div>
-            <p class="text-xs text-blue-100">Alamat</p>
-            <p class="font-medium text-white">Jl. Karaoke No. 123, Jakarta</p>
+            <p class="text-xs text-black">Alamat</p>
+            <p class="font-medium text-black">Jl. Karaoke No. 123, Jakarta</p>
           </div>
         </div>
       </div>
@@ -211,4 +227,3 @@
       }
     });
   </script>
-@endsection

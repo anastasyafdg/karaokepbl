@@ -26,7 +26,7 @@
                             </div>
                             <div>
                                 <h3 class="font-semibold text-lg">Telepon/WhatsApp</h3>
-                                <p class="text-gray-300">0813-8234-1800</p>
+                                <p class="text-white">0813-8234-1800</p>
                             </div>
                         </div>
 
@@ -138,26 +138,27 @@
         </section>
     </main>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const profileButton = document.querySelector('.relative.group button');
-      const dropdownMenu = document.querySelector('.relative.group .dropdown-menu');
+    document.addEventListener('DOMContentLoaded', function() {
+    const profileButton = document.querySelector('.relative.group button');
+    const dropdownMenu = document.querySelector('.relative.group .hidden');
 
-      profileButton.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('hidden');
-      });
-
-      // Tutup dropdown ketika klik di luar elemen
-      document.addEventListener('click', function (e) {
-        if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
-          dropdownMenu.classList.add('hidden');
-        }
-      });
-
-      // Mencegah dropdown tertutup saat mengklik isinya
-      dropdownMenu.addEventListener('click', function (e) {
-        e.stopPropagation();
-      });
+    // Toggle dropdown saat tombol profile diklik
+    profileButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('hidden');
     });
+
+    // Tutup dropdown ketika klik di luar
+    document.addEventListener('click', function(e) {
+      if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.add('hidden');
+      }
+    });
+
+    // Mencegah dropdown tertutup saat mengklik menu dropdown itu sendiri
+    dropdownMenu.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
 </script>
 @endsection

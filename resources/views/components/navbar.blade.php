@@ -2,7 +2,7 @@
   <nav class="max-w-9xl mx-auto px-6 py-4">
     <div class="flex items-center">
       <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="/halaman" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
+        <li><a href="/landing" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
         <li><a href="/ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
         <li class="mx-4 md:mx-8">
           <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto">
