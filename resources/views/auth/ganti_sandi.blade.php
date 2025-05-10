@@ -5,7 +5,7 @@
       <form class="w-full md:w-[460px] space-y-4">
         <h1 class="text-3xl md:text-4xl font-bold text-black mb-4">Ganti Kata Sandi</h1>
         <div>
-            <label for="email" class="text-sm font-medium text-black">Email</label>
+            <label for="email" class="text-sm font-medium text-black">Email </label>
             <input type="email" id="email" placeholder="username@gmail.com" class="mt-1 w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"/>
         </div>
         <div>

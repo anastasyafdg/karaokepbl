@@ -46,7 +46,7 @@
                             </div>
                             <div>
                                 <h3 class="font-semibold text-lg">Jam Operasional</h3>
-                                <p class="text-gray-300">Setiap Hari: 14.00 - 05.00 WIB</p>
+                                <p class="text-gray-300">Setiap Hari : 14.00 - 05.00 WIB</p>
                             </div>
                         </div>
                     </div>

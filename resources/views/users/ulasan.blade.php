@@ -74,7 +74,7 @@
       
       <form id="reviewForm" class="space-y-6">
         <div>
-          <label for="reviewerName" class="block text-gray-300 mb-2">Nama Anda</label>
+          <label for="reviewerName" class="block text-gray-300 mb-2">Nama Anda :</label>
           <input type="text" id="reviewerName" placeholder="Masukkan nama" 
                  class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-teal-500 border border-gray-600">
         </div>
@@ -92,7 +92,7 @@
         </div>
         
         <div>
-          <label for="reviewText" class="block text-gray-300 mb-2">Ulasan Anda</label>
+          <label for="reviewText" class="block text-gray-300 mb-2">Ulasan Anda :</label>
           <textarea id="reviewText" placeholder="Bagikan pengalaman Anda..." 
                     class="w-full p-3 rounded-lg bg-gray-700 text-white h-32 resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 border border-gray-600"></textarea>
         </div>
