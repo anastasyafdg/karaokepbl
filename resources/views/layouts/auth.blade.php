@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="bg-[#d3e2fc] min-h-screen flex items-center justify-center p-4">
+<body class="bg-blue-200 min-h-screen flex items-center justify-center p-4">
 
   <!-- Main content area -->
   <main class="w-full max-w-screen-md mx-auto">
