@@ -1,6 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
+
   <!-- Hero Section -->
   <section class="text-center p-8">
     <h1 class="text-3xl md:text-4xl font-bold mb-2">Karaoke Bagus di Batam</h1>
@@ -146,4 +147,5 @@
 
 </body>
 </html>
+
 @endsection

@@ -1,6 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
+
   <div class="flex bg-white bg-opacity-40 rounded-3xl shadow-lg overflow-hidden max-w-5xl w-full">
     <!-- Form -->
     <div class="w-full md:w-1/2 p-10">
@@ -8,7 +9,7 @@
       <form action="#">
         <div class="mb-6">
           <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">Email</label>
-          <input type="email" id="email" placeholder="username@gmail.com" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <input type="email" id="email" placeholder="nama@gmail.com" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
         <div class="mb-6">
           <label for="password" class="block mb-2 text-sm font-semibold text-gray-700">Kata Sandi</label>
@@ -56,4 +57,5 @@
       }
     });
   </script>
+  
 @endsection

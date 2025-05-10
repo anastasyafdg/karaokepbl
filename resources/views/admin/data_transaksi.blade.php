@@ -3,6 +3,7 @@
 @section('title', 'Data Transaksi')
 
 @section('content')
+
 <div class="p-6">
     <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-6 flex items-center">
@@ -25,7 +26,7 @@
                 <tbody>
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4">SA001</td>
-                        <td class="px-6 py-4">Melanie Putri</td>
+                        <td class="px-6 py-4">Rasya</td>
                         <td class="px-6 py-4">A</td>
                         <td class="px-6 py-4">Small</td>
                         <td class="px-6 py-4">15 Apr 2025, 19:00</td>
@@ -41,7 +42,7 @@
                     </tr>
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4">MB003</td>
-                        <td class="px-6 py-4">Saskia Ananda Irawan</td>
+                        <td class="px-6 py-4">Jaehyun</td>
                         <td class="px-6 py-4">B</td>
                         <td class="px-6 py-4">Medium</td>
                         <td class="px-6 py-4">18 Mei 2025, 15:00</td>
@@ -76,4 +77,5 @@
         </div>
     </div>
 </div>
+
 @endsection

@@ -4,6 +4,7 @@
 
 @section('content')
 
+
 <h2 class="text-2xl font-bold mb-6 flex items-center">
   <i class="fas fa-comment-dots text-2xl mr-2"></i> 
   Ulasan Pengunjung
@@ -17,7 +18,7 @@
         <i class="fas fa-comment-alt text-purple-500 text-3xl"></i>
       </div>
       <div class="ml-4">
-        <h5 class="text-base font-semibold text-gray-900">Melanie Putri</h5>
+        <h5 class="text-base font-semibold text-gray-900">Rasya</h5>
         <p class="text-sm text-gray-500">11 Apr 2025</p>
       </div>
     </div>
@@ -25,7 +26,7 @@
       ★★★★☆
     </div>
     <p class="text-gray-700 mb-4">
-      "Pelayanan sangat baik, ruangan bersih dan nyaman. Sound system berkualitas."
+      "Pelayanan sangat baik, ruangan bersih dan nyaman. Sound system berkualitas saya sangat suka sekali."
     </p>
     <div class="flex space-x-3">
       <button type="button"
@@ -46,7 +47,7 @@
         <i class="fas fa-comment-alt text-purple-500 text-3xl"></i>
       </div>
       <div class="ml-4">
-        <h5 class="text-base font-semibold text-gray-900">Saskia Annda</h5>
+        <h5 class="text-base font-semibold text-gray-900">Jaehyun</h5>
         <p class="text-sm text-gray-500">24 Apr 2025</p>
       </div>
     </div>
@@ -54,7 +55,7 @@
       ★★★★☆
     </div>
     <p class="text-gray-700 mb-4">
-      "Seru banget pelayanannya bagus dan sangat baik, rekomend banget!!!"
+      "Seru banget pelayanannya bagus dan sangat baik, rekomend banget suka banget pokoknya!!!"
     </p>
     <div class="flex space-x-3">
       <button type="button"
@@ -68,5 +69,6 @@
     </div>
   </div>
 </div>
+
 
 @endsection
