@@ -17,7 +17,7 @@
                     <div class="absolute left-0 top-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
                     <h6 class="text-lg font-bold mb-2">Paket A</h6>
                     <p class="mb-1">2 - 4 orang</p>
-                    <p class="mb-1 font-semibold">Harga: Rp 100.000/jam</p>
+                    <p class="mb-1 font-semibold">Harga: Rp 90.000/jam</p>
                     <p class="mb-1">Fasilitas: TV 42”, Sounds System, 2 Mic</p>
                     <p>Status: <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Tersedia</span></p>
                 </div>
@@ -27,8 +27,8 @@
                     <div class="absolute left-0 top-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
                     <h6 class="text-lg font-bold mb-2">Paket B</h6>
                     <p class="mb-1">5 - 9 orang</p>
-                    <p class="mb-1 font-semibold">Harga: Rp 120.000/jam</p>
-                    <p class="mb-1">Fasilitas: TV 42”, Sounds System, 2 Mic</p>
+                    <p class="mb-1 font-semibold">Harga: Rp 130.000/jam</p>
+                    <p class="mb-1">Fasilitas: TV 42”, Sounds System, 5 Mic</p>
                     <p>Status: <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm">Terpakai</span></p>
                 </div>
 
@@ -37,8 +37,8 @@
                     <div class="absolute left-0 top-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
                     <h6 class="text-lg font-bold mb-2">Paket C</h6>
                     <p class="mb-1">10 - 16 orang</p>
-                    <p class="mb-1 font-semibold">Harga: Rp 150.000/jam</p>
-                    <p class="mb-1">Fasilitas: TV 42”, Sounds System, 2 Mic</p>
+                    <p class="mb-1 font-semibold">Harga: Rp 200.000/jam</p>
+                    <p class="mb-1">Fasilitas: TV 42”, Sounds System, 8 Mic</p>
                     <p>Status: <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm">Terpakai</span></p>
                 </div>
             </div>

@@ -19,13 +19,13 @@
         <div class="bg-white rounded-xl shadow-md p-6 relative overflow-hidden">
           <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-xl"></div>
           <h6 class="text-lg font-semibold flex items-center mb-2"><i class="fas fa-users mr-2"></i> Data Pengunjung</h6>
-          <p>Total: 4</p>
+          <p>Total: 3</p>
         </div>
 
         <div class="bg-white rounded-xl shadow-md p-6 relative overflow-hidden">
           <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-xl"></div>
           <h6 class="text-lg font-semibold flex items-center mb-2"><i class="fas fa-comment-alt mr-2"></i> Ulasan</h6>
-          <p>Total: 5</p>
+          <p>Total: 2</p>
         </div>
       </div>
 

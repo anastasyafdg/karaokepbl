@@ -22,6 +22,18 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-200 px-4 py-2">1</td>
+            <td class="border border-gray-200 px-4 py-2">Melanie Putri</td>
+            <td class="border border-gray-200 px-4 py-2">Melanie@gmail.com</td>
+            <td class="border border-gray-200 px-4 py-2">0854345553</td>
+          </tr> 
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-200 px-4 py-2">2</td>
+            <td class="border border-gray-200 px-4 py-2">Saskia Ananda Irawan</td>
+            <td class="border border-gray-200 px-4 py-2">Saskia@gmail.com</td>
+            <td class="border border-gray-200 px-4 py-2">0854345553</td>
+          </tr>
           </tbody>
         </table>
       </div>

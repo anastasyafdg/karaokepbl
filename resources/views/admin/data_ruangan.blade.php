@@ -6,7 +6,7 @@
  <main class="p-6">
       <div class="flex justify-between items-center mb-4">
         <h5 class="text-xl font-semibold flex items-center">
-          <i class="fas fa-users mr-2"></i> Data Ruangan
+          <i class="fas fa-door-closed"></i> Data Ruangan
         </h5>
         <button onclick="openModal('addModal')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center">
         <i class="fas fa-plus mr-2"></i> Tambah Ruangan
@@ -30,7 +30,57 @@
           </tr>
         </thead>
         <tbody class="divide-y">
-          
+        <tr class="hover:bg-gray-50">
+          <td class="border border-gray-200 px-4 py-2">1</td>
+          <td class="border border-gray-200 px-4 py-2">A001</td>
+          <td class="border border-gray-200 px-4 py-2">Kecil</td>
+          <td class="border border-gray-200 px-4 py-2">A</td>
+          <td class="border border-gray-200 px-4 py-2">2 - 4 orang</td>
+          <td class="border border-gray-200 px-4 py-2">90.000</td>
+          <td class="border border-gray-200 px-4 py-2">TV 42”, Sound System, 2 Mic</td>
+          <td class="border border-gray-200 px-4 py-2">
+          <img src="images/paketA.png" alt="Paket B" class="w-full h-48 object-cover"></td>
+          <td class="border border-gray-200 px-4 py-2">
+            <div class="flex space-x-2">
+              <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">Edit</a>
+              <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</a>
+            </div>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-50">
+          <td class="border border-gray-200 px-4 py-2">2</td>
+          <td class="border border-gray-200 px-4 py-2">B001</td>
+          <td class="border border-gray-200 px-4 py-2">Sedang</td>
+          <td class="border border-gray-200 px-4 py-2">B</td>
+          <td class="border border-gray-200 px-4 py-2">5 - 9 orang</td>
+          <td class="border border-gray-200 px-4 py-2">130.000</td>
+          <td class="border border-gray-200 px-4 py-2">TV 42”, Sound System, 5 Mic</td>
+          <td class="border border-gray-200 px-4 py-2">
+          <img src="images/paketB.png" alt="Paket B" class="w-full h-48 object-cover"></td>
+          <td class="border border-gray-200 px-4 py-2">
+            <div class="flex space-x-2">
+              <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">Edit</a>
+              <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</a>
+            </div>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-50">
+          <td class="border border-gray-200 px-4 py-2">3</td>
+          <td class="border border-gray-200 px-4 py-2">C001</td>
+          <td class="border border-gray-200 px-4 py-2">Besar</td>
+          <td class="border border-gray-200 px-4 py-2">C</td>
+          <td class="border border-gray-200 px-4 py-2">10 - 16 orang</td>
+          <td class="border border-gray-200 px-4 py-2">200.000</td>
+          <td class="border border-gray-200 px-4 py-2">TV 42”, Sound System, 8 Mic</td>
+          <td class="border border-gray-200 px-4 py-2">
+          <img src="images/paketC.png" alt="Paket B" class="w-full h-48 object-cover"></td>
+          <td class="border border-gray-200 px-4 py-2">
+            <div class="flex space-x-2">
+              <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">Edit</a>
+              <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</a>
+            </div>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
