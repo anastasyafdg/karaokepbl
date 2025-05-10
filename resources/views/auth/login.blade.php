@@ -25,7 +25,7 @@
         <button type="submit" class="w-full bg-slate-800 text-white py-3 rounded-lg font-semibold hover:bg-slate-900 transition">Kirim</button>
       </form>
       <div class="mt-6 text-center text-sm text-gray-700">
-        <a href="ganti.php" class="hover:underline">Lupa Password?</a>
+        <a href="ganti_sandi" class="hover:underline">Lupa Password?</a>
       </div>
       <div class="mt-2 text-center text-sm text-gray-700">
         Tidak punya akun? <a href="registrasi" class="font-bold hover:underline">Daftar Disini</a>

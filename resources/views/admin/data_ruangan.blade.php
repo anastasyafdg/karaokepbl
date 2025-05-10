@@ -1,174 +1,138 @@
- @extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('title', 'Data Ruangan')
 
 @section('content')
- <main class="p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h5 class="text-xl font-semibold flex items-center">
-          <i class="fas fa-door-closed"></i> Data Ruangan
-        </h5>
-        <button onclick="openModal('addModal')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md flex items-center">
-        <i class="fas fa-plus mr-2"></i> Tambah Ruangan
-       </button>
-      </div>
-      <hr class="mb-6">
+<main class="p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-xl font-semibold flex items-center">
+      <i class="fas fa-door-closed mr-2"></i> Data Ruangan
+    </h5>
+    <button data-modal-target="addModal" data-modal-toggle="addModal"
+      class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center">
+      <i class="fas fa-plus mr-2"></i> Tambah Ruangan
+    </button>
+  </div>
+  <hr class="mb-6">
 
-    <div class="overflow-x-auto bg-white shadow rounded-lg">
-      <table class="min-w-full text-sm text-gray-600">
-        <thead class="bg-white-50 text-gray-700 font-semibold">
-          <tr>
-            <th class="py-3 px-4">No</th>
-            <th class="py-3 px-4">ID</th>
-            <th class="py-3 px-4">Jenis</th>
-            <th class="py-3 px-4">Paket</th>
-            <th class="py-3 px-4">Kapasitas</th>
-            <th class="py-3 px-4">Harga</th>
-            <th class="py-3 px-4">Fasilitas</th>
-            <th class="py-3 px-4">Gambar</th>
-            <th class="py-3 px-4">Aksi</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y">
-        <tr class="hover:bg-gray-50">
-          <td class="border border-gray-200 px-4 py-2">1</td>
-          <td class="border border-gray-200 px-4 py-2">A001</td>
-          <td class="border border-gray-200 px-4 py-2">Kecil</td>
-          <td class="border border-gray-200 px-4 py-2">A</td>
-          <td class="border border-gray-200 px-4 py-2">2 - 4 orang</td>
-          <td class="border border-gray-200 px-4 py-2">90.000</td>
-          <td class="border border-gray-200 px-4 py-2">TV 42”, Sound System, 2 Mic</td>
-          <td class="border border-gray-200 px-4 py-2">
-          <img src="images/paketA.png" alt="Paket B" class="w-full h-48 object-cover"></td>
-          <td class="border border-gray-200 px-4 py-2">
+  <div class="overflow-x-auto bg-white shadow rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">No</th>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Jenis</th>
+          <th scope="col" class="px-6 py-3">Paket</th>
+          <th scope="col" class="px-6 py-3">Kapasitas</th>
+          <th scope="col" class="px-6 py-3">Harga</th>
+          <th scope="col" class="px-6 py-3">Fasilitas</th>
+          <th scope="col" class="px-6 py-3">Gambar</th>
+          <th scope="col" class="px-6 py-3">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+          <td class="px-6 py-4">1</td>
+          <td class="px-6 py-4">A001</td>
+          <td class="px-6 py-4">Kecil</td>
+          <td class="px-6 py-4">A</td>
+          <td class="px-6 py-4">2 - 4 orang</td>
+          <td class="px-6 py-4">90.000</td>
+          <td class="px-6 py-4">TV 42”, Sound System, 2 Mic</td>
+          <td class="px-6 py-4">
+            <img src="images/paketA.png" alt="Paket A" class="w-24 h-16 object-cover rounded">
+          </td>
+          <td class="px-6 py-4">
             <div class="flex space-x-2">
-              <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">Edit</a>
-              <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</a>
+              <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
+              <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
             </div>
           </td>
         </tr>
-        <tr class="hover:bg-gray-50">
-          <td class="border border-gray-200 px-4 py-2">2</td>
-          <td class="border border-gray-200 px-4 py-2">B001</td>
-          <td class="border border-gray-200 px-4 py-2">Sedang</td>
-          <td class="border border-gray-200 px-4 py-2">B</td>
-          <td class="border border-gray-200 px-4 py-2">5 - 9 orang</td>
-          <td class="border border-gray-200 px-4 py-2">130.000</td>
-          <td class="border border-gray-200 px-4 py-2">TV 42”, Sound System, 5 Mic</td>
-          <td class="border border-gray-200 px-4 py-2">
-          <img src="images/paketB.png" alt="Paket B" class="w-full h-48 object-cover"></td>
-          <td class="border border-gray-200 px-4 py-2">
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+          <td class="px-6 py-4">2</td>
+          <td class="px-6 py-4">B001</td>
+          <td class="px-6 py-4">Sedang</td>
+          <td class="px-6 py-4">B</td>
+          <td class="px-6 py-4">5 - 9 orang</td>
+          <td class="px-6 py-4">1300.000</td>
+          <td class="px-6 py-4">TV 42”, Sound System, 5 Mic</td>
+          <td class="px-6 py-4">
+            <img src="images/paketB.png" alt="Paket B" class="w-24 h-16 object-cover rounded">
+          </td>
+          <td class="px-6 py-4">
             <div class="flex space-x-2">
-              <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">Edit</a>
-              <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</a>
+              <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
+              <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
             </div>
           </td>
         </tr>
-        <tr class="hover:bg-gray-50">
-          <td class="border border-gray-200 px-4 py-2">3</td>
-          <td class="border border-gray-200 px-4 py-2">C001</td>
-          <td class="border border-gray-200 px-4 py-2">Besar</td>
-          <td class="border border-gray-200 px-4 py-2">C</td>
-          <td class="border border-gray-200 px-4 py-2">10 - 16 orang</td>
-          <td class="border border-gray-200 px-4 py-2">200.000</td>
-          <td class="border border-gray-200 px-4 py-2">TV 42”, Sound System, 8 Mic</td>
-          <td class="border border-gray-200 px-4 py-2">
-          <img src="images/paketC.png" alt="Paket B" class="w-full h-48 object-cover"></td>
-          <td class="border border-gray-200 px-4 py-2">
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+          <td class="px-6 py-4">3</td>
+          <td class="px-6 py-4">C001</td>
+          <td class="px-6 py-4">Besar</td>
+          <td class="px-6 py-4">C</td>
+          <td class="px-6 py-4">10 - 16 orang</td>
+          <td class="px-6 py-4">200.000</td>
+          <td class="px-6 py-4">TV 42”, Sound System, 8 Mic</td>
+          <td class="px-6 py-4">
+            <img src="images/paketC.png" alt="Paket C" class="w-24 h-16 object-cover rounded">
+          </td>
+          <td class="px-6 py-4">
             <div class="flex space-x-2">
-              <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">Edit</a>
-              <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</a>
+              <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
+              <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
             </div>
           </td>
         </tr>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- Modal Tambah -->
+<div id="addModal" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
+  <div class="relative w-full max-w-2xl max-h-full">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Tambah Data Ruangan</h3>
+        <button type="button" data-modal-hide="addModal"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form action="tambah_ruangan.php" method="POST" enctype="multipart/form-data" class="p-6 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <input type="text" name="id" placeholder="ID Ruangan" class="input input-bordered w-full" required>
+          <select name="jenis" class="select select-bordered w-full" required>
+            <option value="">Pilih Jenis</option>
+            <option value="kecil">Kecil</option>
+            <option value="sedang">Sedang</option>
+            <option value="besar">Besar</option>
+          </select>
+          <select name="paket" class="select select-bordered w-full" required>
+            <option value="">Pilih Paket</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </select>
+          <input type="number" name="harga" placeholder="Harga" class="input input-bordered w-full" required>
+          <textarea name="kapasitas" rows="2" placeholder="Kapasitas" class="textarea textarea-bordered" required></textarea>
+          <textarea name="fasilitas" rows="2" placeholder="Fasilitas" class="textarea textarea-bordered" required></textarea>
+          <input type="file" name="gambar" accept="image/*" class="file-input file-input-bordered w-full" required>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+          <button type="button" data-modal-hide="addModal" class="btn btn-outline">Batal</button>
+          <button type="submit" class="btn btn-success">Simpan</button>
+        </div>
+      </form>
     </div>
-
-  </main>
-</div>
-
-<!-- Modal Template -->
-<div id="addModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl relative">
-    <h2 class="text-xl font-bold mb-4 text-green-600">Tambah Data Ruangan</h2>
-    <form action="tambah_ruangan.php" method="POST" enctype="multipart/form-data" class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <input type="text" name="id" placeholder="ID Ruangan" class="border p-2 rounded-md" required>
-        <select name="jenis" class="border p-2 rounded-md" required>
-          <option value="">Pilih Jenis</option>
-          <option value="kecil">Kecil</option>
-          <option value="sedang">Sedang</option>
-          <option value="besar">Besar</option>
-        </select>
-        <select name="paket" class="border p-2 rounded-md" required>
-          <option value="">Pilih Paket</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-        <input type="number" name="harga" placeholder="Harga" class="border p-2 rounded-md" required>
-        <textarea name="kapasitas" rows="2" placeholder="Kapasitas" class="border p-2 rounded-md" required></textarea>
-        <textarea name="fasilitas" rows="2" placeholder="Fasilitas" class="border p-2 rounded-md" required></textarea>
-        <input type="file" name="gambar" accept="image/*" class="border p-2 rounded-md" required>
-      </div>
-      <div class="flex justify-end gap-2 mt-4">
-        <button type="button" onclick="closeModal('addModal')" class="px-4 py-2 border rounded-md">Batal</button>
-        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">Simpan</button>
-      </div>
-    </form>
   </div>
 </div>
 
-<!-- Modal Edit -->
-<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl relative">
-    <h2 class="text-xl font-bold mb-4 text-blue-600">Edit Data Ruangan</h2>
-    <form action="ubahruangan.php" method="POST" enctype="multipart/form-data" class="space-y-4">
-      <input type="hidden" name="id" id="editId">
-      <div class="grid grid-cols-2 gap-4">
-        <select name="jenis" id="editJenis" class="border p-2 rounded-md" required>
-          <option value="kecil">Kecil</option>
-          <option value="sedang">Sedang</option>
-          <option value="besar">Besar</option>
-        </select>
-        <select name="paket" id="editPaket" class="border p-2 rounded-md" required>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-        <textarea name="kapasitas" id="editKapasitas" rows="2" class="border p-2 rounded-md" required></textarea>
-        <input type="number" name="harga" id="editHarga" class="border p-2 rounded-md" required>
-        <textarea name="fasilitas" id="editFasilitas" rows="2" class="border p-2 rounded-md" required></textarea>
-        <input type="file" name="gambar" class="border p-2 rounded-md">
-        <img id="currentImage" src="" class="w-20 h-14 object-cover rounded-md mt-2">
-      </div>
-      <div class="flex justify-end gap-2 mt-4">
-        <button type="button" onclick="closeModal('editModal')" class="px-4 py-2 border rounded-md">Batal</button>
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Update</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<script>
-  function openModal(id) {
-    document.getElementById(id).classList.remove('hidden');
-    document.getElementById(id).classList.add('flex');
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.add('hidden');
-  }
-  function openEditModal(id, jenis, paket, kapasitas, harga, fasilitas, gambar) {
-    openModal('editModal');
-    document.getElementById('editId').value = id;
-    document.getElementById('editJenis').value = jenis;
-    document.getElementById('editPaket').value = paket;
-    document.getElementById('editKapasitas').value = kapasitas;
-    document.getElementById('editHarga').value = harga;
-    document.getElementById('editFasilitas').value = fasilitas;
-    document.getElementById('currentImage').src = 'images/' + gambar;
-  }
-</script>
-
+<!-- Flowbite CDN JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 @endsection
