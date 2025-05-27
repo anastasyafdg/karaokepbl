@@ -3,13 +3,11 @@
 @section('title', 'Data Pengunjung')
 
 @section('content')
-<main class="p-6">
-  <!-- Judul Halaman -->
-  <div class="flex justify-between items-center mb-4">
-    <h5 class="text-xl font-semibold flex items-center text-gray-900">
+<div class="p-6">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-6 flex items-center">
       <i class="fas fa-users mr-2"></i> Data Pengunjung
-    </h5>
-  </div>
+    </h2>
   <hr class="mb-6 border-gray-200" />
 
   <!-- Tabel Data Pengunjung - Komponen Flowbite -->
@@ -24,18 +22,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b hover:bg-gray-50">
-          <td class="px-6 py-4">1</td>
-          <td class="px-6 py-4">Melanie Putri</td>
-          <td class="px-6 py-4">Melanie@gmail.com</td>
-          <td class="px-6 py-4">0854345553</td>
-        </tr>
-        <tr class="bg-white border-b hover:bg-gray-50">
-          <td class="px-6 py-4">2</td>
-          <td class="px-6 py-4">Saskia Ananda Irawan</td>
-          <td class="px-6 py-4">Saskia@gmail.com</td>
-          <td class="px-6 py-4">0854345553</td>
-        </tr>
+       @foreach ($nama as $index => $item)
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="border px-4 py-2 text-center">{{ $index + 1 }}</td>
+                        <td class="border px-4 py-2">{{ $item }}</td>
+                        <td class="border px-4 py-2">{{ $email[$index] }}</td>
+                        <td class="border px-4 py-2">{{ $no[$index] }}</td>
+                    </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

@@ -31,61 +31,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
-          <td class="px-6 py-4">1</td>
-          <td class="px-6 py-4">A001</td>
-          <td class="px-6 py-4">Kecil</td>
-          <td class="px-6 py-4">A</td>
-          <td class="px-6 py-4">2 - 4 orang</td>
-          <td class="px-6 py-4">90.000</td>
-          <td class="px-6 py-4">TV 42”, Sound System, 2 Mic</td>
-          <td class="px-6 py-4">
-            <img src="images/paketA.png" alt="Paket A" class="w-24 h-16 object-cover rounded">
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex space-x-2">
-              <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
-              <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
-            </div>
-          </td>
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
-          <td class="px-6 py-4">2</td>
-          <td class="px-6 py-4">B001</td>
-          <td class="px-6 py-4">Sedang</td>
-          <td class="px-6 py-4">B</td>
-          <td class="px-6 py-4">5 - 9 orang</td>
-          <td class="px-6 py-4">1300.000</td>
-          <td class="px-6 py-4">TV 42”, Sound System, 5 Mic</td>
-          <td class="px-6 py-4">
-            <img src="images/paketB.png" alt="Paket B" class="w-24 h-16 object-cover rounded">
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex space-x-2">
-              <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
-              <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
-            </div>
-          </td>
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
-          <td class="px-6 py-4">3</td>
-          <td class="px-6 py-4">C001</td>
-          <td class="px-6 py-4">Besar</td>
-          <td class="px-6 py-4">C</td>
-          <td class="px-6 py-4">10 - 16 orang</td>
-          <td class="px-6 py-4">200.000</td>
-          <td class="px-6 py-4">TV 42”, Sound System, 8 Mic</td>
-          <td class="px-6 py-4">
-            <img src="images/paketC.png" alt="Paket C" class="w-24 h-16 object-cover rounded">
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex space-x-2">
-              <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
-              <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      @foreach ($ruangan as $index => $r)
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <td class="px-6 py-4">{{ $index + 1 }}</td>
+        <td class="px-6 py-4">{{ $r->id }}</td>
+        <td class="px-6 py-4">{{ $r->jenis }}</td>
+        <td class="px-6 py-4">{{ $r->paket }}</td>
+        <td class="px-6 py-4">{{ $r->kapasitas }}</td>
+        <td class="px-6 py-4">Rp {{ number_format($r->harga, 0, ',', '.') }}</td>
+        <td class="px-6 py-4">{{ $r->fasilitas }}</td>
+        <td class="px-6 py-4">
+          <img src="{{ asset('images/' . $r->gambar) }}" alt="Gambar Ruangan" class="w-20 h-16 object-cover rounded">
+        </td>
+        <td class="px-4 py-4">
+          <div class="flex gap-2">
+          <a href="#" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-1">Edit</a>
+          <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
+          </div>
+        </td>
+      </tr>
+    @endforeach
+    </tbody>
     </table>
   </div>
 </main>
