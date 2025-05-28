@@ -56,47 +56,60 @@
   </div>
 </main>
 
-<!-- Modal Tambah -->
+<!-- Modal Tambah Data Ruangan -->
 <div id="addModal" tabindex="-1" aria-hidden="true"
-  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
-  <div class="relative w-full max-w-2xl max-h-full">
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Tambah Data Ruangan</h3>
-        <button type="button" data-modal-hide="addModal"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
-          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-      <form action="tambah_ruangan.php" method="POST" enctype="multipart/form-data" class="p-6 space-y-4">
-        <div class="grid grid-cols-2 gap-4">
-          <input type="text" name="id" placeholder="ID Ruangan" class="input input-bordered w-full" required>
-          <select name="jenis" class="select select-bordered w-full" required>
-            <option value="">Pilih Jenis</option>
-            <option value="kecil">Kecil</option>
-            <option value="sedang">Sedang</option>
-            <option value="besar">Besar</option>
-          </select>
-          <select name="paket" class="select select-bordered w-full" required>
-            <option value="">Pilih Paket</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-          </select>
-          <input type="number" name="harga" placeholder="Harga" class="input input-bordered w-full" required>
-          <textarea name="kapasitas" rows="2" placeholder="Kapasitas" class="textarea textarea-bordered" required></textarea>
-          <textarea name="fasilitas" rows="2" placeholder="Fasilitas" class="textarea textarea-bordered" required></textarea>
-          <input type="file" name="gambar" accept="image/*" class="file-input file-input-bordered w-full" required>
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Tambah Data Ruangan
+                </h3>
+                <button type="button" data-modal-hide="addModal"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+ <!-- Form -->
+            <form method="POST" action="{{ route('ruangan.simpan') }}" enctype="multipart/form-data" class="p-6 space-y-4">
+                @csrf
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="id" placeholder="ID Ruangan" class="input input-bordered w-full" required>
+
+                    <select name="jenis" class="select select-bordered w-full" required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="kecil">Kecil</option>
+                        <option value="sedang">Sedang</option>
+                        <option value="besar">Besar</option>
+                    </select>
+
+                    <select name="paket" class="select select-bordered w-full" required>
+                        <option value="">Pilih Paket</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+
+                    <input type="number" name="harga" placeholder="Harga" class="input input-bordered w-full" required>
+
+                    <textarea name="kapasitas" rows="2" placeholder="Kapasitas" class="textarea textarea-bordered w-full" required></textarea>
+
+                    <textarea name="fasilitas" rows="2" placeholder="Fasilitas" class="textarea textarea-bordered w-full" required></textarea>
+
+                    <input type="file" name="gambar" accept="image/*" class="file-input file-input-bordered w-full" required>
+                </div>
+
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" data-modal-hide="addModal" class="btn btn-outline">Batal</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </div>
+            </form>
         </div>
-        <div class="flex justify-end gap-2 mt-4">
-          <button type="button" data-modal-hide="addModal" class="btn btn-outline">Batal</button>
-          <button type="submit" class="btn btn-success">Simpan</button>
-        </div>
-      </form>
     </div>
-  </div>
 </div>
 
 <!-- Flowbite CDN JS -->

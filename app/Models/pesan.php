@@ -12,5 +12,5 @@ class Pesan extends Model
         'nama', 'email', 'no', 'pesan',
     ];
 
-    public $timestamps = true; 
+    public $timestamps = false; 
 }

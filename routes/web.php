@@ -49,3 +49,4 @@ Route::get('/ganti_sandi', [GantiSandiController::class, 'index']);
 Route::get('/kontak', [KontakController::class, 'index']);
 Route::get('/search', [VisitorController::class, 'search'])->name('search');
 Route::get('/admin/pesan', [AdmPesanController::class, 'index'])->name('pesan');
+Route::post('/ruangan/simpan', [AdmRuanganController::class, 'simpan'])->name('ruangan.simpan');

@@ -1,15 +1,25 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Ruangan extends Model
 {
-    protected $table = 'ruangan';
+    protected $table = 'ruangan'; 
 
     protected $primaryKey = 'id';
+    public $incrementing = false;
+    public $timestamps = false;
+    protected $keyType = 'string';
 
-    public $incrementing = false; // Matikan auto-increment
-    protected $keyType = 'string'; // Pakai string, bukan integer
+    // Tambahkan semua field yang boleh diisi massal
+    protected $fillable = [
+        'id',
+        'jenis',
+        'paket',
+        'kapasitas',
+        'harga',
+        'fasilitas',
+        'gambar'
+    ];
 }
