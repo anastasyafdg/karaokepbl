@@ -22,5 +22,8 @@
     <a href="{{ route('data_ruangan') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
       <i class="fas fa-door-closed"></i> <span>Data Ruangan</span>
     </a>
+    <a href="{{ route('pesan') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
+      <i class="fas fa-door-closed"></i> <span>Pesan</span>
+    </a>
   </nav>
 </div>

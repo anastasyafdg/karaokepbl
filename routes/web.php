@@ -21,6 +21,7 @@ use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\GantiSandiController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\AdmPesanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,3 +48,4 @@ Route::get('/ulasan', [UlasanController::class, 'index']);
 Route::get('/ganti_sandi', [GantiSandiController::class, 'index']);
 Route::get('/kontak', [KontakController::class, 'index']);
 Route::get('/search', [VisitorController::class, 'search'])->name('search');
+Route::get('/admin/pesan', [AdmPesanController::class, 'index'])->name('pesan');
