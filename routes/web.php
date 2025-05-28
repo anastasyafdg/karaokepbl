@@ -39,7 +39,9 @@ Route::get('/data_ruangan', [AdmRuanganController::class, 'index'])->name('data_
 Route::get('/paket_admin', [AdmPaketController::class, 'index'])->name('paket_admin');
 Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm']);
 Route::get('/konfirmasi_pembayaran', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
+Route::post('/konfirmasi_pembayaran', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
 Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
+Route::post('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
 Route::get('/ruangan', [RuanganController::class, 'index']);
 Route::get('/riwayat', [RiwayatController::class, 'index']);
 Route::get('/pembayaran_informasi', [PembayaranInformasiController::class, 'index']);

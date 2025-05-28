@@ -64,7 +64,7 @@
       </div>
 
       <!-- Payment Form -->
-      <form action="pembayaran_selesai.php" method="POST" enctype="multipart/form-data">
+      <form action="{{ url('pembayaran_selesai') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="tanggal" value="2025-04-18">
         <input type="hidden" name="waktu_mulai" value="13:00">
