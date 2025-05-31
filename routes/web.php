@@ -25,7 +25,7 @@ use App\Http\Controllers\AdmPesanController;
 
 Route::get('/', function () {
     return view('welcome');
-    });
+});
 
 Route::get('/dashboard1', [Dashboard1Controller::class, 'index']);
 Route::get('/landing', [LandingController::class, 'index']);
@@ -35,7 +35,16 @@ Route::get('/data_transaksi', [AdmTransaksiController::class, 'index'])->name('t
 Route::get('/data_ulasan', [AdmUlasanController::class, 'index'])->name('ulasan');
 Route::get('/dashboard', [AdmDashboardController::class, 'index'])->name('admin_dashboard');
 Route::get('/data_pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
+
+// Routes untuk Data Ruangan - DIPERBAIKI
 Route::get('/data_ruangan', [AdmRuanganController::class, 'index'])->name('data_ruangan');
+Route::get('/admin/data_ruangan', [AdmRuanganController::class, 'index'])->name('admin.data_ruangan'); // Tambahan route
+
+// CRUD Routes untuk Ruangan
+Route::post('/data_ruangan/simpan', [AdmRuanganController::class, 'simpan'])->name('ruangan.simpan');
+Route::post('/data_ruangan/update/{id}', [AdmRuanganController::class, 'update'])->name('ruangan.update');
+Route::delete('/data_ruangan/hapus/{id}', [AdmRuanganController::class, 'destroy'])->name('ruangan.hapus');
+
 Route::get('/paket_admin', [AdmPaketController::class, 'index'])->name('paket_admin');
 Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm']);
 Route::get('/konfirmasi_pembayaran', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
@@ -49,6 +58,5 @@ Route::get('/edit_profile', [EditProfileController::class, 'index']);
 Route::get('/ulasan', [UlasanController::class, 'index']);
 Route::get('/ganti_sandi', [GantiSandiController::class, 'index']);
 Route::get('/kontak', [KontakController::class, 'index']);
-Route::get('/search', [VisitorController::class, 'search'])->name('search');
+// Route::get('/search', [VisitorController::class, 'search'])->name('search'); // Commented karena VisitorController tidak ada
 Route::get('/admin/pesan', [AdmPesanController::class, 'index'])->name('pesan');
-Route::post('/ruangan/simpan', [AdmRuanganController::class, 'simpan'])->name('ruangan.simpan');

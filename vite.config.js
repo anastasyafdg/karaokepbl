@@ -10,4 +10,10 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    resolve: {
+    alias: {
+        flowbite: path.resolve(__dirname, 'node_modules/flowbite'),
+    }
+    }
+
 });

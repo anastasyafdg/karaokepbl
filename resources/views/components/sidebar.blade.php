@@ -1,4 +1,4 @@
-<div class="w-64 h-screen bg-gradient-to-b from-blue-300 to-blue-800 text-white p-6 flex flex-col shadow-md">
+<div class="w-64 bg-gradient-to-b from-blue-300 to-blue-800 text-white p-6 flex flex-col shadow-md">
   <h3 class="text-2xl font-bold mb-6 flex items-center">
     <i class="fas fa-th-large mr-2"></i> Menu
   </h3>
