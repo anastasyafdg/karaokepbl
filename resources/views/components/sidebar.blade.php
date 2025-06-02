@@ -10,7 +10,7 @@
     <a href="{{ route('data_pengunjung') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
       <i class="fas fa-users"></i> <span>Data Pengunjung</span>
     </a>
-    <a href="{{ route('ulasan') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
+    <a href="{{ route('admin.ulasan.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
       <i class="fas fa-comment-alt"></i> <span>Ulasan</span>
     </a>
     <a href="{{ route('transaksi') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">

@@ -28,11 +28,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard1', [Dashboard1Controller::class, 'index']);
-Route::get('/landing', [LandingController::class, 'index']);
+Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::get('/registrasi', [registrasiController::class, 'index']);
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('register');
+Route::post('/registrasi', [RegistrasiController::class, 'register'])->name('register.submit');
 Route::get('/data_transaksi', [AdmTransaksiController::class, 'index'])->name('transaksi');
-Route::get('/data_ulasan', [AdmUlasanController::class, 'index'])->name('ulasan');
+Route::get('/ulasan-admin', [AdmUlasanController::class, 'index'])->name('admin.ulasan.index');
+Route::post('/ulasan/{id}/approve', [AdmUlasanController::class, 'approve'])->name('admin.ulasan.approve');
+Route::post('/ulasan/{id}/reject', [AdmUlasanController::class, 'reject'])->name('admin.ulasan.reject');
 Route::get('/dashboard', [AdmDashboardController::class, 'index'])->name('admin_dashboard');
 Route::get('/data_pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
 
@@ -55,8 +60,10 @@ Route::get('/ruangan', [RuanganController::class, 'index']);
 Route::get('/riwayat', [RiwayatController::class, 'index']);
 Route::get('/pembayaran_informasi', [PembayaranInformasiController::class, 'index']);
 Route::get('/edit_profile', [EditProfileController::class, 'index']);
-Route::get('/ulasan', [UlasanController::class, 'index']);
-Route::get('/ganti_sandi', [GantiSandiController::class, 'index']);
+Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan');
+Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
+Route::get('/ganti_sandi', [GantiSandiController::class, 'index'])->name('ganti_sandi');
+Route::post('/ganti_sandi', [GantiSandiController::class, 'update'])->name('ganti_sandi.update');
 Route::get('/kontak', [KontakController::class, 'index']);
 // Route::get('/search', [VisitorController::class, 'search'])->name('search'); // Commented karena VisitorController tidak ada
 Route::get('/admin/pesan', [AdmPesanController::class, 'index'])->name('pesan');

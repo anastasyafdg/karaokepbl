@@ -3,29 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pengunjung;
+use App\Models\User;
 
 class PengunjungController extends Controller
 {
     public function index()
-{
-    $data = Pengunjung::where('peran', 'pengunjung')->get();
+    {
+        // Ambil semua user yang berperan 'pengunjung'
+        $data = User::where('peran', 'pengunjung')->get();
 
-    $nama = [];
-    $email = [];
-    $no = [];
+        $pengunjung = $data->filter(function ($user) {
+            return strtolower($user->nama) !== 'mikeu pangpang';
+        });
 
-    foreach ($data as $user) {
-        if (strtolower($user->nama) === 'mikeu pangpang') {
-            continue;
-        }
-
-        $nama[] = $user->nama;
-        $email[] = $user->email;
-        $no[] = $user->no; 
+        return view('admin.data_pengunjung', compact('pengunjung'));
     }
-
-    return view('admin.data_pengunjung', compact('nama', 'email', 'no'));
-}
-
 }
