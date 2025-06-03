@@ -50,7 +50,6 @@ Route::post('/data_ruangan/simpan', [AdmRuanganController::class, 'simpan'])->na
 Route::post('/data_ruangan/update/{id}', [AdmRuanganController::class, 'update'])->name('ruangan.update');
 Route::delete('/data_ruangan/hapus/{id}', [AdmRuanganController::class, 'destroy'])->name('ruangan.hapus');
 
-Route::get('/paket_admin', [AdmPaketController::class, 'index'])->name('paket_admin');
 Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm']);
 Route::get('/konfirmasi_pembayaran', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
 Route::post('/konfirmasi_pembayaran', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
@@ -65,5 +64,7 @@ Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store')
 Route::get('/ganti_sandi', [GantiSandiController::class, 'index'])->name('ganti_sandi');
 Route::post('/ganti_sandi', [GantiSandiController::class, 'update'])->name('ganti_sandi.update');
 Route::get('/kontak', [KontakController::class, 'index']);
-// Route::get('/search', [VisitorController::class, 'search'])->name('search'); // Commented karena VisitorController tidak ada
-Route::get('/admin/pesan', [AdmPesanController::class, 'index'])->name('pesan');
+Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
+Route::get('/search', [VisitorController::class, 'search'])->name('search');
+Route::get('/pesan', [AdmPesanController::class, 'index'])->name('pesan');
+Route::delete('/pesan/hapus/{id}', [AdmPesanController::class, 'destroy'])->name('pesan.hapus');

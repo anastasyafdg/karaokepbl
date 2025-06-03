@@ -6,7 +6,7 @@
 <div class="p-6">
     <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-6 flex items-center">
-      <i class="fas fa-users mr-2"></i> Pesan Pengunjung
+      <i class="fas fa-box-open mr-2"></i> Pesan Pengunjung
     </h2>
   <hr class="mb-6 border-gray-200" />
 
@@ -32,7 +32,11 @@
             <td class="border px-4 py-2">{{ $pesan->no }}</td>
             <td class="border px-4 py-2">{{ $pesan->pesan }}</td>
             <td class="px-4 py-4">
-                <a href="#" class="text-white bg-red-600 hover:bg-red-700 font-medium rounded text-sm px-3 py-1">Hapus</a>
+                <form action="{{ route('pesan.hapus', $pesan->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="px-3 py-1 text-white bg-red-600 hover:bg-red-700 rounded text-sm">Hapus</button>
+              </form>
             </td>
         </tr>
         @endforeach

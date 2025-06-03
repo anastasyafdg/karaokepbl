@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-12 md:py-20">
+    < class="flex-grow container mx-auto px-4 py-12 md:py-20">
         <section class="text-center mb-12 max-w-3xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
                 Hubungi Kami Sekarang!
@@ -84,17 +84,25 @@
             </div>
 
             <!-- Contact Form -->
+            <!-- Contact Form -->
             <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
                 <h2 class="text-2xl font-bold mb-6 text-yellow-400">Kirim Pesan</h2>
-                <form class="space-y-6 contact-form">
+                <form method="POST" action="{{ route('kontak.store') }}" class="space-y-6 contact-form">
+                    @csrf
                     <div>
-                        <label for="name" class="block text-gray-300 mb-2">Nama Lengkap</label>
+                        <label for="nama" class="block text-gray-300 mb-2">Nama Lengkap</label>
                         <input 
                             type="text" 
-                            id="name" 
+                            id="nama" 
+                            name="nama"
                             placeholder="Masukkan nama lengkap" 
-                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 @error('nama') border-red-500 @enderror"
+                            value="{{ old('nama') }}"
+                            required
                         />
+                        @error('nama')
+                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     
                     <div>
@@ -102,29 +110,46 @@
                         <input 
                             type="email" 
                             id="email" 
+                            name="email"
                             placeholder="Masukkan email" 
-                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 @error('email') border-red-500 @enderror"
+                            value="{{ old('email') }}"
+                            required
                         />
+                        @error('email')
+                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     
                     <div>
-                        <label for="phone" class="block text-gray-300 mb-2">Nomor Telepon</label>
+                        <label for="no" class="block text-gray-300 mb-2">Nomor Telepon</label>
                         <input 
                             type="tel" 
-                            id="phone" 
+                            id="no" 
+                            name="no"
                             placeholder="Masukkan nomor telepon" 
-                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 @error('no') border-red-500 @enderror"
+                            value="{{ old('no') }}"
+                            required
                         />
+                        @error('no')
+                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     
                     <div>
-                        <label for="message" class="block text-gray-300 mb-2">Pesan Anda</label>
+                        <label for="pesan" class="block text-gray-300 mb-2">Pesan Anda</label>
                         <textarea 
-                            id="message" 
+                            id="pesan" 
+                            name="pesan"
                             placeholder="Tulis pesan Anda di sini..." 
                             rows="5"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500"
-                        ></textarea>
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 @error('pesan') border-red-500 @enderror"
+                            required
+                        >{{ old('pesan') }}</textarea>
+                        @error('pesan')
+                            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     
                     <button 
