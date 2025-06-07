@@ -35,6 +35,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('register');
 Route::post('/registrasi', [RegistrasiController::class, 'register'])->name('register.submit');
 Route::get('/data_transaksi', [AdmTransaksiController::class, 'index'])->name('transaksi');
+Route::resource('transactions', AdmTransaksiController::class);
+Route::put('/transactions/{id}', [AdmTransaksiController::class, 'update'])->name('transactions.update');
 Route::get('/ulasan-admin', [AdmUlasanController::class, 'index'])->name('admin.ulasan.index');
 Route::post('/ulasan/{id}/approve', [AdmUlasanController::class, 'approve'])->name('admin.ulasan.approve');
 Route::post('/ulasan/{id}/reject', [AdmUlasanController::class, 'reject'])->name('admin.ulasan.reject');
