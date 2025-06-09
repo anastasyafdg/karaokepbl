@@ -26,6 +26,7 @@
           <th class="px-6 py-3">Kapasitas</th>
           <th class="px-6 py-3">Harga</th>
           <th class="px-6 py-3">Fasilitas</th>
+          <th class="px-6 py-3">Status</th>
           <th class="px-6 py-3">Gambar</th>
           <th class="px-6 py-3">Aksi</th>
         </tr>
@@ -35,11 +36,16 @@
         <tr class="bg-white border-b hover:bg-gray-50">
           <td class="px-6 py-4">{{ $index + 1 }}</td>
           <td class="px-6 py-4">{{ $r->id }}</td>
-          <td class="px-6 py-4">{{ $r->jenis }}</td>
+          <td class="px-6 py-4">{{ ucfirst($r->jenis) }}</td>
           <td class="px-6 py-4">{{ $r->paket }}</td>
           <td class="px-6 py-4">{{ $r->kapasitas }}</td>
           <td class="px-6 py-4">Rp {{ number_format($r->harga, 0, ',', '.') }}</td>
           <td class="px-6 py-4">{{ $r->fasilitas }}</td>
+          <td class="px-6 py-4">
+            <span class="px-2 py-1 text-xs font-medium rounded-full {{ $r->status_color }}">
+              {{ $r->formatted_status }}
+            </span>
+          </td>
           <td class="px-6 py-4">
             <img src="{{ asset('images/' . $r->gambar) }}" alt="Gambar Ruangan" class="w-20 h-16 object-cover rounded">
           </td>
@@ -65,45 +71,51 @@
           <div class="relative bg-white rounded-lg shadow">
             <div class="flex items-start justify-between p-4 border-b rounded-t">
               <h3 class="text-xl font-semibold text-gray-900">Edit Data Ruangan</h3>
-              <button type="button" data-modal-hide="addModal"
+              <button type="button" data-modal-hide="editModal-{{ $r->id }}"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 flex items-center justify-center">
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <form method="POST" action="{{ route('ruangan.update', $r->id) }}" enctype="multipart/form-data" class="p-6 space-y-4">
+              @csrf
+              <div class="grid grid-cols-2 gap-4">
+                <input type="text" name="id" value="{{ $r->id }}" readonly  class="border border-gray-300 rounded-lg p-2.5 w-full bg-gray-100">
+                <select name="jenis"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+                  <option value="kecil" {{ $r->jenis == 'kecil' ? 'selected' : '' }}>Kecil</option>
+                  <option value="sedang" {{ $r->jenis == 'sedang' ? 'selected' : '' }}>Sedang</option>
+                  <option value="besar" {{ $r->jenis == 'besar' ? 'selected' : '' }}>Besar</option>
+                </select>
+                <select name="paket" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+                  <option value="A" {{ $r->paket == 'A' ? 'selected' : '' }}>A</option>
+                  <option value="B" {{ $r->paket == 'B' ? 'selected' : '' }}>B</option>
+                  <option value="C" {{ $r->paket == 'C' ? 'selected' : '' }}>C</option>
+                </select>
+                <input type="number" name="harga" value="{{ $r->harga }}"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+                <textarea name="kapasitas" rows="2"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>{{ $r->kapasitas }}</textarea>
+                <textarea name="fasilitas" rows="2" class="border border-gray-300 rounded-lg p-2.5 w-full" required>{{ $r->fasilitas }}</textarea>
+                <select name="status" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+                  <option value="tersedia" {{ $r->status == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                  <option value="terpakai" {{ $r->status == 'terpakai' ? 'selected' : '' }}>Terpakai</option>
+                  <option value="tidak_tersedia" {{ $r->status == 'tidak_tersedia' ? 'selected' : '' }}>Tidak Tersedia</option>
+                </select>
+                <input type="file" name="gambar" accept="image/*"  class="border border-gray-300 rounded-lg p-2.5 w-full">
+              </div>
+              <div class="flex justify-end gap-2 mt-4">
+                <button type="button" data-modal-hide="editModal-{{ $r->id }}"
+                  class="px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                  Batal
+                </button>
+                <button type="submit"
+                  class="px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+                  Simpan Perubahan
                 </button>
               </div>
-              <form method="POST" action="{{ route('ruangan.update', $r->id) }}" enctype="multipart/form-data" class="p-6 space-y-4">
-                @csrf
-                <div class="grid grid-cols-2 gap-4">
-                  <input type="text" name="id" value="{{ $r->id }}" readonly  class="border border-gray-300 rounded-lg p-2.5 w-full">
-                  <select name="jenis"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>
-                    <option value="kecil" {{ $r->jenis == 'kecil' ? 'selected' : '' }}>Kecil</option>
-                    <option value="sedang" {{ $r->jenis == 'sedang' ? 'selected' : '' }}>Sedang</option>
-                    <option value="besar" {{ $r->jenis == 'besar' ? 'selected' : '' }}>Besar</option>
-                  </select>
-                  <select name="paket" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
-                    <option value="A" {{ $r->paket == 'A' ? 'selected' : '' }}>A</option>
-                    <option value="B" {{ $r->paket == 'B' ? 'selected' : '' }}>B</option>
-                    <option value="C" {{ $r->paket == 'C' ? 'selected' : '' }}>C</option>
-                  </select>
-                  <input type="number" name="harga" value="{{ $r->harga }}"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>
-                  <textarea name="kapasitas" rows="2"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>{{ $r->kapasitas }}</textarea>
-                  <textarea name="fasilitas" rows="2" class="border border-gray-300 rounded-lg p-2.5 w-full" required>{{ $r->fasilitas }}</textarea>
-                  <input type="file" name="gambar" accept="image/*"  class="border border-gray-300 rounded-lg p-2.5 w-full">
-                <div class="flex justify-end gap-2 mt-4">
-                  <button type="button" data-modal-hide="editModal-{{ $r->id }}"
-                    class="px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                    Batal
-                  </button>
-                  <button type="submit"
-                    class="px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                    Simpan Perubahan
-                  </button>
-                </div>
-              </form>
-            </div>
+            </form>
           </div>
+        </div>
         </div>
         @endforeach
       </tbody>
@@ -145,6 +157,12 @@
           <input type="number" name="harga" placeholder="Harga" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
           <textarea name="kapasitas" rows="2" placeholder="Kapasitas" class="border border-gray-300 rounded-lg p-2.5 w-full" required></textarea>
           <textarea name="fasilitas" rows="2" placeholder="Fasilitas" class="border border-gray-300 rounded-lg p-2.5 w-full" required></textarea>
+          <select name="status" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+            <option value="">Pilih Status</option>
+            <option value="tersedia">Tersedia</option>
+            <option value="terpakai">Terpakai</option>
+            <option value="tidak_tersedia">Tidak Tersedia</option>
+          </select>
           <input type="file" name="gambar" accept="image/*" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
         </div>
         <div class="flex justify-end gap-2 mt-4">
