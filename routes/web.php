@@ -40,7 +40,8 @@ Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registe
 Route::post('/registrasi', [RegistrasiController::class, 'register'])->name('register.submit');
 
 // Pengunjung
-Route::get('/ruangan', [RuanganController::class, 'index']);
+Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
+Route::get('/ruangan/{id}', [RuanganController::class, 'show'])->name('ruangan.show');
 Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm']);
 Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
 Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
