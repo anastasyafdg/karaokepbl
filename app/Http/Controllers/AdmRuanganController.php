@@ -39,13 +39,15 @@ class AdmRuanganController extends Controller
                 'kapasitas' => 'required|string|max:255',
                 'harga' => 'required|numeric|min:0',
                 'fasilitas' => 'required|string|max:1000',
-                'status' => 'required|in:tersedia,terpakai,tidak_tersedia',
+                'jumlah_ruangan' => 'required|integer|min:0|max:50', // Mengganti status dengan jumlah_ruangan
                 'gambar' => 'required|file|mimes:jpg,jpeg,png,gif,webp|max:10240' // 10MB max, tambah webp
             ], [
                 'id.required' => 'ID Ruangan wajib diisi',
                 'id.unique' => 'ID Ruangan sudah ada',
-                'status.required' => 'Status ketersediaan wajib dipilih',
-                'status.in' => 'Status ketersediaan tidak valid',
+                'jumlah_ruangan.required' => 'Jumlah ruangan wajib diisi',
+                'jumlah_ruangan.integer' => 'Jumlah ruangan harus berupa angka',
+                'jumlah_ruangan.min' => 'Jumlah ruangan minimal 0',
+                'jumlah_ruangan.max' => 'Jumlah ruangan maksimal 50',
                 'gambar.required' => 'Gambar wajib diupload',
                 'gambar.file' => 'File harus berupa file yang valid',
                 'gambar.mimes' => 'Format gambar harus jpg, jpeg, png, gif, atau webp',
@@ -93,7 +95,7 @@ class AdmRuanganController extends Controller
                 'kapasitas' => $request->kapasitas,
                 'harga' => $request->harga,
                 'fasilitas' => $request->fasilitas,
-                'status' => $request->status,
+                'jumlah_ruangan' => $request->jumlah_ruangan, // Mengganti status dengan jumlah_ruangan
                 'gambar' => $fileName
             ]);
 
@@ -130,12 +132,12 @@ class AdmRuanganController extends Controller
                 'kapasitas' => 'required|string|max:255',
                 'harga' => 'required|numeric|min:0',
                 'fasilitas' => 'required|string|max:1000',
-                'status' => 'required|in:tersedia,terpakai,tidak_tersedia',
+                'jumlah_ruangan' => 'required|integer|min:0|max:50', // Mengganti status dengan jumlah_ruangan
                 'gambar' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:10240'
             ]);
 
             $ruangan = Ruangan::findOrFail($id);
-            $data = $request->only(['jenis', 'paket', 'kapasitas', 'harga', 'fasilitas', 'status']);
+            $data = $request->only(['jenis', 'paket', 'kapasitas', 'harga', 'fasilitas', 'jumlah_ruangan']);
 
             // Upload gambar baru jika ada
             if ($request->hasFile('gambar')) {

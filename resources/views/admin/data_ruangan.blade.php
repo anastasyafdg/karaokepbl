@@ -26,6 +26,7 @@
           <th class="px-6 py-3">Kapasitas</th>
           <th class="px-6 py-3">Harga</th>
           <th class="px-6 py-3">Fasilitas</th>
+          <th class="px-6 py-3">Jumlah Ruangan</th>
           <th class="px-6 py-3">Status</th>
           <th class="px-6 py-3">Gambar</th>
           <th class="px-6 py-3">Aksi</th>
@@ -42,15 +43,19 @@
           <td class="px-6 py-4">Rp {{ number_format($r->harga, 0, ',', '.') }}</td>
           <td class="px-6 py-4">{{ $r->fasilitas }}</td>
           <td class="px-6 py-4">
+            <span class="font-semibold text-lg">{{ $r->jumlah_ruangan }}</span>
+            <span class="text-sm text-gray-500">ruangan</span>
+          </td>
+          <td class="px-6 py-4">
             <span class="px-2 py-1 text-xs font-medium rounded-full {{ $r->status_color }}">
-              {{ $r->formatted_status }}
+              {{ $r->status_ketersediaan }}
             </span>
           </td>
           <td class="px-6 py-4">
             <img src="{{ asset('images/' . $r->gambar) }}" alt="Gambar Ruangan" class="w-20 h-16 object-cover rounded">
           </td>
           <td class="px-4 py-4">
-            <div class="flex gap-2">
+            <div class="flex gap-2 flex-col">
               <button data-modal-target="editModal-{{ $r->id }}" data-modal-toggle="editModal-{{ $r->id }}"
                 class="px-3 py-1 text-white bg-blue-600 hover:bg-blue-700 rounded text-sm">
                 Edit
@@ -96,11 +101,10 @@
                 <input type="number" name="harga" value="{{ $r->harga }}"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>
                 <textarea name="kapasitas" rows="2"  class="border border-gray-300 rounded-lg p-2.5 w-full" required>{{ $r->kapasitas }}</textarea>
                 <textarea name="fasilitas" rows="2" class="border border-gray-300 rounded-lg p-2.5 w-full" required>{{ $r->fasilitas }}</textarea>
-                <select name="status" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
-                  <option value="tersedia" {{ $r->status == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
-                  <option value="terpakai" {{ $r->status == 'terpakai' ? 'selected' : '' }}>Terpakai</option>
-                  <option value="tidak_tersedia" {{ $r->status == 'tidak_tersedia' ? 'selected' : '' }}>Tidak Tersedia</option>
-                </select>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah ruangan</label>
+                  <input type="number" name="jumlah_ruangan" value="{{ $r->jumlah_ruangan }}" min="0" max="50" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+                </div>
                 <input type="file" name="gambar" accept="image/*"  class="border border-gray-300 rounded-lg p-2.5 w-full">
               </div>
               <div class="flex justify-end gap-2 mt-4">
@@ -157,12 +161,10 @@
           <input type="number" name="harga" placeholder="Harga" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
           <textarea name="kapasitas" rows="2" placeholder="Kapasitas" class="border border-gray-300 rounded-lg p-2.5 w-full" required></textarea>
           <textarea name="fasilitas" rows="2" placeholder="Fasilitas" class="border border-gray-300 rounded-lg p-2.5 w-full" required></textarea>
-          <select name="status" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
-            <option value="">Pilih Status</option>
-            <option value="tersedia">Tersedia</option>
-            <option value="terpakai">Terpakai</option>
-            <option value="tidak_tersedia">Tidak Tersedia</option>
-          </select>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah ruangan</label>
+            <input type="number" name="jumlah_ruangan" placeholder="Jumlah ruangan" min="0" max="50" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
+          </div>
           <input type="file" name="gambar" accept="image/*" class="border border-gray-300 rounded-lg p-2.5 w-full" required>
         </div>
         <div class="flex justify-end gap-2 mt-4">

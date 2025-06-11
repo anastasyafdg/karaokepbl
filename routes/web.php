@@ -66,7 +66,7 @@ Route::get('/data_pengunjung', [PengunjungController::class, 'index'])->name('da
 Route::get('/data_ruangan', [AdmRuanganController::class, 'index'])->name('data_ruangan');
 Route::get('/admin/data_ruangan', [AdmRuanganController::class, 'index'])->name('admin.data_ruangan');
 
-// CRUD Ruangan
+// CRUD Ruangan (No Booking Routes)
 Route::post('/data_ruangan/simpan', [AdmRuanganController::class, 'simpan'])->name('ruangan.simpan');
 Route::post('/data_ruangan/update/{id}', [AdmRuanganController::class, 'update'])->name('ruangan.update');
 Route::delete('/data_ruangan/hapus/{id}', [AdmRuanganController::class, 'destroy'])->name('ruangan.hapus');
