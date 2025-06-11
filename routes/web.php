@@ -64,7 +64,7 @@ Route::get('/data_pengunjung', [PengunjungController::class, 'index'])->name('da
 
 // Admin - Ruangan
 Route::get('/data_ruangan', [AdmRuanganController::class, 'index'])->name('data_ruangan');
-Route::get('/admin/data_ruangan', [AdmRuanganController::class, 'index'])->name('admin.data_ruangan'); // Duplikat (mungkin nanti digabung)
+Route::get('/admin/data_ruangan', [AdmRuanganController::class, 'index'])->name('admin.data_ruangan');
 
 // CRUD Ruangan
 Route::post('/data_ruangan/simpan', [AdmRuanganController::class, 'simpan'])->name('ruangan.simpan');

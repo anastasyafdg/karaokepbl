@@ -9,8 +9,8 @@ class Ruangan extends Model
 {
     use HasFactory;
     
-    protected $table = 'ruangan'; 
-
+    protected $table = 'ruangan';
+    
     protected $primaryKey = 'id';
     public $incrementing = false; // Karena primary key bukan auto increment
     protected $keyType = 'string'; // Primary key bertipe string
@@ -27,6 +27,7 @@ class Ruangan extends Model
         'kapasitas',
         'harga',
         'fasilitas',
+        'status',
         'gambar'
     ];
 
@@ -48,5 +49,29 @@ class Ruangan extends Model
             return asset('images/' . $this->gambar);
         }
         return asset('images/default-room.jpg'); // Gambar default jika tidak ada
+    }
+
+    // Accessor untuk status dengan format yang lebih user-friendly
+    public function getFormattedStatusAttribute()
+    {
+        $statuses = [
+            'tersedia' => 'Tersedia',
+            'terpakai' => 'Terpakai',
+            'tidak_tersedia' => 'Tidak Tersedia'
+        ];
+        
+        return $statuses[$this->status] ?? $this->status;
+    }
+
+    // Accessor untuk warna badge status
+    public function getStatusColorAttribute()
+    {
+        $colors = [
+            'tersedia' => 'bg-green-100 text-green-800',
+            'terpakai' => 'bg-yellow-100 text-yellow-800',
+            'tidak_tersedia' => 'bg-red-100 text-red-800'
+        ];
+        
+        return $colors[$this->status] ?? 'bg-gray-100 text-gray-800';
     }
 }
