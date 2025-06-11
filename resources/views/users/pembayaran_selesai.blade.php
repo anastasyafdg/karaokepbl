@@ -22,18 +22,20 @@
           <div class="inline-block bg-white rounded-lg px-6 py-4 shadow-sm">
             <p class="text-gray-600">
               <i class="far fa-calendar-alt mr-2 text-indigo-500"></i>
-              <strong>18 April 2025</strong> pukul <strong>13:00</strong>
+              <strong>{{ \Carbon\Carbon::parse(request('tanggal'))->locale('id')->translatedFormat('l, d F Y') }}</strong> pukul <strong>{{ request('waktu_mulai') }}</strong>
             </p>
           </div>
         </div>
         
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="ruangan" class="bg-white hover:bg-gray-100 px-6 py-3 rounded-lg shadow text-gray-700 font-medium transition duration-300 flex items-center justify-center">
+          <a href="{{ url('/ruangan') }}" class="bg-white hover:bg-gray-100 px-6 py-3 rounded-lg shadow text-gray-700 font-medium transition duration-300 flex items-center justify-center">
             <i class="fas fa-door-open mr-2 text-blue-500"></i>
-            Lihat detail ruangan</a>
-          <a href="riwayat" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 px-6 py-3 rounded-lg text-white font-medium transition duration-300 flex items-center justify-center">
+            Lihat detail ruangan
+          </a>
+          <a href="{{ url('/riwayat') }}" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 px-6 py-3 rounded-lg text-white font-medium transition duration-300 flex items-center justify-center">
             <i class="far fa-list-alt mr-2"></i>
-            Lihat pemesanan saya</a>
+            Lihat pemesanan saya
+          </a>
         </div>
       </div>
 
@@ -44,11 +46,22 @@
           Detail Pembayaran
         </h2>
         
+        @php
+          // Mengambil data dari session atau request sebelumnya
+          $tanggal = request('tanggal');
+          $waktu_mulai = request('waktu_mulai');
+          $waktu_selesai = request('waktu_selesai');
+          $durasi = request('durasi');
+          $total_harga = request('total_harga');
+          $paket = request('paket', 'Paket A');
+          $room_type = request('room_type', 'Small');
+        @endphp
+
         <div class="flex items-center space-x-4 mb-6 p-4 bg-white rounded-lg shadow-sm">
           <img src="{{ asset('images/paketA.png') }}" alt="Ruangan" class="h-16 w-16 object-cover rounded-lg border border-gray-200">
           <div>
-            <p class="font-semibold text-gray-800">SA001 - Paket A</p>
-            <p class="text-sm text-gray-600">Small Room (maks. 5 orang)</p>
+            <p class="font-semibold text-gray-800">{{ $paket }} - {{ $room_type }} Room</p>
+            <p class="text-sm text-gray-600">Tipe Kamar: {{ $room_type }}</p>
             <div class="flex items-center mt-1">
               <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
               <span class="text-xs text-gray-500">4.8 (120 ulasan)</span>
@@ -59,15 +72,15 @@
         <div class="space-y-3 mb-4">
           <div class="flex justify-between items-center">
             <span class="text-gray-600"><i class="far fa-calendar mr-2 text-blue-400"></i> Tanggal</span>
-            <span class="font-medium">18 April 2025</span>
+            <span class="font-medium">{{ \Carbon\Carbon::parse($tanggal)->locale('id')->translatedFormat('l, d F Y') }}</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-600"><i class="far fa-clock mr-2 text-blue-400"></i> Waktu</span>
-            <span class="font-medium">13:00 - 16:00</span>
+            <span class="font-medium">{{ $waktu_mulai }} - {{ $waktu_selesai }}</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-600"><i class="fas fa-hourglass-half mr-2 text-blue-400"></i> Durasi</span>
-            <span class="font-medium">3 Jam</span>
+            <span class="font-medium">{{ $durasi }} Jam</span>
           </div>
         </div>
         
@@ -80,7 +93,7 @@
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-600">Durasi</span>
-            <span>3 Jam × Rp. 50.000</span>
+            <span>{{ $durasi }} Jam × Rp. 50.000</span>
           </div>
         </div>
         
@@ -89,7 +102,7 @@
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="font-semibold text-gray-700">Total Harga</span>
-            <span class="text-lg font-bold text-red-600">Rp. 150.000</span>
+            <span class="text-lg font-bold text-red-600">Rp. {{ number_format($total_harga, 0, ',', '.') }}</span>
           </div>
           <div class="flex justify-between items-center text-sm">
             <span class="text-gray-600"><i class="far fa-credit-card mr-2 text-blue-400"></i> Metode Pembayaran</span>
@@ -106,27 +119,28 @@
       </div>
     </div>
   </main>
-    <script>
+
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-  const profileButton = document.querySelector('.relative.group button');
-  const dropdownMenu = document.querySelector('.relative.group .hidden');
+      const profileButton = document.querySelector('.relative.group button');
+      const dropdownMenu = document.querySelector('.relative.group .hidden');
 
-  profileButton.addEventListener('click', function(e) {
-    e.stopPropagation();
-    dropdownMenu.classList.toggle('hidden');
-  });
+      profileButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('hidden');
+      });
 
-  // Tutup dropdown ketika klik di luar
-  document.addEventListener('click', function(e) {
-    if (!dropdownMenu.contains(e.target) {
-      dropdownMenu.classList.add('hidden');
-    }
-  });
+      // Tutup dropdown ketika klik di luar
+      document.addEventListener('click', function(e) {
+        if (!dropdownMenu.contains(e.target)) {
+          dropdownMenu.classList.add('hidden');
+        }
+      });
 
-  // Mencegah dropdown tertutup saat mengklik menu
-  dropdownMenu.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
-});
+      // Mencegah dropdown tertutup saat mengklik menu
+      dropdownMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
   </script>
 @endsection
