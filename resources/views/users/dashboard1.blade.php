@@ -86,9 +86,9 @@
                 <p class="text-sm text-black">Hanya Ruangan, cocok bagi yang hanya ingin karaoke.</p>
               </div>
               <div class="flex justify-end mt-4">
-                <button class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  Selengkapnya
-                </button>
+                <a href="{{ route('login') }}" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+                Selengkapnya
+                </a>
               </div>
             </div>
           </div>
@@ -111,9 +111,9 @@
                 <p class="text-sm text-black">Menyediakan makanan ringan seperti nugget, ayam pop, dan nasi goreng.</p>
               </div>
               <div class="flex justify-end mt-4">
-                <button class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+                <a href="{{ route('login') }}" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
                   Selengkapnya
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -136,9 +136,9 @@
                 <p class="text-sm text-black">Tersedia makanan berat, cocok untuk pesta bersama teman sekolah dan kantor.</p>
               </div>
               <div class="flex justify-end mt-4">
-                <button class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+                <a href="{{ route('login') }}" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
                   Selengkapnya
-                </button>
+                </a>
               </div>
             </div>
           </div>

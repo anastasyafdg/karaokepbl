@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Main Content -->
-    < class="flex-grow container mx-auto px-4 py-12 md:py-20">
+    <main class="flex-grow container mx-auto px-4 py-12 md:py-20">
         <section class="text-center mb-12 max-w-3xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
                 Hubungi Kami Sekarang!
