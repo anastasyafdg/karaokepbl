@@ -17,7 +17,7 @@
     <div class="relative bg-white rounded-lg border border-gray-200 shadow-md p-6">
       <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
       <h6 class="text-lg font-semibold flex items-center mb-2 text-gray-900">
-        <i class="fas fa-box-open mr-2 text-purple-500"></i> Paket Ruangan
+        <i class="fas fa-box-open mr-2 text-purple-500"></i> Jumlah Ruangan
       </h6>
       <p class="text-sm text-gray-700">Total: <span class="font-medium">3</span></p>
     </div>
@@ -26,7 +26,7 @@
     <div class="relative bg-white rounded-lg border border-gray-200 shadow-md p-6">
       <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
       <h6 class="text-lg font-semibold flex items-center mb-2 text-gray-900">
-        <i class="fas fa-users mr-2 text-purple-500"></i> Data Pengunjung
+        <i class="fas fa-users mr-2 text-purple-500"></i> Jumlah Pengunjung
       </h6>
       <p class="text-sm text-gray-700">Total: <span class="font-medium">3</span></p>
     </div>
@@ -35,7 +35,34 @@
     <div class="relative bg-white rounded-lg border border-gray-200 shadow-md p-6">
       <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
       <h6 class="text-lg font-semibold flex items-center mb-2 text-gray-900">
-        <i class="fas fa-comment-alt mr-2 text-purple-500"></i> Ulasan
+        <i class="fas fa-comment-alt mr-2 text-purple-500"></i> Ulasan Pengunjung
+      </h6>
+      <p class="text-sm text-gray-700">Total: <span class="font-medium">2</span></p>
+    </div>
+
+        <!-- Kartu 4 -->
+    <div class="relative bg-white rounded-lg border border-gray-200 shadow-md p-6">
+      <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
+      <h6 class="text-lg font-semibold flex items-center mb-2 text-gray-900">
+        <i class="fas fa-envelope mr-2 text-purple-500"></i> Pesan Dari Pengunjung
+      </h6>
+      <p class="text-sm text-gray-700">Total: <span class="font-medium">2</span></p>
+    </div>
+
+        <!-- Kartu 3 -->
+    <div class="relative bg-white rounded-lg border border-gray-200 shadow-md p-6">
+      <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
+      <h6 class="text-lg font-semibold flex items-center mb-2 text-gray-900">
+        <i class="fas fa-calendar-check mr-2 text-purple-500"></i> Jumlah Reservasi Ruangan
+      </h6>
+      <p class="text-sm text-gray-700">Total: <span class="font-medium">2</span></p>
+    </div>
+
+        <!-- Kartu 3 -->
+    <div class="relative bg-white rounded-lg border border-gray-200 shadow-md p-6">
+      <div class="absolute top-0 left-0 h-full w-2 bg-purple-300 rounded-l-lg"></div>
+      <h6 class="text-lg font-semibold flex items-center mb-2 text-gray-900">
+        <i class="fas fa-credit-card mr-2 text-purple-500"></i> Jumlah Pembayaran
       </h6>
       <p class="text-sm text-gray-700">Total: <span class="font-medium">2</span></p>
     </div>

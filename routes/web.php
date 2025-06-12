@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmPembayaranController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard1Controller;
 use App\Http\Controllers\LandingController;
@@ -18,10 +19,9 @@ use App\Http\Controllers\UlasanController;
 
 // Admin Controllers
 use App\Http\Controllers\AdmDashboardController;
-use App\Http\Controllers\AdmTransaksiController;
+use App\Http\Controllers\ReservasiController;
 use App\Http\Controllers\AdmUlasanController;
 use App\Http\Controllers\AdmRuanganController;
-use App\Http\Controllers\AdmPaketController;
 use App\Http\Controllers\AdmPesanController;
 use App\Http\Controllers\PengunjungController;
 
@@ -71,8 +71,14 @@ Route::post('/data_ruangan/simpan', [AdmRuanganController::class, 'simpan'])->na
 Route::post('/data_ruangan/update/{id}', [AdmRuanganController::class, 'update'])->name('ruangan.update');
 Route::delete('/data_ruangan/hapus/{id}', [AdmRuanganController::class, 'destroy'])->name('ruangan.hapus');
 
-// Admin - Transaksi
-Route::get('/data_transaksi', [AdmTransaksiController::class, 'index'])->name('transaksi');
+// Admin - Reservasi
+Route::get('/data_reservasi', [ReservasiController::class, 'index'])->name('data_reservasi');
+Route::delete('/data_reservasi/{id}', [ReservasiController::class, 'destroy'])->name('data_reservasi.destroy');
+
+// Admin - Pembayaran Routes
+Route::get('/data_pembayaran', [AdmPembayaranController::class, 'index'])->name('data_pembayaran');
+Route::post('/data_pembayaran/{id}/update-status', [AdmPembayaranController::class, 'updateStatus'])->name('data_pembayaran.update-status');
+Route::delete('/data_pembayaran/{id}', [AdmPembayaranController::class, 'destroy'])->name('data_pembayaran.destroy');
 
 // Admin - Ulasan
 Route::get('/ulasan-admin', [AdmUlasanController::class, 'index'])->name('admin.ulasan.index');
