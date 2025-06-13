@@ -19,6 +19,7 @@
                         <th scope="col" class="px-6 py-3">NAMA</th>
                         <th scope="col" class="px-6 py-3">EMAIL</th>
                         <th scope="col" class="px-6 py-3">NO HANDPHONE</th>
+                        <th scope="col" class="px-6 py-3">ALAMAT</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@
                             <td class="px-6 py-4">{{ $p->nama }}</td>
                             <td class="px-6 py-4">{{ $p->email }}</td>
                             <td class="px-6 py-4">{{ $p->no }}</td>
+                            <td class="px-6 py-4">{{ $p->alamat }}</td>
                         </tr>
                     @endforeach
                 </tbody>

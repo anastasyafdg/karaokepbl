@@ -48,7 +48,10 @@ Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'
 Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
 Route::post('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
 Route::get('/riwayat', [RiwayatController::class, 'index']);
-Route::get('/edit_profile', [EditProfileController::class, 'index']);
+Route::get('/edit_profile', [EditProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/edit_profile', [EditProfileController::class, 'update'])->name('profile.update');
+
+Route::post('/update-password', [EditProfileController::class, 'updatePassword'])->name('password.update');
 Route::get('/ganti_sandi', [GantiSandiController::class, 'index'])->name('ganti_sandi');
 Route::post('/ganti_sandi', [GantiSandiController::class, 'update'])->name('ganti_sandi.update');
 Route::get('/kontak', [KontakController::class, 'index']);

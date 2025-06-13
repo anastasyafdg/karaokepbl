@@ -24,22 +24,20 @@
       background-repeat: no-repeat;
     }
 
-    /* Overlay dengan efek blur */
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.4); /* Gelap transparan */
-      backdrop-filter: blur(8px); /* Efek blur pada background */
-      z-index: -1; /* Menjaga overlay tetap di belakang konten */
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: -1;
     }
   </style>
 </head>
 
 <body class="min-h-screen">
-  <!-- Overlay untuk efek blur -->
   <div class="overlay"></div>
 
   <div class="bg-white rounded-2xl shadow-xl w-full max-w-md border">
@@ -57,14 +55,14 @@
           <i class="fas fa-user text-black mr-3"></i>
           <div>
             <p class="text-xs text-black">Nama</p>
-            <p class="font-medium text-black">Mikkeu Pangpang</p>
+            <p class="font-medium text-black">{{ $user->nama }}</p>
           </div>
         </div>
         <div class="flex items-center">
           <i class="fas fa-map-marker-alt text-black mr-3"></i>
           <div>
             <p class="text-xs text-black">Alamat</p>
-            <p class="font-medium text-black">Jl. Karaoke No. 123, Jakarta</p>
+            <p class="font-medium text-black">{{ $user->alamat }}</p>
           </div>
         </div>
       </div>
@@ -80,13 +78,53 @@
           <i class="fas fa-key mr-2"></i> Ganti Password
         </button>
 
-        <a href="landing"
+        <a href="{{ url('landing') }}"
           class="block w-full bg-white hover:bg-gray-100 text-black py-2.5 px-5 rounded-lg font-medium text-center border border-gray-200">
           <i class="fas fa-arrow-left mr-2"></i> Kembali
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Ganti Password Modal -->
+<div id="changePasswordModal" tabindex="-1" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto h-full">
+  <div class="relative w-full max-w-md mx-auto">
+    <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="flex justify-between items-center p-4 border-b bg-blue-200 rounded-t">
+        <h3 class="text-xl font-semibold text-gray-900">Ganti Password</h3>
+        <button type="button" class="text-gray-400 hover:text-gray-900" data-modal-hide="changePasswordModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form method="POST" action="{{ route('password.update') }}" class="p-6 space-y-4">
+    @csrf
+
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Password Lama</label>
+        <input type="password" name="old_password" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" required>
+    </div>
+
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Password Baru</label>
+        <input type="password" name="new_password" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" required>
+    </div>
+
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Konfirmasi Password Baru</label>
+        <input type="password" name="new_password_confirmation" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" required>
+    </div>
+
+    <div class="flex justify-end space-x-3">
+        <button type="button" data-modal-hide="changePasswordModal" class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
+        <button type="submit" class="px-4 py-2 text-sm text-white bg-purple-600 hover:bg-purple-700 rounded-lg">Ganti Password</button>
+    </div>
+</form>
+
+    </div>
+  </div>
+</div>
+
 
   <!-- Edit Profile Modal -->
   <div id="editProfileModal" tabindex="-1" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto h-full">
@@ -98,14 +136,16 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
-        <form class="p-6 space-y-4">
+
+        <form method="POST" action="{{ route('profile.update') }}" class="p-6 space-y-4">
+          @csrf
           <div>
             <label class="block mb-2 text-sm font-medium text-gray-900">Nama Lengkap</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <i class="fas fa-user text-gray-500"></i>
               </div>
-              <input type="text" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" placeholder="Masukkan nama lengkap" required>
+              <input type="text" name="name" value="{{ old('nama', $user->name) }}" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" required>
             </div>
           </div>
 
@@ -115,7 +155,7 @@
               <div class="absolute top-2.5 left-3 text-gray-500">
                 <i class="fas fa-map-marker-alt"></i>
               </div>
-              <textarea class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" placeholder="Masukkan alamat lengkap" required></textarea>
+              <textarea name="alamat" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-purple-500 focus:border-purple-500" required>{{ old('alamat', $user->alamat) }}</textarea>
             </div>
           </div>
 
@@ -128,55 +168,18 @@
     </div>
   </div>
 
-  <!-- Change Password Modal -->
-  <div id="changePasswordModal" tabindex="-1" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto h-full">
-    <div class="relative w-full max-w-md mx-auto">
-      <div class="bg-white rounded-lg shadow dark:bg-gray-700">
-        <div class="flex justify-between items-center p-4 border-b bg-blue-200 rounded-t">
-          <h3 class="text-xl font-semibold text-gray-900">Ganti Password</h3>
-          <button type="button" class="text-gray-400 hover:text-gray-900" data-modal-hide="changePasswordModal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <form class="p-6 space-y-4">
-          <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Password Lama</label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <i class="fas fa-lock text-gray-500"></i>
-              </div>
-              <input type="password" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500" required>
-            </div>
-          </div>
-
-          <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Password Baru</label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <i class="fas fa-lock text-gray-500"></i>
-              </div>
-              <input type="password" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500" required>
-            </div>
-          </div>
-
-          <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Konfirmasi Password Baru</label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <i class="fas fa-redo text-gray-500"></i>
-              </div>
-              <input type="password" class="pl-10 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500" required>
-            </div>
-          </div>
-
-          <div class="flex justify-end space-x-3">
-            <button type="button" data-modal-hide="changePasswordModal" class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
-            <button type="submit" class="px-4 py-2 text-sm text-white bg-cyan-600 hover:bg-cyan-700 rounded-lg">Ganti Password</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const changePasswordModal = document.getElementById('changePasswordModal');
+  const modal = new Modal(changePasswordModal);
 
+  document.querySelector('[data-modal-target="changePasswordModal"]').addEventListener('click', () => {
+    modal.show();
+  });
+
+  document.querySelector('[data-modal-hide="changePasswordModal"]').addEventListener('click', () => {
+    modal.hide();
+  });
+</script>
 </html>
