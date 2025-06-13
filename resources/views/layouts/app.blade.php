@@ -10,6 +10,14 @@
 <body class="bg-slate-900">
   @include('components.navbar')
 
+  @auth
+    @if (Auth::user()->role == 'pengunjung')
+      <div class="text-white text-center py-2 bg-blue-800">
+          Selamat datang, {{ Auth::user()->nama }}
+      </div>
+    @endif
+  @endauth
+
   <main>
     @yield('content')
   </main>
