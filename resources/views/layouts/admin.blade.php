@@ -21,6 +21,14 @@
     <!-- Sidebar -->
     @include('components.sidebar')
 
+    @auth
+      @if (Auth::user()->role == 'admin') 
+        <div class="text-white text-center py-2 bg-green-600">
+            Selamat datang, {{ Auth::user()->nama }}
+        </div>
+      @endif
+    @endauth
+
     <!-- Konten Utama -->
     <div class="flex-1 flex flex-col">
 

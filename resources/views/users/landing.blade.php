@@ -261,44 +261,6 @@
       </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section id="ulasan" class="reviews-section py-16 bg-navy-900">
-  <div class="container mx-auto px-4">
-    <div class="max-w-3xl mx-auto">
-      <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <div class="flex justify-between items-center mb-8">
-          <h2 class="text-3xl text-blue-300 font-bold">Ulasan Pengunjung</h2>
-          <button class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-lg transition-colors flex items-center">
-            <i class="fas fa-plus mr-2"></i> Tambah Ulasan
-          </button>
-        </div>
-
-        <!-- Review Item -->
-        <div class="review mb-8 last:mb-0">
-          <div class="user-info flex items-start">
-            <div class="avatar bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">A</div>
-            
-            <div class="ml-4 flex-1">
-              <div class="flex justify-between items-center"> <!-- Ubah items-start menjadi items-center -->
-                <div>
-                  <h3 class="text-lg font-semibold text-white">Andi</h3>
-                  <p class="text-sm text-gray-400">21 April 2025</p>
-                </div>
-                <div class="stars text-yellow-400 ml-4"> <!-- Pindahkan bintang ke sini -->
-                  ⭐⭐⭐⭐⭐
-                </div>
-              </div>
-              
-              <p class="mt-2 text-gray-300 leading-relaxed">
-                Tempatnya sangat nyaman dan lagu-lagunya lengkap. Pengalaman karaoke yang luar biasa!
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
 </section>
 </main>
 <!-- JavaScript -->

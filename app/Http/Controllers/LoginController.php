@@ -49,11 +49,14 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         // Arahkan sesuai peran
-        if ($user->peran === 'admin') {
+        switch ($user->peran) {
+        case 'admin':
             return redirect()->route('admin_dashboard');
+        case 'pengunjung':
+            return redirect()->route('landing');
+        default:
+            return redirect('/dashboard1'); // fallback
         }
-
-        return redirect()->route('landing');
     }
 
     /**
