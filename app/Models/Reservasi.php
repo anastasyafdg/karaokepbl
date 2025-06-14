@@ -14,16 +14,26 @@ class Reservasi extends Model
     protected static function booted()
     {
         static::creating(function ($reservasi) {
-            // Format ID: ruangan_id-tanggal (YYYYMMDD)
             $formattedDate = date('Ymd', strtotime($reservasi->tanggal));
-            $reservasi->id = $reservasi->ruangan_id . '-' . $formattedDate;
+            $baseId = $reservasi->ruangan_id . '-' . $formattedDate;
+            
+            // Count existing reservations for this room/date
+            $count = Reservasi::where('id', 'like', $baseId.'%')->count();
+            
+            $reservasi->id = $baseId . '-' . ($count + 1);
         });
     }
 
-    protected $fillable = [
-        'ruangan_id', 'tanggal', 'waktu_mulai', 'waktu_selesai',
-        'durasi', 'catatan', 'metode'
-    ];
+   // app/Models/Reservasi.php
+protected $fillable = [
+    'ruangan_id', 
+    'tanggal', 
+    'waktu_mulai', 
+    'waktu_selesai',
+    'durasi', 
+    'catatan', 
+    'metode',
+];
 
     public function ruangan()
     {

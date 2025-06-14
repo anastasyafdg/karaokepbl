@@ -52,6 +52,12 @@ Route::get('/ruangan/{id}', [RuanganController::class, 'show'])
 Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm'])
     ->middleware(['auth', 'checkrole:pengunjung']);
 
+Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showReservationForm'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('reservasi.form');
+
+Route::post('/simpan-reservasi', [ReservationController::class, 'storeReservation'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('reservasi.store');
+    
 Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])
     ->middleware(['auth', 'checkrole:pengunjung'])->name('pembayaran.konfirmasi');
 
@@ -144,3 +150,5 @@ Route::get('/pesan', [AdmPesanController::class, 'index'])
 
 Route::delete('/pesan/hapus/{id}', [AdmPesanController::class, 'destroy'])
     ->middleware(['auth', 'checkrole:admin'])->name('pesan.hapus');
+
+    

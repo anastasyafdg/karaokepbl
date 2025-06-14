@@ -72,10 +72,8 @@
                 <img src="" alt="Ruangan" class="w-28 h-20 object-cover rounded-lg" id="popup-img">
                 <div class="text-lg font-bold" id="popup-harga"></div>
             </div>
-            <a href="halaman_reservasi">
-                <button class="bg-green-700 text-white w-full py-2 rounded-full mt-6 hover:bg-green-800">Pesan Sekarang</button>
-            </a>
-        </div>
+            <a href="#" id="pesan-sekarang-btn" class="hidden">
+            <button class="bg-green-700 text-white w-full py-2 rounded-full mt-6 hover:bg-green-800">Pesan Sekarang</button>
     </div>
 </div>
 
@@ -118,22 +116,27 @@
 
     // Fungsi untuk menampilkan detail ruangan
     function showRoomDetail(roomId) {
-        // Mengambil data ruangan dari server
-        fetch(`/ruangan/${roomId}`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('popup-title').innerText = `Paket ${data.paket}, Ruang ${data.jenis}`;
-                document.getElementById('popup-kapasitas').innerText = data.kapasitas;
-                document.getElementById('popup-fasilitas').innerHTML = 
-                    data.fasilitas.split('\n').map(f => `<li>${f}</li>`).join('');
-                document.getElementById('popup-img').src = data.gambar_url;
-                document.getElementById('popup-harga').innerText = `${data.formatted_harga}/Jam`;
+    fetch(`/ruangan/${roomId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('popup-title').innerText = `Paket ${data.paket}, Ruang ${data.jenis}`;
+            document.getElementById('popup-kapasitas').innerText = data.kapasitas;
+            document.getElementById('popup-fasilitas').innerHTML = 
+                data.fasilitas.split('\n').map(f => `<li>${f}</li>`).join('');
+            document.getElementById('popup-img').src = data.gambar_url;
+            document.getElementById('popup-harga').innerText = `${data.formatted_harga}/Jam`;
 
-                const popup = document.getElementById('popup-detail');
-                popup.classList.remove('hidden');
-                popup.classList.add('flex');
-            });
-    }
+            // Update the reservation link with the room ID
+            const pesanBtn = document.getElementById('pesan-sekarang-btn');
+            pesanBtn.href = `/halaman_reservasi/${data.id}`;
+            pesanBtn.classList.remove('hidden');
+
+            const popup = document.getElementById('popup-detail');
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+        });
+
+}
 
     function closePopup() {
         const popup = document.getElementById('popup-detail');
