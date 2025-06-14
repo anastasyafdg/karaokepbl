@@ -25,7 +25,7 @@ class Reservasi extends Model
     }
 
    // app/Models/Reservasi.php
-protected $fillable = [
+   protected $fillable = [
     'ruangan_id', 
     'tanggal', 
     'waktu_mulai', 
@@ -33,6 +33,8 @@ protected $fillable = [
     'durasi', 
     'catatan', 
     'metode',
+    'total_biaya', // Add this
+    'status'       // Add this
 ];
 
     public function ruangan()

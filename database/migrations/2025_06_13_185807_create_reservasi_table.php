@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         // If you need to create a new migration
         Schema::create('reservasi', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->string('Reservasi')->primary();
             $table->string('ruangan_id');
             $table->date('tanggal');
             $table->time('waktu_mulai');

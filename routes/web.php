@@ -80,7 +80,7 @@ Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
 });
 
 Route::get('/kontak', [KontakController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung']);
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('kontak');
 
 Route::post('/kontak', [KontakController::class, 'store'])
     ->middleware(['auth', 'checkrole:pengunjung'])->name('kontak.store');

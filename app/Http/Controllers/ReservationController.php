@@ -15,7 +15,6 @@ class ReservationController extends Controller
         return view('users.halaman_reservasi', compact('ruangan'));
     }
 
-    // app/Http/Controllers/ReservationController.php
     public function storeReservation(Request $request)
     {
         $request->validate([
@@ -27,12 +26,14 @@ class ReservationController extends Controller
             'metode_pembayaran' => 'required|in:transfer,e-wallet',
             'total_harga' => 'required|numeric',
         ]);
-    
+
+        $ruangan = Ruangan::findOrFail($request->ruangan_id);
+
         // Calculate duration
         $start = strtotime($request->waktu_mulai);
         $end = strtotime($request->waktu_selesai);
         $duration = ($end - $start) / 3600;
-    
+
         // Create reservation
         $reservation = Reservasi::create([
             'ruangan_id' => $request->ruangan_id,
@@ -42,8 +43,20 @@ class ReservationController extends Controller
             'durasi' => $duration,
             'catatan' => $request->catatan,
             'metode' => $request->metode_pembayaran === 'transfer' ? 'bank_transfer' : 'e_wallet',
+            'total_harga' => $request->total_harga,
         ]);
-    
-        return redirect()->route('pembayaran.konfirmasi')->with('success', 'Reservasi berhasil dibuat!');
+
+        return redirect()->route('pembayaran.konfirmasi', [
+            'Reservasi_id' => $reservation->id,
+            'ruangan_id' => $ruangan->id,
+            'tanggal' => $request->tanggal,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $request->waktu_selesai,
+            'durasi' => $duration,
+            'catatan' => $request->catatan ?? 'Tidak ada',
+            'metode_pembayaran' => $request->metode_pembayaran,
+            'total_harga' => $request->total_harga
+        ]);
     }
+    
 }

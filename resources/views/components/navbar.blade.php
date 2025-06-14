@@ -3,13 +3,13 @@
     <div class="flex items-center">
       <!-- Menu Tengah -->
       <ul class="flex flex-1 justify-center items-center space-x-8 md:space-x-8 mx-auto">
-        <li><a href="landing" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
-        <li><a href="ruangan" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
+        <li><a href="{{ route('landing') }}" class="text-gray-800 hover:text-yellow-400 transition">Beranda</a></li>
+        <li><a href="{{ route('ruangan.index') }}" class="text-gray-800 hover:text-yellow-400 transition">Ruangan</a></li>
         <li class="mx-4 md:mx-8">
           <img src="{{ asset('images/logo.png') }}" alt="Logo Mikkeu Pangpang" class="h-10 w-10 rounded-full object-cover mx-auto">
         </li>
-        <li><a href="ulasan" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
-        <li><a href="kontak" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
+        <li><a href="{{ route('ulasan') }}" class="text-gray-800 hover:text-yellow-400 transition">Ulasan</a></li>
+        <li><a href="{{ route('kontak') }}" class="text-gray-800 hover:text-yellow-400 transition">Kontak</a></li>
       </ul>
       
       <!-- Profile Icon di Kanan -->
