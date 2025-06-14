@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdmPembayaranController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard1Controller;
 use App\Http\Controllers\LandingController;
@@ -20,6 +19,7 @@ use App\Http\Controllers\UlasanController;
 // Admin Controllers
 use App\Http\Controllers\AdmDashboardController;
 use App\Http\Controllers\ReservasiController;
+use App\Http\Controllers\AdmPembayaranController;
 use App\Http\Controllers\AdmUlasanController;
 use App\Http\Controllers\AdmRuanganController;
 use App\Http\Controllers\AdmPesanController;
@@ -40,20 +40,44 @@ Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registe
 Route::post('/registrasi', [RegistrasiController::class, 'register'])->name('register.submit');
 
 // Pengunjung
-Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
-Route::get('/ruangan/{id}', [RuanganController::class, 'show'])->name('ruangan.show');
-Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm']);
-Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
-Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
-Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
-Route::post('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index']);
-Route::get('/riwayat', [RiwayatController::class, 'index']);
-Route::get('/edit_profile', [EditProfileController::class, 'index']);
-Route::get('/ganti_sandi', [GantiSandiController::class, 'index'])->name('ganti_sandi');
-Route::post('/ganti_sandi', [GantiSandiController::class, 'update'])->name('ganti_sandi.update');
-Route::get('/kontak', [KontakController::class, 'index']);
-Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
-Route::get('/search', [VisitorController::class, 'search'])->name('search');
+Route::get('/landing', [LandingController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('landing');
+
+Route::get('/ruangan', [RuanganController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.index');
+
+Route::get('/ruangan/{id}', [RuanganController::class, 'show'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.show');
+
+Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('pembayaran.konfirmasi');
+
+Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::post('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::get('/riwayat', [RiwayatController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::get('/edit_profile', [EditProfileController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::get('/kontak', [KontakController::class, 'index'])
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+Route::post('/kontak', [KontakController::class, 'store'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('kontak.store');
+
+Route::get('/search', [VisitorController::class, 'search'])
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('search');
 
 // Ulasan
 Route::get('/ulasan', [UlasanController::class, 'index'])
