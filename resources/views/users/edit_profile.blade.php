@@ -97,7 +97,7 @@
         </button>
       </div>
 
-      <form method="POST" action="{{ route('password.update') }}" class="p-6 space-y-4">
+      <form method="POST" action="{{ route('profile.updatePassword') }}" class="p-6 space-y-4">
     @csrf
 
     <div>

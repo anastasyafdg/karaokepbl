@@ -84,7 +84,6 @@
             </div>
 
             <!-- Contact Form -->
-            <!-- Contact Form -->
             <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
                 <h2 class="text-2xl font-bold mb-6 text-yellow-400">Kirim Pesan</h2>
                 <form method="POST" action="{{ route('kontak.store') }}" class="space-y-6 contact-form">
