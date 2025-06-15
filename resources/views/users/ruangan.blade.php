@@ -4,21 +4,22 @@
 <div class="bg-gray-900 p-6 min-h-screen text-white">
     <!-- Pencarian dan Filter -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 mb-6">
-        <div class="flex-1 relative">
-            <input 
-                type="text" 
-                id="search-input"
-                placeholder="Cari Ruangan (Paket A, Paket B, Paket C)" 
-                class="w-full bg-gray-700 text-white placeholder-gray-300 px-5 py-2 rounded-full focus:outline-none"
-            />
-            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">🔍</span>
-        </div>
-        <div class="flex flex-wrap gap-3">
-            <button onclick="filterRooms('all')" class="bg-gray-600 text-white px-4 py-2 rounded-full">Lihat Semua Ruangan</button>
-            <button onclick="filterRooms('kecil')" class="bg-gray-600 text-white px-4 py-2 rounded-full">Kecil</button>
-            <button onclick="filterRooms('sedang')" class="bg-gray-600 text-white px-4 py-2 rounded-full">Sedang</button>
-            <button onclick="filterRooms('besar')" class="bg-gray-600 text-white px-4 py-2 rounded-full">Besar</button>
-        </div>
+    <div class="flex-1 relative">
+    <input 
+        type="text" 
+        id="search-input"
+        placeholder="Cari Ruangan (Paket A, Paket B, Paket C)" 
+        class="w-full bg-gray-700 text-white placeholder-gray-300 px-5 py-2 rounded-full focus:outline-none"
+    >
+    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">🔍</span>
+</div>
+
+<div class="flex flex-wrap gap-3">
+    <button onclick="updateFilter('all')" class="filter-button bg-gray-600 text-white px-4 py-2 rounded-full" data-filter="all">Lihat Semua Ruangan</button>
+    <button onclick="updateFilter('kecil')" class="filter-button bg-gray-400 text-white px-4 py-2 rounded-full" data-filter="kecil">Kecil</button>
+    <button onclick="updateFilter('sedang')" class="filter-button bg-gray-400 text-white px-4 py-2 rounded-full" data-filter="sedang">Sedang</button>
+    <button onclick="updateFilter('besar')" class="filter-button bg-gray-400 text-white px-4 py-2 rounded-full" data-filter="besar">Besar</button>
+</div>
     </div>
 
     <!-- Grid Ruangan -->
@@ -78,7 +79,7 @@
 </div>
 
 <script>
-    // Fungsi untuk filter ruangan berdasarkan ukuran
+    // Function to filter rooms by size
     function filterRooms(size) {
         const rooms = document.querySelectorAll('.room-card');
         
@@ -87,61 +88,130 @@
                 room.style.display = 'block';
             } else {
                 const roomSize = room.getAttribute('data-size').toLowerCase();
-                if (roomSize === size) {
-                    room.style.display = 'block';
-                } else {
-                    room.style.display = 'none';
-                }
+                room.style.display = roomSize === size ? 'block' : 'none';
             }
         });
     }
 
-    // Fungsi untuk pencarian berdasarkan paket (A, B, C)
+    // Function to search rooms by package
     function searchRooms() {
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
-        const rooms = document.querySelectorAll('.room-card');
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const rooms = document.querySelectorAll('.room-card');
+    
+    // If search is empty, show all rooms
+    if (!searchTerm) {
+        rooms.forEach(room => room.style.display = 'block');
+        return;
+    }
+    
+    rooms.forEach(room => {
+        const paket = room.getAttribute('data-paket').toLowerCase();
+        room.style.display = paket.includes(searchTerm) ? 'block' : 'none';
+    });
+}
+
+    // Function to update filter and URL
+    function updateFilter(size) {
+        // Update URL without reloading
+        const url = new URL(window.location);
+        url.searchParams.set('filter', size);
+        url.searchParams.delete('triggerFilter'); // Clean up trigger if exists
+        window.history.pushState({}, '', url);
         
-        rooms.forEach(room => {
-            const paket = room.getAttribute('data-paket').toLowerCase();
-            if (paket.includes(searchTerm) || searchTerm === '') {
-                room.style.display = 'block';
-            } else {
-                room.style.display = 'none';
-            }
-        });
+        // Update UI
+        updateFilterUI(size);
+        filterRooms(size);
     }
 
-    // Event listener untuk input pencarian
-    document.getElementById('search-input').addEventListener('input', searchRooms);
-
-    // Fungsi untuk menampilkan detail ruangan
-    function showRoomDetail(roomId) {
-    fetch(`/ruangan/${roomId}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('popup-title').innerText = `Paket ${data.paket}, Ruang ${data.jenis}`;
-            document.getElementById('popup-kapasitas').innerText = data.kapasitas;
-            document.getElementById('popup-fasilitas').innerHTML = 
-                data.fasilitas.split('\n').map(f => `<li>${f}</li>`).join('');
-            document.getElementById('popup-img').src = data.gambar_url;
-            document.getElementById('popup-harga').innerText = `${data.formatted_harga}/Jam`;
-
-            // Update the reservation link with the room ID
-            const pesanBtn = document.getElementById('pesan-sekarang-btn');
-            pesanBtn.href = `/halaman_reservasi/${data.id}`;
-            pesanBtn.classList.remove('hidden');
-
-            const popup = document.getElementById('popup-detail');
-            popup.classList.remove('hidden');
-            popup.classList.add('flex');
+    // Function to update filter button states
+    function updateFilterUI(size) {
+        document.querySelectorAll('.filter-button').forEach(btn => {
+            btn.classList.remove('active', 'bg-gray-600');
+            btn.classList.add('bg-gray-400');
         });
+        
+        const activeButton = document.querySelector(`.filter-button[data-filter="${size}"]`);
+        if (activeButton) {
+            activeButton.classList.remove('bg-gray-400');
+            activeButton.classList.add('active', 'bg-gray-600');
+        }
+    }
 
+    // Initialize from URL parameters
+    function initFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Handle search first
+    const searchTerm = urlParams.get('search');
+    if (searchTerm) {
+        const searchInput = document.getElementById('search-input');
+        searchInput.value = searchTerm;
+        // Clear any active filters first
+        updateFilterUI('all');
+        filterRooms('all');
+        // Then apply search
+        searchRooms();
+        return; // Exit after handling search to prevent filter interference
+    }
+    
+    // Handle filter only if no search term
+    const filterParam = urlParams.get('triggerFilter') || urlParams.get('filter') || 'all';
+    updateFilterUI(filterParam);
+    filterRooms(filterParam);
 }
+
+    // Room detail functions
+    function showRoomDetail(roomId) {
+        fetch(`/ruangan/${roomId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('popup-title').innerText = `Paket ${data.paket}, Ruang ${data.jenis}`;
+                document.getElementById('popup-kapasitas').innerText = data.kapasitas;
+                document.getElementById('popup-fasilitas').innerHTML = 
+                    data.fasilitas.split('\n').map(f => `<li>${f}</li>`).join('');
+                document.getElementById('popup-img').src = data.gambar_url;
+                document.getElementById('popup-harga').innerText = `${data.formatted_harga}/Jam`;
+
+                const pesanBtn = document.getElementById('pesan-sekarang-btn');
+                pesanBtn.href = `/halaman_reservasi/${data.id}`;
+                pesanBtn.classList.remove('hidden');
+
+                const popup = document.getElementById('popup-detail');
+                popup.classList.remove('hidden');
+                popup.classList.add('flex');
+            });
+    }
 
     function closePopup() {
         const popup = document.getElementById('popup-detail');
         popup.classList.remove('flex');
         popup.classList.add('hidden');
     }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+    initFromUrl();
+    
+    // Search input event - trigger on Enter key or when leaving the field
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            searchRooms();
+        }
+    });
+    searchInput.addEventListener('blur', searchRooms);
+    
+    // Filter button events
+    document.querySelectorAll('.filter-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const size = this.getAttribute('data-filter');
+            updateFilter(size);
+            // Clear search when filter is applied
+            document.getElementById('search-input').value = '';
+        });
+    });
+});
+
+    window.addEventListener('popstate', initFromUrl);
 </script>
 @endsection

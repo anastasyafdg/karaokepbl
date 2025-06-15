@@ -49,6 +49,11 @@ Route::get('/ruangan', [RuanganController::class, 'index'])
 Route::get('/ruangan/{id}', [RuanganController::class, 'show'])
     ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.show');
 
+Route::get('/ruangan/filter/{size}', [LandingController::class, 'redirectToRuangan'])
+    ->name('landing.filter');
+Route::get('/ruangan/search/{paket}', [LandingController::class, 'redirectToRuanganSearch'])
+    ->name('landing.search');
+
 Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
     Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])->name('reservasi.form');
     Route::post('/simpan-reservasi', [ReservationController::class, 'store'])->name('reservasi.store');

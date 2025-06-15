@@ -51,17 +51,23 @@
         </p>
 
         <!-- Search Bar -->
-        <div class="search-bar relative mx-auto mt-6 max-w-2xl">
-            <form action="{{ url('/') }}" method="GET" class="flex w-full">
-            <div class="flex items-center bg-white rounded-l-full overflow-hidden w-full">
-                <span class="flex items-center justify-center px-4 text-gray-500"><i class="fas fa-user"></i></span>
-                <input type="text" name="query" class="w-full py-2 px-4 focus:outline-none text-gray-700" placeholder="Cari Ruangan..." required>
-            </div>
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 rounded-r-full">
-                <i class="fas fa-search"></i>
-            </button>
-            </form>
+<div class="search-bar relative mx-auto mt-6 max-w-2xl">
+    <form action="{{ route('ruangan.index') }}" method="GET" class="flex w-full">
+        <div class="flex items-center bg-white rounded-l-full overflow-hidden w-full">
+            <span class="flex items-center justify-center px-4 text-gray-500"><i class="fas fa-user"></i></span>
+            <input 
+                type="text" 
+                name="search" 
+                id="landing-search"
+                class="w-full py-2 px-4 focus:outline-none text-gray-700" 
+                placeholder="Cari Ruangan..."
+            >
         </div>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 rounded-r-full">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
 
         </div>
     </div>
@@ -80,153 +86,152 @@
   <!-- Package Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
     <!-- Package A -->
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-          <img src="{{ asset('images/paketA.png') }}" alt="Paket A" class="w-full h-48 object-cover">
-            <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <h2 class="text-lg font-bold text-black">Paket A</h2>
-                  <div class="flex space-x-1">
+<div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
+    <img src="{{ asset('images/paketA.png') }}" alt="Paket A" class="w-full h-48 object-cover">
+    <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-lg font-bold text-black">Paket A</h2>
+                <div class="flex space-x-1">
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
-                  </div>
                 </div>
-                <p class="text-sm text-black">Hanya Ruangan, cocok bagi yang hanya ingin karaoke.</p>
-              </div>
-              <div class="flex justify-end mt-4">
-                <button class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  Selengkapnya
-                </button>
-              </div>
             </div>
-          </div>
-          
-    <!-- Package B -->
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-          <img src="{{ asset('images/paketB.png') }}" alt="Paket B" class="w-full h-48 object-cover">
-            <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <h2 class="text-lg font-bold text-black">Paket B</h2>
-                  <div class="flex space-x-1">
+            <p class="text-sm text-black">Hanya Ruangan, cocok bagi yang hanya ingin karaoke.</p>
+        </div>
+        <div class="flex justify-end mt-4">
+    <a href="{{ route('landing.search', 'A') }}" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+        Selengkapnya
+    </a>
+</div>
+    </div>
+</div>
+
+<!-- Package B -->
+<div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
+    <img src="{{ asset('images/paketB.png') }}" alt="Paket B" class="w-full h-48 object-cover">
+    <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-lg font-bold text-black">Paket B</h2>
+                <div class="flex space-x-1">
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
-                  </div>
                 </div>
-                <p class="text-sm text-black">Menyediakan makanan ringan seperti nugget, ayam pop, dan nasi goreng.</p>
-              </div>
-              <div class="flex justify-end mt-4">
-                <button class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  Selengkapnya
-                </button>
-              </div>
             </div>
-          </div>
-          
-    <!-- Package C -->
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
-          <img src="{{ asset('images/paketC.png') }}" alt="Paket C" class="w-full h-48 object-cover">
-            <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <h2 class="text-lg font-bold text-black">Paket C</h2>
-                  <div class="flex space-x-1">
+            <p class="text-sm text-black">Menyediakan makanan ringan seperti nugget, ayam pop, dan nasi goreng.</p>
+        </div>
+        <div class="flex justify-end mt-4">
+    <a href="{{ route('landing.search', 'B') }}" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+        Selengkapnya
+    </a>
+</div>
+    </div>
+</div>
+
+<!-- Package C -->
+<div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col card">
+    <img src="{{ asset('images/paketC.png') }}" alt="Paket C" class="w-full h-48 object-cover">
+    <div class="bg-yellow-400 p-4 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-lg font-bold text-black">Paket C</h2>
+                <div class="flex space-x-1">
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
                     <i class="fas fa-star text-yellow-200"></i>
-                  </div>
                 </div>
-                <p class="text-sm text-black">Tersedia makanan berat, cocok untuk pesta bersama teman sekolah dan kantor.</p>
-              </div>
-              <div class="flex justify-end mt-4">
-                <button class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  Selengkapnya
-                </button>
-              </div>
             </div>
-          </div>
+            <p class="text-sm text-black">Tersedia makanan berat, cocok untuk pesta bersama teman sekolah dan kantor.</p>
+        </div>
+        <div class="flex justify-end mt-4">
+    <a href="{{ route('landing.search', 'C') }}" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+        Selengkapnya
+    </a>
+</div>
+    </div>
+</div>      </div>
         </div>
       </div>
 
     <!-- Room Offers Section -->
       <div class="container mx-auto px-4 mt-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        <!-- Small Room-->
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg relative card">
-            <img src="https://i.pinimg.com/736x/aa/ef/ef/aaefef311f7303329d2260f4cfb2f8c2.jpg" alt="Small Room" class="w-full h-48 object-cover">
-            <div class="p-4 bg-yellow-500">
-              <div class="flex justify-between items-center">
-                <h3 class="text-lg font-bold text-black">Ruangan Kecil</h3>
-                <div class="flex items-center">
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                </div>
-              </div>
-              <p class="text-sm text-black">Rp 50.000/jam</p>
-              <div class="flex justify-end items-center mt-2">
-                <button class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  <i class="fas fa-arrow-right mr-1"></i>Reservasi
-                </button>
-              </div>
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg relative card">
+    <img src="https://i.pinimg.com/736x/aa/ef/ef/aaefef311f7303329d2260f4cfb2f8c2.jpg" alt="Small Room" class="w-full h-48 object-cover">
+    <div class="p-4 bg-yellow-500">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-black">Ruangan Kecil</h3>
+            <div class="flex items-center">
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
             </div>
-          </div>
-          
-        <!-- Medium Room -->
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg relative card">
-            <img src="https://i.pinimg.com/736x/90/78/60/9078606cc3b5c1212addab7c68540ba6.jpg" alt="Medium Room" class="w-full h-48 object-cover">
-            <div class="p-4 bg-yellow-500">
-              <div class="flex justify-between items-center">
-                <h3 class="text-lg font-bold text-black">Ruangan Sedang</h3>
-                <div class="flex items-center">
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                </div>
-              </div>
-              <p class="text-sm text-black">Rp 150.000/jam</p>
-              <div class="flex justify-end items-center mt-2">
-                <button class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  <i class="fas fa-arrow-right mr-1"></i>
-                  Reservasi
-                </button>
-              </div>
+        </div>
+        <p class="text-sm text-black">Rp 50.000/jam</p>
+        <div class="flex justify-end items-center mt-2">
+    <a href="{{ route('landing.filter', 'kecil') }}" class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+        <i class="fas fa-arrow-right mr-1"></i>Reservasi
+    </a>
+</div>
+    </div>
+</div>
+
+<!-- Medium Room -->
+<div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg relative card">
+    <img src="https://i.pinimg.com/736x/90/78/60/9078606cc3b5c1212addab7c68540ba6.jpg" alt="Medium Room" class="w-full h-48 object-cover">
+    <div class="p-4 bg-yellow-500">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-black">Ruangan Sedang</h3>
+            <div class="flex items-center">
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
             </div>
-          </div>
-          
-        <!-- Large Room -->
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg relative card">
-            <img src="https://i.pinimg.com/736x/88/09/8f/88098f42149340a050702f6fa5d9d97a.jpg" alt="Large Room" class="w-full h-48 object-cover">
-            <div class="p-4 bg-yellow-500">
-              <div class="flex justify-between items-center">
-                <h3 class="text-lg font-bold text-black">Ruangan Besar</h3>
-                <div class="flex items-center">
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                  <i class="fas fa-star text-yellow-300"></i>
-                </div>
-              </div>
-              <p class="text-sm text-black">Rp 250.000/jam</p>
-              <div class="flex justify-end items-center mt-2">
-                <button class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
-                  <i class="fas fa-arrow-right mr-1"></i> Reservasi
-                </button>
-              </div>
+        </div>
+        <p class="text-sm text-black">Rp 150.000/jam</p>
+        <div class="flex justify-end items-center mt-2">
+    <a href="{{ route('landing.filter', 'sedang') }}" class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+        <i class="fas fa-arrow-right mr-1"></i>Reservasi
+    </a>
+</div>
+    </div>
+</div>
+
+<!-- Large Room -->
+<div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg relative card">
+    <img src="https://i.pinimg.com/736x/88/09/8f/88098f42149340a050702f6fa5d9d97a.jpg" alt="Large Room" class="w-full h-48 object-cover">
+    <div class="p-4 bg-yellow-500">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-black">Ruangan Besar</h3>
+            <div class="flex items-center">
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
+                <i class="fas fa-star text-yellow-300"></i>
             </div>
+        </div>
+        <p class="text-sm text-black">Rp 250.000/jam</p>
+        <div class="flex justify-end items-center mt-2">
+    <a href="{{ route('landing.filter', 'besar') }}" class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+        <i class="fas fa-arrow-right mr-1"></i>Reservasi
+    </a>
+</div>
+    </div>
+</div>
           </div>
         </div>
       </div>
@@ -302,6 +307,7 @@
         dropdownMenu.classList.add('hidden');
       }
     });
+    
   </script>
 </body>
 </html>
