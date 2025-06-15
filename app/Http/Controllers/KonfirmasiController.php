@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pemesanan; // Pastikan model Pemesanan sudah ada
+use App\Models\Reservasi; // Pastikan model Reservasi sudah ada
 use Illuminate\Http\Request;
 
 class KonfirmasiController extends Controller
@@ -15,32 +15,44 @@ class KonfirmasiController extends Controller
 
     // Proses pengiriman pembayaran (bukti transfer dan metode)
     public function prosesPembayaran(Request $request)
-{
-    // Validasi input dari form
-    $request->validate([
-        'metode_pembayaran' => 'required|string',
-        'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
+    {
+        // Validasi input dari form
+        $request->validate([
+            'metode_pembayaran' => 'required|string',
+            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-    // Simpan file bukti transfer ke folder public/bukti_pembayaran
-    $file = $request->file('bukti_transfer');
-    $namaFile = time() . '_' . $file->getClientOriginalName();
-    $file->move(public_path('bukti_pembayaran'), $namaFile);
+        // Simpan file bukti transfer ke folder public/bukti_pembayaran
+        $file = $request->file('bukti_transfer');
+        $namaFile = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('bukti_pembayaran'), $namaFile);
 
-    // Simpan data pemesanan yang belum dikonfirmasi
-    $pemesanan = new Pemesanan();
-    $pemesanan->kode_pemesanan = 'SA001'; // Sesuaikan dengan logika pembuatan kode
-    $pemesanan->paket = 'Paket A'; // Sesuaikan dengan input
-    $pemesanan->room_type = 'Small Room'; // Sesuaikan dengan input
-    $pemesanan->tanggal = '18 April 2025'; // Sesuaikan dengan input
-    $pemesanan->waktu = '13:00 - 16:00'; // Sesuaikan dengan input
-    $pemesanan->total_harga = 150000; // Sesuaikan dengan input
-    $pemesanan->status = 'Tertunda'; // Status yang menunjukkan belum dikonfirmasi oleh admin
-    $pemesanan->bukti_transfer = $namaFile; // Menyimpan nama file bukti transfer
-    $pemesanan->save();
+        // Menyimpan data pembayarannya ke database
+        $reservasi = new Reservasi();
+        $reservasi->kode_reservasi = 'SA001'; // Sesuaikan dengan logika pembuatan kode
+        $reservasi->ruangan_id = 'B001'; // Sesuaikan dengan input
+        $reservasi->tanggal = '2025-06-19'; // Sesuaikan dengan input
+        $reservasi->waktu_mulai = '10:00'; // Sesuaikan dengan input
+        $reservasi->waktu_selesai = '13:00'; // Sesuaikan dengan input
+        $reservasi->durasi = 3; // Sesuaikan dengan durasi
+        $reservasi->catatan = 'Test'; // Sesuaikan dengan catatan
+        $reservasi->status = 'Tertunda'; // Status yang menunjukkan belum dikonfirmasi
+        $reservasi->metode = $request->metode_pembayaran; // Simpan metode pembayaran
+        $reservasi->bukti_transfer = $namaFile; // Menyimpan nama file bukti transfer
+        $reservasi->user_id = auth()->id(); // Ambil ID user yang sedang login
+        $reservasi->save();
 
-    // Redirect ke halaman riwayat dengan membawa data pemesanan
-    return redirect()->route('riwayat')->with('dataPemesanan', $pemesanan)->with('success', 'Pembayaran berhasil dikirim dan menunggu konfirmasi.');
-}
+        // Redirect ke halaman riwayat dengan membawa data pemesanan
+        return redirect()->route('riwayat')->with('dataReservasi', $reservasi)->with('success', 'Pembayaran berhasil dikirim dan menunggu konfirmasi.');
+    }
 
+    // Menampilkan ringkasan pemesanan berdasarkan ID
+    public function showConfirmation($id)
+    {
+        // Mengambil data reservasi berdasarkan ID
+        $reservasi = Reservasi::findOrFail($id);
+
+        // Menampilkan data reservasi di halaman konfirmasi pembayaran
+        return view('users.konfirmasi_pembayaran', compact('reservasi'));
+    }
 }

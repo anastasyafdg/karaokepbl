@@ -49,15 +49,17 @@ Route::get('/ruangan', [RuanganController::class, 'index'])
 Route::get('/ruangan/{id}', [RuanganController::class, 'show'])
     ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.show');
 
-Route::get('/halaman_reservasi', [ReservationController::class, 'showReservationForm'])
-    ->middleware(['auth', 'checkrole:pengunjung']);
+Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
+    Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])->name('reservasi.form');
+    Route::post('/simpan-reservasi', [ReservationController::class, 'store'])->name('reservasi.store');
+});
 
-Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showReservationForm'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('reservasi.form');
+Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
+    Route::get('konfirmasi-pembayaran', [KonfirmasiController::class, 'konfirmasi'])->name('konfirmasi.pembayaran');
+    Route::post('proses-pembayaran', [KonfirmasiController::class, 'prosesPembayaran'])->name('proses.pembayaran');
+    Route::get('konfirmasi-pembayaran/{id}', [KonfirmasiController::class, 'showConfirmation'])->name('users.konfirmasi.pembayaran');
+});
 
-Route::post('/simpan-reservasi', [ReservationController::class, 'storeReservation'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('reservasi.store');
-    
 Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])
     ->middleware(['auth', 'checkrole:pengunjung'])->name('pembayaran.konfirmasi');
 

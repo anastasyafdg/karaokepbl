@@ -3,60 +3,85 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Reservasi;
-use App\Models\Ruangan;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Ruangan;
+use App\Models\reservasi;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
-    public function showReservationForm($id)
+    public function showForm($id)
     {
         $ruangan = Ruangan::findOrFail($id);
-        return view('users.halaman_reservasi', compact('ruangan'));
-    }
+        $reservasi = new reservasi();
 
-    public function storeReservation(Request $request)
-    {
-        $request->validate([
-            'ruangan_id' => 'required|exists:ruangan,id',
-            'tanggal' => 'required|date',
-            'waktu_mulai' => 'required',
-            'waktu_selesai' => 'required',
-            'catatan' => 'nullable|string',
-            'metode_pembayaran' => 'required|in:transfer,e-wallet',
-            'total_harga' => 'required|numeric',
-        ]);
+        // Slot waktu tetap
+        $slotWaktu = [
+            '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
+            '16:00', '17:00', '18:00', '19:00', '20:00', '21:00',
+        ];
 
-        $ruangan = Ruangan::findOrFail($request->ruangan_id);
+        $slotTidakTersedia = [];
 
-        // Calculate duration
-        $start = strtotime($request->waktu_mulai);
-        $end = strtotime($request->waktu_selesai);
-        $duration = ($end - $start) / 3600;
+        if (request()->has('tanggal')) {
+            $tanggal = request()->get('tanggal');
 
-        // Create reservation
-        $reservation = Reservasi::create([
-            'ruangan_id' => $request->ruangan_id,
-            'tanggal' => $request->tanggal,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_selesai' => $request->waktu_selesai,
-            'durasi' => $duration,
-            'catatan' => $request->catatan,
-            'metode' => $request->metode_pembayaran === 'transfer' ? 'bank_transfer' : 'e_wallet',
-            'total_harga' => $request->total_harga,
-        ]);
+            // Ambil semua slot yang sudah dipesan untuk tanggal & ruangan itu
+            $reservasi = reservasi::where('ruangan_id', $id)
+                ->where('tanggal', $tanggal)
+                ->get();
 
-        return redirect()->route('pembayaran.konfirmasi', [
-            'Reservasi_id' => $reservation->id,
-            'ruangan_id' => $ruangan->id,
-            'tanggal' => $request->tanggal,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_selesai' => $request->waktu_selesai,
-            'durasi' => $duration,
-            'catatan' => $request->catatan ?? 'Tidak ada',
-            'metode_pembayaran' => $request->metode_pembayaran,
-            'total_harga' => $request->total_harga
+            foreach ($reservasi as $r) {
+                $mulaiIndex = array_search($r->waktu_mulai, $slotWaktu);
+                $selesaiIndex = array_search($r->waktu_selesai, $slotWaktu);
+                if ($mulaiIndex !== false && $selesaiIndex !== false) {
+                    for ($i = $mulaiIndex; $i < $selesaiIndex; $i++) {
+                        $slotTidakTersedia[] = $slotWaktu[$i];
+                    }
+                }
+            }
+        }
+
+        return view('users.halaman_reservasi', [
+            'ruangan' => $ruangan,
+            'slotWaktu' => $slotWaktu,
+            'slot_tidak_tersedia' => $slotTidakTersedia, // ← ini kuncinya!
         ]);
     }
-    
+
+    public function store(Request $request)
+{
+    $request->validate([
+        'ruangan_id' => 'required|exists:ruangan,id',
+        'tanggal' => 'required|date',
+        'waktu_mulai' => 'required',
+        'waktu_selesai' => 'required',
+        'metode_pembayaran' => 'required|string',
+    ]);
+
+    $user = Auth::user();
+
+    // Hitung durasi otomatis
+    $waktuMulai = Carbon::parse($request->waktu_mulai);
+    $waktuSelesai = Carbon::parse($request->waktu_selesai);
+    $durasi = $waktuSelesai->diffInHours($waktuMulai);
+
+    // Simpan data reservasi ke database
+    $reservasi = reservasi::create([
+        'user_id' => $user->id,
+        'ruangan_id' => $request->ruangan_id,
+        'tanggal' => $request->tanggal,
+        'waktu_mulai' => $request->waktu_mulai,
+        'waktu_selesai' => $request->waktu_selesai,
+        'durasi' => $durasi,
+        'metode_pembayaran' => $request->metode_pembayaran,
+        'catatan' => $request->catatan,
+        'total_harga' => $request->total_harga,
+        'status' => 'pending',
+    ]);
+
+    // Arahkan ke halaman konfirmasi pembayaran dengan membawa ID reservasi
+    return redirect()->route('users.konfirmasi.pembayaran', ['id' => $reservasi->id])
+        ->with('success', 'Reservasi berhasil disimpan!');
+}
 }
