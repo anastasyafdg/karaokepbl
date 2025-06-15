@@ -50,9 +50,10 @@ Route::get('/ruangan/{id}', [RuanganController::class, 'show'])
     ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.show');
 
 Route::get('/ruangan/filter/{size}', [LandingController::class, 'redirectToRuangan'])
-    ->name('landing.filter');
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('landing.filter');
+
 Route::get('/ruangan/search/{paket}', [LandingController::class, 'redirectToRuanganSearch'])
-    ->name('landing.search');
+    ->middleware(['auth', 'checkrole:pengunjung'])->name('landing.search');
 
 Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
     Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])->name('reservasi.form');
