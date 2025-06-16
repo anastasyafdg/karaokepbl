@@ -6,7 +6,7 @@
 <div class="p-6">
     <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-6 flex items-center">
-            <i class="fas fa-users mr-2"></i> Data Reservasi
+            <i class="fas fa-credit-card mr-2"></i> Data Pembayaran
         </h2>
         <hr class="mb-6 border-gray-200" />
             
@@ -18,7 +18,6 @@
                             <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Pembayaran</th>
                             <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Pemesanan</th>
                             <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Biaya</th>
-                            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Rekening</th>
                             <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
                             <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bukti</th>
                             <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -41,10 +40,7 @@
                             </td>
                             <td class="px-6 py-4 font-semibold">
                                 Rp {{ number_format($pembayaran->total_biaya, 0, ',', '.') }}
-                            </td>
-                            <td class="px-6 py-4 font-mono text-sm">
-                                {{ $pembayaran->no_rekening }}
-                            </td>
+                            </td>ss
                             <td class="px-6 py-4">
                                 <div class="flex flex-col">
                                     <span class="font-medium">{{ $pembayaran->tanggal_pembayaran->format('d M Y') }}</span>

@@ -11,7 +11,7 @@
       <i class="fas fa-users"></i> <span>Data Pengunjung</span>
     </a>
     <a href="{{ route('pesan') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
-      <i class="fas fa-box-open"></i> <span>Pesan Pengunjung</span>
+      <i class="fas fa-envelope"></i> <span>Pesan Pengunjung</span>
     </a>
     <a href="{{ route('data_ruangan') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-700 transition">
       <i class="fas fa-door-closed"></i> <span>Data Ruangan</span>

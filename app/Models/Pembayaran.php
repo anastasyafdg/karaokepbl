@@ -14,7 +14,6 @@ class Pembayaran extends Model
     protected $fillable = [
         'reservasi_id',
         'total_biaya',
-        'no_rekening',
         'tanggal_pembayaran',
         'bukti_pembayaran',
         'status'
@@ -27,5 +26,13 @@ class Pembayaran extends Model
     public function reservasi()
     {
         return $this->belongsTo(Reservasi::class);
+    }
+    
+    public function getGambarUrlAttribute()
+    {
+        if ($this->gambar) {
+            return asset('images/' . $this->gambar);
+        }
+        return asset('images/default-room.jpg'); // Gambar default jika tidak ada
     }
 }
