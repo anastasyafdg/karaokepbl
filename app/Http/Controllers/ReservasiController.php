@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Reservasi;
@@ -8,7 +9,6 @@ class ReservasiController extends Controller
 {
     public function index()
     {
-        // Tidak perlu load relasi ruangan karena tidak ditampilkan
         $data = Reservasi::with('user')->select([
             'id',
             'user_id',
@@ -23,7 +23,8 @@ class ReservasiController extends Controller
         
         return view('admin.data_reservasi', compact('data'));
     }
-        public function destroy($id)
+
+    public function destroy($id)
     {
         try {
             $reservasi = Reservasi::findOrFail($id);
@@ -34,12 +35,12 @@ class ReservasiController extends Controller
             return redirect()->route('data_reservasi')->with('error', 'Gagal menghapus data reservasi!');
         }
     }
+
     public function konfirmasiPembayaran($id)
     {
         $reservasi = Reservasi::with('ruangan')->findOrFail($id);
 
-        // Hitung durasi
-        $durasi = count(json_decode($reservasi->jam_mulai));
+        $durasi = $reservasi->durasi; // Gunakan durasi langsung dari kolom
         $hargaPerJam = $reservasi->ruangan->harga_per_jam;
         $totalHarga = $hargaPerJam * $durasi;
 

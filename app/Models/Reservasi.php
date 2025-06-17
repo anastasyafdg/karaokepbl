@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Ruangan;
 
 class Reservasi extends Model
 {
@@ -21,7 +23,8 @@ class Reservasi extends Model
         'metode',
         'bukti_transfer',
         'total_pembayaran',
-        'status'
+        'status',
+        'user_id', // jangan lupa sertakan jika ingin bisa diisi otomatis
     ];
 
     protected static function booted()
@@ -29,7 +32,7 @@ class Reservasi extends Model
         static::creating(function ($reservasi) {
             $formattedDate = date('Ymd', strtotime($reservasi->tanggal));
             $baseId = $reservasi->ruangan_id . '-' . $formattedDate;
-            
+
             $count = Reservasi::where('id', 'like', $baseId.'%')->count();
             $reservasi->id = $baseId . '-' . ($count + 1);
         });
@@ -38,6 +41,11 @@ class Reservasi extends Model
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class, 'ruangan_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getDurasiAttribute($value)
