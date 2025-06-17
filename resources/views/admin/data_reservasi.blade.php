@@ -16,6 +16,7 @@
                     <tr>
                         <th scope="col" class="px-6 py-3">NO</th>
                         <th scope="col" class="px-6 py-3">ID PEMESANAN</th>
+                        <th scope="col" class="px-6 py-3">NAMA USER</th>
                         <th scope="col" class="px-6 py-3">ID RUANGAN</th>
                         <th scope="col" class="px-6 py-3">TANGGAL</th>
                         <th scope="col" class="px-6 py-3">WAKTU MULAI</th>
@@ -31,6 +32,9 @@
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4">{{ $index + 1 }}</td>
                         <td class="px-6 py-4">{{ $item->id }}</td>
+                        <td class="px-6 py-4">
+                            {{ $item->user->nama ?? '-' }}
+                        </td>
                         <td class="px-6 py-4">{{ $item->ruangan_id }}</td>
                         <td class="px-6 py-4">{{ date('d/m/Y', strtotime($item->tanggal)) }}</td>
                         <td class="px-6 py-4">{{ $item->waktu_mulai }}</td>

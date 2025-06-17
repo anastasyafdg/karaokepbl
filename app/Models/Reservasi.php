@@ -44,25 +44,4 @@ class Reservasi extends Model
     {
         return $value . ' jam';
     }
-
-    // Accessor for bukti_transfer URL
-    public function getBuktiTransferUrlAttribute()
-    {
-        return $this->bukti_transfer ? asset($this->bukti_transfer) : null;
-    }
-
-    // Accessor for total biaya calculation
-    public function getTotalBiayaAttribute($value)
-    {
-        // Pastikan bahwa nilai total biaya valid dan dihitung jika belum ada
-        if (!is_null($value)) {
-            return (float)$value;
-        }
-
-        // Menghitung total biaya berdasarkan durasi dan harga_per_jam
-        $durasi = is_numeric($this->durasi) ? (float)$this->durasi : 0.0;
-        $hargaPerJam = optional($this->ruangan)->harga_per_jam ? (float)$this->ruangan->harga_per_jam : 0.0;
-
-        return $durasi * $hargaPerJam;
-    }
 }

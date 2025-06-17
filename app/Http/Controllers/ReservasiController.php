@@ -9,8 +9,9 @@ class ReservasiController extends Controller
     public function index()
     {
         // Tidak perlu load relasi ruangan karena tidak ditampilkan
-        $data = Reservasi::select([
+        $data = Reservasi::with('user')->select([
             'id',
+            'user_id',
             'ruangan_id', 
             'tanggal',
             'waktu_mulai',
