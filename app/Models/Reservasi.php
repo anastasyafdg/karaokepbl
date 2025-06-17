@@ -27,6 +27,7 @@ class Reservasi extends Model
    // app/Models/Reservasi.php
    protected $fillable = [
     'ruangan_id', 
+    'user_id',
     'tanggal', 
     'waktu_mulai', 
     'waktu_selesai',
@@ -46,5 +47,9 @@ class Reservasi extends Model
     public function getDurasiAttribute($value)
     {
         return $value . ' jam';
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
