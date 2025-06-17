@@ -16,6 +16,7 @@ class Pembayaran extends Model
         'total_biaya',
         'tanggal_pembayaran',
         'bukti_pembayaran',
+        'total_pembayaran',
         'status'
     ];
 
@@ -27,6 +28,11 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(Reservasi::class);
     }
+    public function pembayaran()
+{
+    return $this->hasOne(Pembayaran::class);
+}
+
     
     public function getGambarUrlAttribute()
     {

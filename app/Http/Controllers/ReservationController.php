@@ -50,7 +50,7 @@ class ReservationController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
     $request->validate([
         'ruangan_id' => 'required|exists:ruangan,id',
         'tanggal' => 'required|date',
@@ -61,12 +61,10 @@ class ReservationController extends Controller
 
     $user = Auth::user();
 
-    // Hitung durasi otomatis
     $waktuMulai = Carbon::parse($request->waktu_mulai);
     $waktuSelesai = Carbon::parse($request->waktu_selesai);
     $durasi = $waktuSelesai->diffInHours($waktuMulai);
 
-    // Simpan data reservasi ke database
     $reservasi = reservasi::create([
         'user_id' => $user->id,
         'ruangan_id' => $request->ruangan_id,
@@ -80,8 +78,8 @@ class ReservationController extends Controller
         'status' => 'pending',
     ]);
 
-    // Arahkan ke halaman konfirmasi pembayaran dengan membawa ID reservasi
-    return redirect()->route('users.konfirmasi.pembayaran', ['id' => $reservasi->id])
-        ->with('success', 'Reservasi berhasil disimpan!');
+    // ✅ Tambahkan redirect ke halaman konfirmasi
+    return redirect()->route('users.konfirmasi_pembayaran', $reservasi->id)
+        ->with('success', 'Reservasi berhasil disimpan, silakan lakukan pembayaran.');
 }
 }

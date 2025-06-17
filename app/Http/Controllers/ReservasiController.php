@@ -33,5 +33,20 @@ class ReservasiController extends Controller
             return redirect()->route('data_reservasi')->with('error', 'Gagal menghapus data reservasi!');
         }
     }
+    public function konfirmasiPembayaran($id)
+    {
+        $reservasi = Reservasi::with('ruangan')->findOrFail($id);
 
+        // Hitung durasi
+        $durasi = count(json_decode($reservasi->jam_mulai));
+        $hargaPerJam = $reservasi->ruangan->harga_per_jam;
+        $totalHarga = $hargaPerJam * $durasi;
+
+        return view('users.konfirmasi_pembayaran', compact(
+            'reservasi',
+            'durasi',
+            'hargaPerJam',
+            'totalHarga'
+        ));
+    }
 }

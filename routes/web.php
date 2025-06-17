@@ -60,23 +60,22 @@ Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
     Route::post('/simpan-reservasi', [ReservationController::class, 'store'])->name('reservasi.store');
 });
 
-Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
-    Route::get('konfirmasi-pembayaran', [KonfirmasiController::class, 'konfirmasi'])->name('konfirmasi.pembayaran');
-    Route::post('proses-pembayaran', [KonfirmasiController::class, 'prosesPembayaran'])->name('proses.pembayaran');
-    Route::get('konfirmasi-pembayaran/{id}', [KonfirmasiController::class, 'showConfirmation'])->name('users.konfirmasi.pembayaran');
+Route::middleware(['auth'])->group(function() {
+    // Konfirmasi Pembayaran
+    Route::get('/konfirmasi-pembayaran/{reservasi}', [KonfirmasiController::class, 'showConfirmation'])
+        ->name('konfirmasi.show');
+        
+    Route::post('/proses-pembayaran', [KonfirmasiController::class, 'prosesPembayaran'])
+        ->name('konfirmasi.proses');
+
+        Route::get('/konfirmasi-pembayaran/{reservasi}', [KonfirmasiController::class, 'showConfirmation'])
+    ->name('users.konfirmasi_pembayaran'); 
 });
 
-Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('pembayaran.konfirmasi');
+Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index'])->middleware(['auth', 'checkrole:pengunjung']);
 
-Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class, 'konfirmasi'])
-    ->middleware(['auth', 'checkrole:pengunjung']);
 
-Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung']);
 
-Route::post('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung']);
 
 Route::get('/riwayat', [RiwayatController::class, 'index'])
     ->middleware(['auth', 'checkrole:pengunjung']);

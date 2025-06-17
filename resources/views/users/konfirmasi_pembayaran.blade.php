@@ -1,263 +1,438 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="max-w-6xl mx-auto my-8 grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
-
-  <!-- Informasi Pembayaran -->
-  <section class="bg-white p-6 lg:p-8 rounded-xl shadow-sm border border-gray-100">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-bold text-gray-800">
-        <i class="fas fa-credit-card mr-3 text-blue-500"></i> Informasi Pembayaran
-      </h2>
-      <div class="bg-red-100 text-red-600 px-4 py-2 rounded-full flex items-center">
-        <i class="fas fa-clock mr-2"></i>
-        <span class="font-semibold" id="timer">30:00</span>
-      </div>
-    </div>
-
-    <!-- Detail Transfer -->
-    <div class="bg-blue-50 p-4 rounded-lg mb-6">
-      <h3 class="font-semibold text-lg mb-3 text-gray-800">
-        <i class="fas fa-university mr-2 text-blue-500"></i> Detail Bank Transfer
-      </h3>
-
-      <div class="space-y-3">
-        <div class="flex justify-between">
-          <span class="text-black">Nama Bank:</span>
-          <span class="font-medium">Bank Negara Indonesia</span>
+<div class="min-h-screen bg-slsate-800 py-8">
+    <div class="max-w-6xl mx-auto px-4">
+        <!-- Status Alert -->
+        @if(session('status'))
+        <div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-4 mb-6 rounded-xl shadow-lg animate-fade-in">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle mr-3 text-xl"></i>
+                <p class="font-medium">{{ session('status') }}</p>
+            </div>
         </div>
-        <div class="flex justify-between">
-          <span class="text-black">Nomor Rekening:</span>
-          <div class="flex items-center">
-            <span class="mr-2" id="rekening-number">12345678910</span>
-            <button class="text-gray-600 hover:text-gray-600 copy-btn" data-copy="12345678910">
-              <i class="far fa-copy"></i>
-            </button>
-          </div>
+        @endif
+
+        @if(session('error'))
+        <div class="bg-gradient-to-r from-red-400 to-red-600 text-white p-4 mb-6 rounded-xl shadow-lg animate-fade-in">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle mr-3 text-xl"></i>
+                <p class="font-medium">{{ session('error') }}</p>
+            </div>
         </div>
-        <div class="flex justify-between">
-          <span class="text-black">Nama Pengguna:</span>
-          <span class="font-medium">MikkeuPangpang Karaoke</span>
+        @endif
+
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+            <!-- Header dengan Gradient - FIXED -->
+            <div class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-800 p-8 text-white relative overflow-hidden" style="z-index: 10; position: relative;">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+                <div class="relative z-10 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2">Konfirmasi Pembayaran</h1>
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                                ID: {{ $reservasi->id }}
+                            </span>
+                            <span class="bg-green-400/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm flex items-center">
+                                <i class="fas fa-shield-alt mr-1"></i>
+                                Aman & Terverifikasi
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/20">
+                        <div class="flex items-center text-center">
+                            <div class="mr-4">
+                                <i class="fas fa-clock text-2xl mb-1"></i>
+                                <p class="text-xs opacity-80">Batas Waktu</p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-2xl font-bold" id="payment-timer">30:00</span>
+                                <p class="text-xs opacity-80">Menit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8">
+                <div class="grid lg:grid-cols-5 gap-8">
+                    <!-- Order Summary - 3 kolom -->
+                    <div class="lg:col-span-3">
+                        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center text-gray-800">
+                                <div class="bg-blue-100 p-3 rounded-xl mr-4">
+                                    <i class="fas fa-receipt text-blue-600 text-xl"></i>
+                                </div>
+                                Detail Pesanan
+                            </h2>
+                            
+                            <!-- Room Card -->
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
+                                <div class="flex items-start gap-6">
+                                    <div class="w-32 h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden shadow-md">
+                                        @if($reservasi->ruangan && $reservasi->ruangan->gambar)
+                                            <img src="{{ $reservasi->ruangan->gambar_url }}" alt="Ruangan" class="w-full h-full object-cover">
+                                        @else
+                                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                                <i class="fas fa-image text-4xl"></i>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <h3 class="text-xl font-bold text-gray-800">{{ $reservasi->ruangan->id }} - Paket {{ $reservasi->ruangan->paket }}</h3>
+                                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                                                Premium
+                                            </span>
+                                        </div>
+                                        <div class="space-y-2 mb-4">
+                                            <div class="flex items-center text-gray-600">
+                                                <i class="fas fa-door-open mr-2 text-blue-500"></i>
+                                                <span class="text-sm">{{ $reservasi->ruangan->jenis }}</span>
+                                            </div>
+                                            <div class="flex items-center text-gray-600">
+                                                <i class="fas fa-users mr-2 text-green-500"></i>
+                                                <span class="text-sm">Kapasitas {{ $reservasi->ruangan->kapasitas }} orang</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center text-yellow-400 text-sm">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span class="text-gray-500 ml-2">4.7 (86 ulasan)</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="text-sm text-gray-500">Harga per jam</p>
+                                                <p class="text-lg font-bold text-gray-800">{{ $reservasi->ruangan->formatted_harga }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Booking Details -->
+                            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-blue-100 p-2 rounded-lg mr-3">
+                                            <i class="far fa-calendar-alt text-blue-600"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-500 font-medium">Tanggal Booking</span>
+                                    </div>
+                                    <p class="font-bold text-gray-800 ml-11">
+                                        {{ \Carbon\Carbon::parse($reservasi->tanggal)->translatedFormat('l, d F Y') }}
+                                    </p>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-green-100 p-2 rounded-lg mr-3">
+                                            <i class="far fa-clock text-green-600"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-500 font-medium">Waktu</span>
+                                    </div>
+                                    <p class="font-bold text-gray-800 ml-11">
+                                        {{ date('H:i', strtotime($reservasi->waktu_mulai)) }} - {{ date('H:i', strtotime($reservasi->waktu_selesai)) }}
+                                    </p>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-purple-100 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-hourglass-half text-purple-600"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-500 font-medium">Durasi</span>
+                                    </div>
+                                    <p class="font-bold text-gray-800 ml-11">{{ $durasi }} jam</p>
+                                </div>
+
+                                @if($reservasi->catatan)
+                                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-orange-100 p-2 rounded-lg mr-3">
+                                            <i class="fas fa-sticky-note text-orange-600"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-500 font-medium">Catatan</span>
+                                    </div>
+                                    <p class="font-medium text-gray-700 ml-11">{{ $reservasi->catatan }}</p>
+                                </div>
+                                @endif
+                            </div>
+
+                            <!-- Total Calculation -->
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600 flex items-center">
+                                            <i class="fas fa-calculator mr-2 text-blue-500"></i>
+                                            Harga per jam
+                                        </span>
+                                        <span class="font-semibold text-gray-800">{{ $reservasi->ruangan->formatted_harga }}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600 flex items-center">
+                                            <i class="fas fa-times mr-2 text-green-500"></i>
+                                            Durasi booking
+                                        </span>
+                                        <span class="font-semibold text-gray-800">{{ $durasi }} jam</span>
+                                    </div>
+                                    <div class="border-t border-blue-200 pt-3">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-lg font-bold text-gray-800 flex items-center">
+                                                <i class="fas fa-equals mr-2 text-indigo-600"></i>
+                                                Total Pembayaran
+                                            </span>
+                                            <span class="text-2xl font-bold text-indigo-700">
+                                                Rp{{ number_format($totalPembayaran, 0, ',', '.') }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Section - 2 kolom -->
+                    <div class="lg:col-span-2">
+                        <div class="sticky top-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center text-gray-800">
+                                <div class="bg-green-100 p-3 rounded-xl mr-4">
+                                    <i class="fas fa-credit-card text-green-600 text-xl"></i>
+                                </div>
+                                Pembayaran
+                            </h2>
+                            
+                            <!-- Payment Instructions -->
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl mb-6 border border-green-100 shadow-sm">
+                                
+                                
+                                <div class="space-y-3">
+                                    <div class="bg-white p-4 rounded-xl border border-green-100">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-gray-600 font-medium">Nomor Rekening</span>
+                                            <div class="flex items-center">
+                                                <span class="font-mono font-bold text-gray-800 mr-2">123 456 7890</span>
+                                                <button onclick="copyToClipboard('123 456 7890')" class="text-green-600 hover:text-green-700">
+                                                    <i class="fas fa-copy"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-xl border border-green-100">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 font-medium">Atas Nama</span>
+                                            <span class="font-bold text-gray-800">Mikkeu Karaoke</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-4 rounded-xl text-white">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold text-lg">Total Pembayaran</span>
+                                            <div class="text-right">
+                                                <div class="text-2xl font-bold">
+                                                    Rp{{ number_format($totalPembayaran, 0, ',', '.') }}
+                                                </div>
+                                                <div class="text-sm opacity-90">Transfer tepat nominal</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload Form -->
+                            <form action="{{ route('konfirmasi.proses') }}" method="POST" enctype="multipart/form-data" id="payment-form">
+                                @csrf
+                                <input type="hidden" name="reservasi_id" value="{{ $reservasi->id }}">
+
+                                <div class="mb-6">
+                                    <label class="block text-gray-800 mb-3 font-bold text-lg">Upload Bukti Transfer</label>
+                                    <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 relative" 
+                                        id="upload-area">
+                                        <input type="file" id="bukti-transfer" name="bukti_transfer" class="hidden" accept="image/*" required>
+                                        <div id="upload-content">
+                                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                <i class="fas fa-cloud-upload-alt text-2xl text-blue-600"></i>
+                                            </div>
+                                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Upload Bukti Pembayaran</h3>
+                                            <p class="text-gray-600 mb-4">Seret file atau klik untuk memilih</p>
+                                            <button type="button" onclick="document.getElementById('bukti-transfer').click()" 
+                                                class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl">
+                                                <i class="fas fa-plus mr-2"></i>Pilih File
+                                            </button>
+                                            <p class="text-xs text-gray-500 mt-3">Format: JPG, PNG (Maksimal 2MB)</p>
+                                        </div>
+                                        <div id="file-preview" class="hidden">
+                                            <div class="relative">
+                                                <img id="preview-image" class="max-w-full h-48 mx-auto rounded-xl object-contain border border-gray-200 shadow-lg">
+                                                <button type="button" onclick="cancelUpload()" 
+                                                    class="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                                                    <i class="fas fa-times text-sm"></i>
+                                                </button>
+                                            </div>
+                                            <p id="file-name" class="text-sm text-gray-600 mt-3 font-medium truncate"></p>
+                                            <p class="text-xs text-green-600 mt-1">
+                                                <i class="fas fa-check-circle mr-1"></i>File siap diupload
+                                            </p>
+                                        </div>
+                                    </div>
+                                    @error('bukti_transfer')
+                                        <p class="text-red-500 text-sm mt-2 flex items-center">
+                                            <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                <button type="submit" id="submit-btn" 
+                                    class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
+                                    <i class="fas fa-check-circle mr-3 text-xl"></i> 
+                                    Konfirmasi Pembayaran
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex justify-between pt-3 mt-3 border-t border-blue-100">
-          <span class="font-bold text-gray-800">Total Pembayaran:</span>
-          <span class="text-xl font-bold text-blue-600">
-            Rp{{ number_format(request('total_harga', 150000), 0, ',', '.') }}
-          </span>
-        </div>
-      </div>
     </div>
+</div>
 
-    <!-- Upload Bukti -->
-    <div class="mb-6">
-      <h3 class="font-semibold text-lg mb-3 text-gray-800">
-        <i class="fas fa-upload mr-2 text-blue-500"></i> Unggah Bukti Pembayaran
-      </h3>
-      <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 cursor-pointer transition-colors">
-        <input type="file" id="bukti-pembayaran" name="bukti_pembayaran" class="hidden" accept="image/*">
-        <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-        <p class="text-gray-500 mb-2">Drag & drop file atau</p>
-        <button type="button" id="choose-file-btn" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-100 transition-colors">Pilih File</button>
-        <p class="text-xs text-gray-400 mt-2">Format: JPG, PNG (Maks. 5MB)</p>
-        <div id="file-preview" class="mt-4 hidden">
-          <img id="preview-image" class="max-w-xs mx-auto rounded-lg shadow">
-          <p id="file-name" class="text-sm text-gray-600 mt-2"></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Form -->
-    <form action="{{ url('pembayaran_selesai') }}" method="POST" enctype="multipart/form-data">
-      @csrf
-      <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-      <input type="hidden" name="waktu_mulai" value="{{ request('waktu_mulai') }}">
-      <input type="hidden" name="waktu_selesai" value="{{ request('waktu_selesai') }}">
-      <input type="hidden" name="catatan" value="{{ request('catatan', 'Tidak ada') }}">
-      <input type="hidden" name="metode_pembayaran" value="{{ request('metode_pembayaran', 'Bank Transfer') }}">
-      <input type="hidden" name="total_harga" value="{{ request('total_harga', 150000) }}">
-      <input type="hidden" name="durasi" value="{{ request('durasi') }}">
-
-      <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 py-3.5 rounded-lg font-semibold text-white shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-        <i class="fas fa-check-circle mr-2"></i> Konfirmasi Pembayaran
-      </button>
-    </form>
-
-    <div class="mt-6 text-sm text-gray-600 space-y-2">
-      <p class="flex items-start">
-        <i class="fas fa-info-circle text-blue-400 mr-2 mt-0.5"></i>
-        Setelah membayar, unggah bukti Anda untuk konfirmasi pemesanan.
-      </p>
-      <p class="flex items-start">
-        <i class="fas fa-clock text-orange-400 mr-2 mt-0.5"></i>
-        Pembayaran harus selesai dalam batas waktu yang ditentukan.
-      </p>
-    </div>
-  </section>
-
-  <!-- Ringkasan Pesanan -->
-  <section class="bg-white p-6 lg:p-8 rounded-xl shadow-sm border border-gray-100 h-fit sticky top-24">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-      <i class="fas fa-receipt mr-3 text-blue-500"></i> Ringkasan Pesanan
-    </h2>
-
-    <div class="flex items-start gap-4 mb-6 pb-6 border-b border-gray-100">
-      <img src="{{ asset('images/paketA.png') }}" alt="Ruangan" class="h-24 w-24 object-cover rounded-lg shadow">
-      <div>
-        <h3 class="font-bold text-gray-800">SA001 - Paket A</h3>
-        <p class="text-sm text-gray-500 mb-2">Small Room (Maks. 5 orang)</p>
-        <div class="flex items-center text-yellow-400 text-sm">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-          <i class="fas fa-star-half-alt"></i>
-          <span class="text-gray-500 ml-2">4.5 (128 ulasan)</span>
-        </div>
-      </div>
-    </div>
-
-    @php
-      $durasi = 0;
-      if(request('waktu_mulai') && request('waktu_selesai')) {
-        $durasi = (strtotime(request('waktu_selesai')) - strtotime(request('waktu_mulai'))) / 3600;
-      }
-    @endphp
-
-    <div class="space-y-4 mb-6">
-      <div class="flex justify-between">
-        <div class="text-gray-600"><i class="far fa-calendar-alt mr-2"></i> Tanggal</div>
-        <span class="font-medium">
-          @if(request('tanggal'))
-            {{ \Carbon\Carbon::parse(request('tanggal'))->locale('id')->translatedFormat('l, d F Y') }}
-          @else -
-          @endif
-        </span>
-      </div>
-      <div class="flex justify-between">
-        <div class="text-gray-600"><i class="far fa-clock mr-2"></i> Waktu</div>
-        <span class="font-medium">
-          {{ request('waktu_mulai') }} - {{ request('waktu_selesai') }}
-        </span>
-      </div>
-      <div class="flex justify-between">
-        <div class="text-gray-600"><i class="fas fa-hourglass-half mr-2"></i> Durasi</div>
-        <span class="font-medium">{{ $durasi }} Jam</span>
-      </div>
-    </div>
-
-    <div class="space-y-3 mb-6">
-      <div class="flex justify-between">
-        <span class="text-gray-600">Harga per jam</span>
-        <span class="font-medium">Rp50.000</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="text-gray-600">Durasi</span>
-        <span class="font-medium">{{ $durasi }} Jam</span>
-      </div>
-    </div>
-
-    <div class="p-4 bg-blue-50 rounded-lg mb-6">
-      <div class="flex justify-between items-center">
-        <span class="font-bold text-gray-800">Total Pembayaran</span>
-        <span class="text-2xl font-bold text-blue-600">
-          Rp{{ number_format(request('total_harga', 150000), 0, ',', '.') }}
-        </span>
-      </div>
-    </div>
-
-    <div class="flex justify-between items-center mb-6">
-      <span class="text-gray-600">Status Pembayaran:</span>
-      <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-semibold">
-        <i class="fas fa-clock mr-1"></i> Menunggu Pembayaran
-      </span>
-    </div>
-
-    <div class="text-sm text-gray-600 space-y-2">
-      <p class="flex items-start">
-        <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
-        Semua harga sudah termasuk pajak dan biaya layanan.
-      </p>
-      <p class="flex items-start">
-        <i class="fas fa-exclamation-triangle text-orange-400 mr-2 mt-0.5"></i>
-        Uang tidak dikembalikan apabila reservasi dibatalkan.
-      </p>
-    </div>
-  </section>
-</main>
-
-<!-- Script -->
 <script>
-  // Timer 30 menit
-  let timeLeft = 1800;
-  function updateTimer() {
-    const timer = document.getElementById('timer');
-    const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-    const seconds = String(timeLeft % 60).padStart(2, '0');
-    timer.textContent = `${minutes}:${seconds}`;
+document.addEventListener('DOMContentLoaded', function () {
+    // Timer countdown dengan efek visual
+    let timeLeft = 1800; // 30 minutes in seconds
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const timerEl = document.getElementById('payment-timer');
+        if (timerEl) {
+            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running out
+            if (timeLeft <= 300) { // 5 minutes
+                timerEl.parentElement.parentElement.classList.add('bg-red-500/20', 'border-red-300');
+                timerEl.classList.add('text-red-600');
+            }
+        }
 
-    if (timeLeft < 300) {
-      timer.parentElement.classList.remove('bg-red-100', 'text-red-600');
-      timer.parentElement.classList.add('bg-red-500', 'text-white');
+        if (timeLeft <= 0) {
+            alert('Waktu pembayaran telah habis! Silakan buat reservasi baru.');
+            window.location.href = "{{ route('landing') }}";
+            return;
+        }
+
+        timeLeft--;
+        setTimeout(updateTimer, 1000);
+    }
+    updateTimer();
+
+    // File upload handling dengan preview yang lebih baik
+    const fileInput = document.getElementById('bukti-transfer');
+    const uploadArea = document.getElementById('upload-area');
+    const uploadContent = document.getElementById('upload-content');
+    const filePreview = document.getElementById('file-preview');
+    const previewImage = document.getElementById('preview-image');
+    const fileName = document.getElementById('file-name');
+    const paymentForm = document.getElementById('payment-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+
+                if (!file.type.match('image.*')) {
+                    alert('Hanya file gambar yang diperbolehkan');
+                    return;
+                }
+
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Ukuran file maksimal 2MB');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    fileName.textContent = file.name;
+                    uploadContent.classList.add('hidden');
+                    filePreview.classList.remove('hidden');
+                    uploadArea.classList.add('border-green-400', 'bg-green-50');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
     }
 
-    if (timeLeft > 0) {
-      timeLeft--;
-      setTimeout(updateTimer, 1000);
+    if (uploadArea) {
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('border-blue-500', 'bg-blue-50', 'scale-105');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('border-blue-500', 'bg-blue-50', 'scale-105');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-blue-500', 'bg-blue-50', 'scale-105');
+            fileInput.files = e.dataTransfer.files;
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+        });
     }
-  }
-  updateTimer();
 
-  // Copy to clipboard
-  document.querySelectorAll('.copy-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      const text = this.dataset.copy;
-      navigator.clipboard.writeText(text).then(() => {
-        this.innerHTML = '<i class="fas fa-check text-green-500"></i>';
-        setTimeout(() => {
-          this.innerHTML = '<i class="far fa-copy"></i>';
-        }, 2000);
-      });
-    });
-  });
+    // Cancel upload
+    window.cancelUpload = function () {
+        if (fileInput) fileInput.value = '';
+        uploadContent.classList.remove('hidden');
+        filePreview.classList.add('hidden');
+        uploadArea.classList.remove('border-green-400', 'bg-green-50');
+    }
 
-  // Upload bukti pembayaran
-  const uploadArea = document.getElementById('upload-area');
-  const fileInput = document.getElementById('bukti-pembayaran');
-  const chooseBtn = document.getElementById('choose-file-btn');
-  const filePreview = document.getElementById('file-preview');
-  const previewImage = document.getElementById('preview-image');
-  const fileName = document.getElementById('file-name');
+    // Copy to clipboard function
+    window.copyToClipboard = function(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            // Show toast notification
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in';
+            toast.innerHTML = '<i class="fas fa-check mr-2"></i>Nomor rekening disalin!';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        });
+    }
 
-  chooseBtn.addEventListener('click', () => fileInput.click());
+    // Form submission dengan loading state yang lebih menarik
+    if (paymentForm && submitBtn) {
+        paymentForm.addEventListener('submit', function(e) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <div class="flex items-center justify-center">
+                    <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Memproses Pembayaran...
+                </div>
+            `;
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        });
+    }
+});
 
-  uploadArea.addEventListener('dragover', e => {
-    e.preventDefault();
-    uploadArea.classList.add('border-blue-400');
-  });
-
-  uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('border-blue-400');
-  });
-
-  uploadArea.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadArea.classList.remove('border-blue-400');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) handleFileUpload(files[0]);
-  });
-
-  fileInput.addEventListener('change', e => {
-    if (e.target.files.length > 0) handleFileUpload(e.target.files[0]);
-  });
-
-  function handleFileUpload(file) {
-    if (file.size > 5 * 1024 * 1024) return alert('Ukuran file maksimal 5MB.');
-    if (!file.type.startsWith('image/')) return alert('Format file tidak valid.');
-
-    const reader = new FileReader();
-    reader.onload = e => {
-      previewImage.src = e.target.result;
-      fileName.textContent = file.name;
-      filePreview.classList.remove('hidden');
-    };
-    reader.readAsDataURL(file);
-  }
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }
+`;
+document.head.appendChild(style);
 </script>
 @endsection
