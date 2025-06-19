@@ -25,10 +25,10 @@ class Pembayaran extends Model
         'tanggal_pembayaran' => 'datetime',
     ];
     
-    public function reservasi()
-    {
-        return $this->belongsTo(Reservasi::class);
-    }
+    public function reservasi() {
+    return $this->belongsTo(Reservasi::class, 'reservasi_id');
+}
+
 
     public function user()
     {

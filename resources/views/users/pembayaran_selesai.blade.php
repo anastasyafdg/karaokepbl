@@ -1,5 +1,21 @@
 @extends('layouts.app')
 
+@php
+    use Carbon\Carbon;
+
+    $reservasi = $pembayaran->reservasi;
+
+    $tanggal = $reservasi->tanggal;
+    $waktu_mulai = $reservasi->waktu_mulai;
+    $waktu_selesai = $reservasi->waktu_selesai;
+
+    $durasi = Carbon::parse($waktu_mulai)->diffInHours(Carbon::parse($waktu_selesai));
+    $harga_per_jam = $reservasi->ruangan->harga;
+    $total_harga = $durasi * $harga_per_jam;
+    $paket = $reservasi->ruangan->paket;
+    $room_type = $reservasi->ruangan->jenis;
+@endphp
+
 @section('content')
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-8">
@@ -22,7 +38,7 @@
           <div class="inline-block bg-white rounded-lg px-6 py-4 shadow-sm">
             <p class="text-gray-600">
               <i class="far fa-calendar-alt mr-2 text-indigo-500"></i>
-              <strong>{{ \Carbon\Carbon::parse(request('tanggal'))->locale('id')->translatedFormat('l, d F Y') }}</strong> pukul <strong>{{ request('waktu_mulai') }}</strong>
+              <strong>{{ \Carbon\Carbon::parse($tanggal)->locale('id')->translatedFormat('l, d F Y') }}</strong> pukul <strong>{{ date('H:i', strtotime($waktu_mulai)) }}</strong>
             </p>
           </div>
         </div>
@@ -45,17 +61,6 @@
           <i class="fas fa-receipt mr-3 text-blue-500"></i>
           Detail Pembayaran
         </h2>
-        
-        @php
-          // Mengambil data dari session atau request sebelumnya
-          $tanggal = request('tanggal');
-          $waktu_mulai = request('waktu_mulai');
-          $waktu_selesai = request('waktu_selesai');
-          $durasi = request('durasi');
-          $total_harga = request('total_harga');
-          $paket = request('paket', 'Paket A');
-          $room_type = request('room_type', 'Small');
-        @endphp
 
         <div class="flex items-center space-x-4 mb-6 p-4 bg-white rounded-lg shadow-sm">
           <img src="{{ asset('images/paketA.png') }}" alt="Ruangan" class="h-16 w-16 object-cover rounded-lg border border-gray-200">
@@ -76,7 +81,7 @@
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-600"><i class="far fa-clock mr-2 text-blue-400"></i> Waktu</span>
-            <span class="font-medium">{{ $waktu_mulai }} - {{ $waktu_selesai }}</span>
+            <span class="font-medium">{{ date('H:i', strtotime($waktu_mulai)) }} - {{ date('H:i', strtotime($waktu_selesai)) }}</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-600"><i class="fas fa-hourglass-half mr-2 text-blue-400"></i> Durasi</span>
@@ -89,11 +94,11 @@
         <div class="space-y-3 mb-4">
           <div class="flex justify-between items-center">
             <span class="text-gray-600">Harga per jam</span>
-            <span>Rp. 50.000</span>
+            <span>Rp. {{ number_format($harga_per_jam, 0, ',', '.') }}</span>
           </div>
           <div class="flex justify-between items-center">
             <span class="text-gray-600">Durasi</span>
-            <span>{{ $durasi }} Jam × Rp. 50.000</span>
+            <span>{{ $durasi }} Jam × Rp. {{ number_format($harga_per_jam, 0, ',', '.') }}</span>
           </div>
         </div>
         
