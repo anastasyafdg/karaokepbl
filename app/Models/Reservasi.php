@@ -51,4 +51,8 @@ class Reservasi extends Model
     {
         return $value . ' jam';
     }
+    public function pembayaran()
+{
+    return $this->hasOne(Pembayaran::class, 'reservasi_id', 'id');
+}
 }
