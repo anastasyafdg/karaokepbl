@@ -60,19 +60,16 @@ Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
     Route::post('/simpan-reservasi', [ReservationController::class, 'store'])->name('reservasi.store');
 });
 
-Route::middleware(['auth'])->group(function() {
-    // Konfirmasi Pembayaran
-    Route::get('/konfirmasi-pembayaran/{reservasi}', [KonfirmasiController::class, 'showConfirmation'])
-        ->name('konfirmasi.show');
-        
-    Route::post('/proses-pembayaran', [KonfirmasiController::class, 'prosesPembayaran'])
-        ->name('konfirmasi.proses');
 
-        Route::get('/konfirmasi-pembayaran/{reservasi}', [KonfirmasiController::class, 'showConfirmation'])
-    ->name('users.konfirmasi_pembayaran'); 
-});
+Route::get('/konfirmasi-pembayaran/{id}', [KonfirmasiController::class, 'show'])
+     ->name('users.konfirmasi_pembayaran')
+     ->middleware('auth');
 
-Route::get('/pembayaran_selesai', [PembayaranSelesaiController::class, 'index'])->middleware(['auth', 'checkrole:pengunjung']);
+Route::post('/konfirmasi-pembayaran/proses', [KonfirmasiController::class, 'proses'])
+     ->name('konfirmasi.proses')
+     ->middleware('auth');
+
+     Route::get('/pembayaran-selesai/{id}', [PembayaranSelesaiController::class, 'selesai'])->name('user.pembayaran_selesai')->middleware('auth');;
 
 
 

@@ -12,11 +12,12 @@ class Pembayaran extends Model
     protected $table = 'pembayaran';
     
     protected $fillable = [
+        'id',
         'reservasi_id',
+        'user_id',
         'total_biaya',
         'tanggal_pembayaran',
         'bukti_pembayaran',
-        'total_pembayaran',
         'status'
     ];
 
@@ -28,17 +29,23 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(Reservasi::class);
     }
-    public function pembayaran()
-{
-    return $this->hasOne(Pembayaran::class);
-}
 
-    
-    public function getGambarUrlAttribute()
+    public function user()
     {
-        if ($this->gambar) {
-            return asset('images/' . $this->gambar);
-        }
-        return asset('images/default-room.jpg'); // Gambar default jika tidak ada
+        return $this->belongsTo(User::class);
+    }
+    
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::creating(function ($model) {
+            // Remove the custom ID generation
+            // Set default status
+            $model->status = 'Pending';
+            
+            // Set tanggal_pembayaran to current time
+            $model->tanggal_pembayaran = now();
+        });
     }
 }

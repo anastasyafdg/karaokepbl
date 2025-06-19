@@ -22,7 +22,6 @@ class Reservasi extends Model
         'catatan',
         'metode',
         'bukti_transfer',
-        'total_pembayaran',
         'status',
         'user_id', // jangan lupa sertakan jika ingin bisa diisi otomatis
     ];

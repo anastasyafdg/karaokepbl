@@ -74,7 +74,6 @@ class ReservationController extends Controller
         'durasi' => $durasi,
         'metode_pembayaran' => $request->metode_pembayaran,
         'catatan' => $request->catatan,
-        'total_harga' => $request->total_harga,
         'status' => 'pending',
     ]);
 

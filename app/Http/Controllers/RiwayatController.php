@@ -10,4 +10,5 @@ class RiwayatController extends Controller
     {
         return view('users.riwayat');
     }
+    
 }
