@@ -16,7 +16,7 @@ class KonfirmasiController extends Controller
         
         $waktuMulai = \Carbon\Carbon::parse($reservasi->waktu_mulai);
         $waktuSelesai = \Carbon\Carbon::parse($reservasi->waktu_selesai);
-        $durasi = $waktuSelesai->diffInHours($waktuMulai);
+        $durasi = $waktuMulai->diffInHours($waktuSelesai); // <-- urutan dibalik
         $totalPembayaran = $durasi * $reservasi->ruangan->harga;
 
         return view('users.konfirmasi_pembayaran', [
