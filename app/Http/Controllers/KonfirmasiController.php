@@ -42,14 +42,17 @@ class KonfirmasiController extends Controller
 
         if ($request->hasFile('bukti_transfer')) {
             $image = $request->file('bukti_transfer');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $path = $image->storeAs('public/bukti_pembayaran', $imageName);
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'reservasi_' . $reservasi->id . '_' . time() . '.' . $extension;
+            
+            // Store the image in public/images directory
+            $path = $image->move(public_path('public/images'), $imageName);
             
             $pembayaran = Pembayaran::create([
                 'reservasi_id' => $reservasi->id,
                 'user_id' => Auth::id(),
                 'total_biaya' => $totalPembayaran,
-                'bukti_pembayaran' => 'bukti_pembayaran/'.$imageName,
+                'bukti_pembayaran' => 'images/' . $imageName, // Store relative path
                 'status' => 'waiting_payment_confirmation'
             ]);
 

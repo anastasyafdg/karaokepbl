@@ -216,27 +216,53 @@
     }
 
     slotButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const slot = btn.dataset.slot;
+    btn.addEventListener('click', () => {
+        const slot = btn.dataset.slot;
 
-            if (btn.disabled) return;
+        if (btn.disabled) return;
 
-            if (selectedSlots.includes(slot)) {
-                selectedSlots = selectedSlots.filter(s => s !== slot);
-                btn.classList.remove('bg-green-400', 'text-white');
-                btn.classList.add('bg-gray-100', 'text-gray-700');
-            } else {
-                selectedSlots.push(slot);
-                selectedSlots.sort();
-                btn.classList.remove('bg-gray-100', 'text-gray-700');
-                btn.classList.add('bg-green-400', 'text-white');
-            }
+        if (selectedSlots.includes(slot)) {
+            selectedSlots = selectedSlots.filter(s => s !== slot);
+            btn.classList.remove('bg-green-400', 'text-white');
+            btn.classList.add('bg-gray-100', 'text-gray-700');
+        } else {
+            selectedSlots.push(slot);
+            selectedSlots.sort();
+            btn.classList.remove('bg-gray-100', 'text-gray-700');
+            btn.classList.add('bg-green-400', 'text-white');
+        }
 
-            const indexList = selectedSlots.map(s => slotWaktu.indexOf(s)).filter(index => index !== -1);
-            const isConsecutive = indexList.length <= 1 || indexList.every((val, i, arr) => i === 0 || val - arr[i - 1] === 1);
+        const indexList = selectedSlots.map(s => slotWaktu.indexOf(s)).filter(index => index !== -1);
+        const isConsecutive = indexList.length <= 1 || indexList.every((val, i, arr) => i === 0 || val - arr[i - 1] === 1);
 
-            if (!isConsecutive) {
-                alert('Slot harus berurutan!');
+        if (!isConsecutive) {
+            alert('Slot harus berurutan!');
+            slotButtons.forEach(b => {
+                b.classList.remove('bg-green-400', 'text-white');
+                if (!b.disabled) {
+                    b.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+            selectedSlots = [];
+            document.getElementById('input-waktu-mulai').value = '';
+            document.getElementById('input-waktu-selesai').value = '';
+            updateRingkasan();
+            checkFormValidity();
+            return;
+        }
+
+        if (selectedSlots.length > 0) {
+            document.getElementById('input-waktu-mulai').value = selectedSlots[0];
+            const lastSlotIndex = slotWaktu.indexOf(selectedSlots[selectedSlots.length - 1]);
+            const waktuSelesai = slotWaktu[lastSlotIndex + 1] ?? (parseInt(selectedSlots[selectedSlots.length - 1].split(':')[0]) + 1).toString().padStart(2, '0') + ':00';
+            document.getElementById('input-waktu-selesai').value = waktuSelesai;
+            
+            // Validate time selection
+            const start = new Date(`2025-01-01T${selectedSlots[0]}:00`);
+            const end = new Date(`2025-01-01T${waktuSelesai}:00`);
+            if (end < start) {
+                alert('Waktu selesai tidak boleh sebelum waktu mulai!');
+                // Reset selection
                 slotButtons.forEach(b => {
                     b.classList.remove('bg-green-400', 'text-white');
                     if (!b.disabled) {
@@ -246,26 +272,16 @@
                 selectedSlots = [];
                 document.getElementById('input-waktu-mulai').value = '';
                 document.getElementById('input-waktu-selesai').value = '';
-                updateRingkasan();
-                checkFormValidity();
-                return;
             }
-
-            if (selectedSlots.length > 0) {
-                document.getElementById('input-waktu-mulai').value = selectedSlots[0];
-                const lastSlotIndex = slotWaktu.indexOf(selectedSlots[selectedSlots.length - 1]);
-                const waktuSelesai = slotWaktu[lastSlotIndex + 1] ?? (parseInt(selectedSlots[selectedSlots.length - 1].split(':')[0]) + 1).toString().padStart(2, '0') + ':00';
-                document.getElementById('input-waktu-selesai').value = waktuSelesai;
-            } else {
-                document.getElementById('input-waktu-mulai').value = '';
-                document.getElementById('input-waktu-selesai').value = '';
-            }
-            
-            updateRingkasan();
-            checkFormValidity();
-        });
+        } else {
+            document.getElementById('input-waktu-mulai').value = '';
+            document.getElementById('input-waktu-selesai').value = '';
+        }
+        
+        updateRingkasan();
+        checkFormValidity();
     });
-
+});
     function formatTanggal(tanggal) {
         const date = new Date(tanggal);
         const options = { 
@@ -282,48 +298,67 @@
     }
 
     function hitungDurasi(waktuMulai, waktuSelesai) {
-        if (!waktuMulai || !waktuSelesai) return 0;
-        const start = new Date(`2025-01-01T${waktuMulai}:00`);
-        const end = new Date(`2025-01-01T${waktuSelesai}:00`);
-        return (end - start) / (1000 * 60 * 60);
-    }
+    if (!waktuMulai || !waktuSelesai) return 0;
+    const start = new Date(`2025-01-01T${waktuMulai}:00`);
+    const end = new Date(`2025-01-01T${waktuSelesai}:00`);
+    const hours = (end - start) / (1000 * 60 * 60);
+    return Math.abs(hours); // Always return positive duration
+}
 
-    function updateRingkasan() {
-        const tanggal = document.getElementById('tanggal_input').value;
-        const waktuMulai = document.getElementById('input-waktu-mulai').value;
-        const waktuSelesai = document.getElementById('input-waktu-selesai').value;
-        const metode = document.getElementById('metode_pembayaran').value;
-        const catatan = document.getElementById('catatan_input').value;
-        
-        // Update Tanggal
-        document.getElementById('tanggal_placeholder').textContent = tanggal ? formatTanggal(tanggal) : '-';
-        
-        // Update Waktu
-        document.getElementById('waktu_placeholder').textContent = waktuMulai && waktuSelesai ? `${waktuMulai} - ${waktuSelesai}` : '-';
-        
-        // Update Durasi
-        const durasi = hitungDurasi(waktuMulai, waktuSelesai);
-        document.getElementById('durasi_placeholder').textContent = durasi > 0 ? `${durasi} Jam` : '- Jam';
-        
-        // Update Metode Pembayaran
-        const metodeText = metode === 'transfer' ? 'Bank Transfer' : metode === 'e-wallet' ? 'E-Wallet' : '-';
-        document.getElementById('metode_placeholder').textContent = metodeText;
-        
-        // Update Catatan
-        const catatanRow = document.getElementById('catatan_row');
-        if (catatan.trim()) {
-            catatanRow.style.display = 'flex';
-            document.getElementById('catatan_placeholder').textContent = catatan.length > 30 ? catatan.substring(0, 30) + '...' : catatan;
-        } else {
-            catatanRow.style.display = 'none';
-        }
-        
-        // Update Total Harga
-        const totalHarga = durasi * hargaPerJam;
-        document.getElementById('total_harga_display').textContent = formatRupiah(totalHarga);
-        document.getElementById('total_harga_input').value = totalHarga;
+function updateRingkasan() {
+    const tanggal = document.getElementById('tanggal_input').value;
+    const waktuMulai = document.getElementById('input-waktu-mulai').value;
+    const waktuSelesai = document.getElementById('input-waktu-selesai').value;
+    const metode = document.getElementById('metode_pembayaran').value;
+    const catatan = document.getElementById('catatan_input').value;
+    
+    // Update Tanggal
+    document.getElementById('tanggal_placeholder').textContent = tanggal ? formatTanggal(tanggal) : '-';
+    
+    // Update Waktu
+    document.getElementById('waktu_placeholder').textContent = waktuMulai && waktuSelesai ? `${waktuMulai} - ${waktuSelesai}` : '-';
+    
+    // Calculate raw duration (could be negative)
+    const rawStart = new Date(`2025-01-01T${waktuMulai}:00`);
+    const rawEnd = new Date(`2025-01-01T${waktuSelesai}:00`);
+    const rawHours = (rawEnd - rawStart) / (1000 * 60 * 60);
+    
+    // Update Durasi (always show positive)
+    const durasi = hitungDurasi(waktuMulai, waktuSelesai);
+    document.getElementById('durasi_placeholder').textContent = durasi > 0 ? `${durasi} Jam` : '- Jam';
+    
+    // Update Metode Pembayaran
+    const metodeText = metode === 'transfer' ? 'Bank Transfer' : metode === 'e-wallet' ? 'E-Wallet' : '-';
+    document.getElementById('metode_placeholder').textContent = metodeText;
+    
+    // Update Catatan
+    const catatanRow = document.getElementById('catatan_row');
+    if (catatan.trim()) {
+        catatanRow.style.display = 'flex';
+        document.getElementById('catatan_placeholder').textContent = catatan.length > 30 ? catatan.substring(0, 30) + '...' : catatan;
+    } else {
+        catatanRow.style.display = 'none';
     }
-
+    
+    // Update Total Harga - use raw hours for calculation
+    const totalHarga = rawHours * hargaPerJam;
+    document.getElementById('total_harga_display').textContent = formatRupiah(Math.abs(totalHarga));
+    document.getElementById('total_harga_input').value = totalHarga;
+    
+    // Visual feedback if the time selection is invalid (end before start)
+    const totalDisplay = document.getElementById('total_harga_display');
+    if (rawHours < 0) {
+        totalDisplay.classList.add('text-red-600');
+        totalDisplay.classList.remove('text-blue-600');
+        // You might want to disable the submit button here
+        document.getElementById('submit-btn').disabled = true;
+    } else {
+        totalDisplay.classList.add('text-blue-600');
+        totalDisplay.classList.remove('text-red-600');
+        // Re-enable the submit button if duration is valid
+        checkFormValidity();
+    }
+}
     // Event listeners
     document.getElementById('tanggal_input').addEventListener('change', function() {
         loadAvailableSlots(this.value);
