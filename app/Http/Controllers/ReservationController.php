@@ -63,7 +63,8 @@ class ReservationController extends Controller
 
     $waktuMulai = Carbon::parse($request->waktu_mulai);
     $waktuSelesai = Carbon::parse($request->waktu_selesai);
-    $durasi = $waktuSelesai->diffInHours($waktuMulai);
+    $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai)); // durasi minimal 1 jam
+
 
     $reservasi = reservasi::create([
         'user_id' => $user->id,

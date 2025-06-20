@@ -44,7 +44,12 @@
                   <i class="fas fa-clock mr-2"></i> 
                   {{ $reservation->waktu_mulai }} - {{ $reservation->waktu_selesai }}
                 </p>
-                <p class="text-gray-600 text-sm">{{ $reservation->durasi }}</p>
+                 @php
+                 $durasi = abs(\Carbon\Carbon::parse($reservation->waktu_selesai)->diffInHours(\Carbon\Carbon::parse($reservation->waktu_mulai)));
+                 @endphp
+
+              <p class="text-gray-600 text-sm">{{ $durasi }} jam</p>
+
               </div>
               <div class="text-center">
                 @if($reservation->pembayaran)

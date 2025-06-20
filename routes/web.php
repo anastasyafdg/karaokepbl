@@ -77,6 +77,12 @@ Route::post('/konfirmasi-pembayaran/proses', [KonfirmasiController::class, 'pros
 Route::get('/riwayat', [RiwayatController::class, 'index'])
     ->middleware(['auth', 'checkrole:pengunjung']);
 
+
+Route::get('/resi/{id}', [App\Http\Controllers\ResiController::class, 'show'])
+    ->name('resi.show')
+    ->middleware(['auth', 'checkrole:pengunjung']);
+
+
 Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
     Route::get('/edit_profile', [EditProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/edit_profile', [EditProfileController::class, 'update'])->name('profile.update');

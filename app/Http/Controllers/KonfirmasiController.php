@@ -16,7 +16,7 @@ class KonfirmasiController extends Controller
         
         $waktuMulai = \Carbon\Carbon::parse($reservasi->waktu_mulai);
         $waktuSelesai = \Carbon\Carbon::parse($reservasi->waktu_selesai);
-        $durasi = $waktuMulai->diffInHours($waktuSelesai); // <-- urutan dibalik
+        $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai));
         $totalPembayaran = $durasi * $reservasi->ruangan->harga;
 
         return view('users.konfirmasi_pembayaran', [
@@ -37,7 +37,7 @@ class KonfirmasiController extends Controller
         
         $waktuMulai = \Carbon\Carbon::parse($reservasi->waktu_mulai);
         $waktuSelesai = \Carbon\Carbon::parse($reservasi->waktu_selesai);
-        $durasi = $waktuSelesai->diffInHours($waktuMulai);
+        $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai));
         $totalPembayaran = $durasi * $reservasi->ruangan->harga;
 
         if ($request->hasFile('bukti_transfer')) {
