@@ -14,8 +14,7 @@
     <div class="bg-white rounded-lg shadow-lg p-8 w-[500px] max-w-full">
         <!-- Header Resi -->
         <div class="text-center border-b-2 border-gray-300 pb-4 mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">RESI PEMESANAN KARAOKE</h1>
-            <p class="text-sm text-gray-600 mt-2">{{ config('app.name', 'Karaoke Paradise') }}</p>
+            <h1 class="text-2xl font-bold text-gray-800">MIKKEU PANGPANG KARAOKE</h1>
         </div>
 
         <!-- Info ID Pemesanan -->
@@ -26,20 +25,7 @@
             </div>
         </div>
 
-        <!-- Data Pengunjung -->
-        <div class="mb-6">
-            <h3 class="font-bold text-gray-800 mb-3 border-b border-gray-200 pb-1">Data Pengunjung</h3>
-            <div class="space-y-2">
-                <div class="flex justify-between">
-                    <span class="text-gray-600">Nama:</span>
-                    <span class="font-medium">{{ $pembayaran->reservasi->user->name ?? $pembayaran->user->name }}</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-600">Email:</span>
-                    <span class="font-medium">{{ $pembayaran->reservasi->user->email ?? $pembayaran->user->email }}</span>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Detail Reservasi -->
         <div class="mb-6">
@@ -83,17 +69,6 @@
         <div class="mb-6">
             <h3 class="font-bold text-gray-800 mb-3 border-b border-gray-200 pb-1">Detail Pembayaran</h3>
             <div class="space-y-2">
-                <div class="flex justify-between">
-                    <span class="text-gray-600">Status Pembayaran:</span>
-                    <span class="font-medium 
-                        @if($pembayaran->status === 'Confirmed') text-green-600 
-                        @elseif($pembayaran->status === 'Completed') text-blue-600 
-                        @else text-yellow-600 @endif">
-                        @if($pembayaran->status === 'Confirmed') Dikonfirmasi
-                        @elseif($pembayaran->status === 'Completed') Selesai
-                        @else {{ $pembayaran->status }} @endif
-                    </span>
-                </div>
                 <div class="flex justify-between">
                     <span class="text-gray-600">Tanggal Pembayaran:</span>
                     <span class="font-medium">{{ \Carbon\Carbon::parse($pembayaran->tanggal_pembayaran)->format('d F Y, H:i') }}</span>

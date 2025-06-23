@@ -14,6 +14,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\KonfirmasiController;
 use App\Http\Controllers\PembayaranSelesaiController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\ResiController;
 use App\Http\Controllers\UlasanController;
 
 // Admin Controllers

@@ -82,9 +82,11 @@
                     <i class="fas fa-check-circle mr-2"></i> {{ $statusText }}
                   </div>
                 @endif
-                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 text-sm px-4 py-1 rounded-full flex items-center justify-center mx-auto mt-2 cursor-pointer transition">
-                  <i class="fas fa-print mr-2"></i> Cetak Resi
-                </button>
+
+                @if ($reservation->pembayaran && $reservation->pembayaran->status === 'Terkonfirmasi')
+                <a href="{{ route('resi.show', $reservation->id) }}" class="btn btn-primary">Cetak Resi</a>
+                @endif
+
               </div>
             </div>
           @endforeach
