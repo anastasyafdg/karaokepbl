@@ -46,7 +46,7 @@ class KonfirmasiController extends Controller
             $imageName = 'reservasi_' . $reservasi->id . '_' . time() . '.' . $extension;
             
             // Store the image in public/images directory
-            $path = $image->move(public_path('public/images'), $imageName);
+            $path = $image->move(public_path('images'), $imageName);
             
             $pembayaran = Pembayaran::create([
                 'reservasi_id' => $reservasi->id,
