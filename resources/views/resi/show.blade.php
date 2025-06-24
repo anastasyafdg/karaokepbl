@@ -31,24 +31,30 @@
         <div class="mb-6">
             <h3 class="font-bold text-gray-800 mb-3 border-b border-gray-200 pb-1">Detail Reservasi</h3>
             <div class="space-y-2">
+               <div class="flex justify-between">
+                   <span class="text-gray-600">Nama Pengunjung :</span>
+                   <span class="font-medium">{{ $pembayaran->reservasi->user->nama ?? '-' }}</span>
+                </div>
+                
+
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Nama Ruangan:</span>
-                    <span class="font-medium">{{ $pembayaran->reservasi->ruangan->nama }}</span>
+                    <span class="text-gray-600">Paket Ruangan :</span>
+                    <span class="font-medium">{{ $pembayaran->reservasi->ruangan->paket ?? '-' }}</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Jenis Ruangan:</span>
+                    <span class="text-gray-600">Jenis Ruangan :</span>
                     <span class="font-medium">{{ $pembayaran->reservasi->ruangan->jenis ?? '-' }}</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Tanggal:</span>
+                    <span class="text-gray-600">Tanggal :</span>
                     <span class="font-medium">{{ \Carbon\Carbon::parse($pembayaran->reservasi->tanggal)->format('d F Y') }}</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Waktu:</span>
+                    <span class="text-gray-600">Waktu :</span>
                     <span class="font-medium">{{ $pembayaran->reservasi->waktu_mulai }} - {{ $pembayaran->reservasi->waktu_selesai }}</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Durasi:</span>
+                    <span class="text-gray-600">Durasi :</span>
                     <span class="font-medium">
                         @php
                             $durasi = abs(\Carbon\Carbon::parse($pembayaran->reservasi->waktu_selesai)->diffInHours(\Carbon\Carbon::parse($pembayaran->reservasi->waktu_mulai)));
@@ -58,7 +64,7 @@
                 </div>
                 @if($pembayaran->reservasi->catatan)
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Catatan:</span>
+                    <span class="text-gray-600">Catatan :</span>
                     <span class="font-medium">{{ $pembayaran->reservasi->catatan }}</span>
                 </div>
                 @endif
@@ -70,7 +76,11 @@
             <h3 class="font-bold text-gray-800 mb-3 border-b border-gray-200 pb-1">Detail Pembayaran</h3>
             <div class="space-y-2">
                 <div class="flex justify-between">
-                    <span class="text-gray-600">Tanggal Pembayaran:</span>
+                    <span class="text-gray-600">ID Pembayaran :</span>
+                    <span class="font-medium">{{ $pembayaran->id }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Tanggal Pembayaran :</span>
                     <span class="font-medium">{{ \Carbon\Carbon::parse($pembayaran->tanggal_pembayaran)->format('d F Y, H:i') }}</span>
                 </div>
             </div>
@@ -80,7 +90,7 @@
         <div class="border-t-2 border-gray-300 pt-4 mb-6">
             <div class="bg-blue-50 p-4 rounded-lg">
                 <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-gray-800">Total Pembayaran:</span>
+                    <span class="text-xl font-bold text-gray-800">Total Pembayaran :</span>
                     <span class="text-2xl font-bold text-blue-600">Rp {{ number_format($pembayaran->total_biaya, 0, ',', '.') }}</span>
                 </div>
             </div>

@@ -10,7 +10,7 @@ class ResiController extends Controller
 {
     public function show($reservasi_id)
     {
-        $pembayaran = Pembayaran::with(['reservasi.ruangan'])
+        $pembayaran = Pembayaran::with(['reservasi.ruangan','reservasi.user'])
                         ->where('reservasi_id', $reservasi_id)
                         ->firstOrFail();
 
