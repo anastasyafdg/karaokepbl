@@ -10,7 +10,7 @@ use App\Models\User;
 class LoginController extends Controller
 {
     /**
-     * Menampilkan form login.
+     * Menampilkan halaman login.
      */
     public function showLoginForm()
     {
@@ -18,53 +18,52 @@ class LoginController extends Controller
     }
 
     /**
-     * Menangani proses login dengan validasi khusus.
+     * Menangani proses login berdasarkan peran (admin atau pengunjung).
      */
     public function login(Request $request)
     {
-        // Validasi input
+        // Validasi input login
         $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        // Cek apakah user dengan email tersebut ada
+        // Cari user berdasarkan email
         $user = User::where('email', $credentials['email'])->first();
 
+        // Jika user tidak ditemukan
         if (!$user) {
-            return back()->withErrors([
-                'email' => 'Email belum terdaftar.',
-            ])->withInput();
+            return back()->withErrors(['email' => 'Email belum terdaftar.'])->withInput();
         }
 
-        // Cek apakah password cocok
+        // Cek kecocokan password
         if (!Hash::check($credentials['password'], $user->password)) {
-            return back()->withErrors([
-                'password' => 'Kata sandi salah.',
-            ])->withInput();
+            return back()->withErrors(['password' => 'Kata sandi salah.'])->withInput();
         }
 
-        // Login user dan buat sesi baru
-        Auth::login($user);
+        // Tentukan guard sesuai peran user
+        $guard = $user->peran === 'admin' ? 'admin' : 'web';
+
+        // Login manual tanpa attempt (karena password sudah diverifikasi)
+        Auth::guard($guard)->login($user);
         $request->session()->regenerate();
 
-        // Arahkan sesuai peran
-        switch ($user->peran) {
-        case 'admin':
-            return redirect()->route('admin_dashboard');
-        case 'pengunjung':
-            return redirect()->route('landing');
-        default:
-            return redirect('/dashboard1'); // fallback
-        }
+        // Redirect berdasarkan peran
+        return match ($user->peran) {
+            'admin' => redirect()->route('admin_dashboard'),
+            'pengunjung' => redirect()->route('landing'),
+            default => redirect('/dashboard1'),
+        };
     }
 
     /**
-     * Logout dan akhiri sesi pengguna.
+     * Logout dari guard yang sedang aktif.
      */
     public function logout(Request $request)
     {
-        Auth::logout();
+        if (Auth::guard('web')->check()) {
+        Auth::guard('web')->logout();
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

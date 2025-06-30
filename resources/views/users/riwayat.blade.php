@@ -10,15 +10,6 @@
           <p class="text-gray-600 text-lg">Lihat dan kelola pemesanan karaoke Anda</p>
         </div>
 
-        <!-- Tabs -->
-        <div class="flex space-x-6 mb-6 border-b border-gray-300">
-          <a href="?status=all" class="pb-2 {{ $activeStatus === 'all' ? 'border-b-4 border-pink-200 font-semibold text-gray-700' : 'hover:border-b-2 hover:border-gray-400 text-gray-600' }}">Semua</a>
-          <a href="?status=delayed" class="pb-2 {{ $activeStatus === 'delayed' ? 'border-b-4 border-pink-200 font-semibold text-gray-700' : 'hover:border-b-2 hover:border-gray-400 text-gray-600' }}">Tertunda</a>
-          <a href="?status=confirmed" class="pb-2 {{ $activeStatus === 'confirmed' ? 'border-b-4 border-pink-200 font-semibold text-gray-700' : 'hover:border-b-2 hover:border-gray-400 text-gray-600' }}">Dikonfirmasi</a>
-          <a href="?status=completed" class="pb-2 {{ $activeStatus === 'completed' ? 'border-b-4 border-pink-200 font-semibold text-gray-700' : 'hover:border-b-2 hover:border-gray-400 text-gray-600' }}">Selesai</a>
-          <a href="?status=rejected" class="pb-2 {{ $activeStatus === 'rejected' ? 'border-b-4 border-pink-200 font-semibold text-gray-700' : 'hover:border-b-2 hover:border-gray-400 text-gray-600' }}">Dibatalkan</a>
-        </div>
-
         @if($reservations->isEmpty())
           <div class="bg-blue-50 p-6 rounded-lg text-center">
             <p class="text-gray-600">Tidak ada pemesanan dengan status ini.</p>

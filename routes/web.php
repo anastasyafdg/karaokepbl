@@ -18,6 +18,7 @@ use App\Http\Controllers\ResiController;
 use App\Http\Controllers\UlasanController;
 
 // Admin Controllers
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdmDashboardController;
 use App\Http\Controllers\ReservasiController;
 use App\Http\Controllers\AdmPembayaranController;
@@ -40,129 +41,118 @@ Route::post('/ganti_sandi', [GantiSandiController::class, 'update'])->name('gant
 Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('register');
 Route::post('/registrasi', [RegistrasiController::class, 'register'])->name('register.submit');
 
-// Pengunjung
+// =================== ROUTE PENGUNJUNG ===================
 Route::get('/landing', [LandingController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('landing');
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('landing');
 
 Route::get('/ruangan', [RuanganController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.index');
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('ruangan.index');
 
 Route::get('/ruangan/{id}', [RuanganController::class, 'show'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('ruangan.show');
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('ruangan.show');
 
 Route::get('/ruangan/filter/{size}', [LandingController::class, 'redirectToRuangan'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('landing.filter');
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('landing.filter');
 
 Route::get('/ruangan/search/{paket}', [LandingController::class, 'redirectToRuanganSearch'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('landing.search');
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('landing.search');
 
-Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
-    Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])->name('reservasi.form');
-    Route::post('/simpan-reservasi', [ReservationController::class, 'store'])->name('reservasi.store');
-});
+Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.form');
 
+Route::post('/simpan-reservasi', [ReservationController::class, 'store'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.store');
+
+Route::get('/riwayat', [RiwayatController::class, 'index'])
+    ->middleware(['auth:web', 'checkrole:pengunjung']);
+
+Route::get('/resi/{id}', [ResiController::class, 'show'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('resi.show');
+
+Route::get('/edit_profile', [EditProfileController::class, 'edit'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('profile.edit');
+
+Route::post('/edit_profile', [EditProfileController::class, 'update'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('profile.update');
+
+Route::post('/update_password', [EditProfileController::class, 'updatePassword'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('profile.updatePassword');
+
+Route::get('/kontak', [KontakController::class, 'index'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('kontak');
+
+Route::post('/kontak', [KontakController::class, 'store'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('kontak.store');
+
+Route::get('/search', [VisitorController::class, 'search'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('search');
+
+Route::get('/ulasan', [UlasanController::class, 'index'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('ulasan');
+
+Route::post('/ulasan', [UlasanController::class, 'store'])
+    ->middleware(['auth:web', 'checkrole:pengunjung'])->name('ulasan.store');
 
 Route::get('/konfirmasi-pembayaran/{id}', [KonfirmasiController::class, 'show'])
      ->name('users.konfirmasi_pembayaran')
-     ->middleware('auth');
+     ->middleware('auth:web');
 
 Route::post('/konfirmasi-pembayaran/proses', [KonfirmasiController::class, 'proses'])
      ->name('konfirmasi.proses')
-     ->middleware('auth');
+     ->middleware('auth:web');
 
-     Route::get('/pembayaran-selesai/{id}', [PembayaranSelesaiController::class, 'selesai'])->name('user.pembayaran_selesai')->middleware('auth');;
+Route::get('/pembayaran-selesai/{id}', [PembayaranSelesaiController::class, 'selesai'])
+    ->name('user.pembayaran_selesai')
+    ->middleware('auth:web');
 
-
-
-
-Route::get('/riwayat', [RiwayatController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung']);
-
-
-Route::get('/resi/{id}', [App\Http\Controllers\ResiController::class, 'show'])
-    ->name('resi.show')
-    ->middleware(['auth', 'checkrole:pengunjung']);
-
-
-Route::middleware(['auth', 'checkrole:pengunjung'])->group(function () {
-    Route::get('/edit_profile', [EditProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/edit_profile', [EditProfileController::class, 'update'])->name('profile.update');
-    Route::post('/update_password', [EditProfileController::class, 'updatePassword'])->name('profile.updatePassword');
-});
-
-Route::get('/kontak', [KontakController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('kontak');
-
-Route::post('/kontak', [KontakController::class, 'store'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('kontak.store');
-
-Route::get('/search', [VisitorController::class, 'search'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('search');
-
-// Ulasan
-Route::get('/ulasan', [UlasanController::class, 'index'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('ulasan');
-
-Route::post('/ulasan', [UlasanController::class, 'store'])
-    ->middleware(['auth', 'checkrole:pengunjung'])->name('ulasan.store');
-
-// Dashboard Admin
+// =================== ROUTE ADMIN ===================
 Route::get('/dashboard', [AdmDashboardController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('admin_dashboard');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('admin_dashboard');
 
-// Data Pengunjung
 Route::get('/data_pengunjung', [PengunjungController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_pengunjung');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_pengunjung');
 
-// Data Ruangan
 Route::get('/data_ruangan', [AdmRuanganController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_ruangan');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_ruangan');
 
 Route::get('/admin/data_ruangan', [AdmRuanganController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('admin.data_ruangan');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('admin.data_ruangan');
 
-// CRUD Ruangan (No Booking Routes)
 Route::post('/data_ruangan/simpan', [AdmRuanganController::class, 'simpan'])
-    ->middleware(['auth', 'checkrole:admin'])->name('ruangan.simpan');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('ruangan.simpan');
 
 Route::post('/data_ruangan/update/{id}', [AdmRuanganController::class, 'update'])
-    ->middleware(['auth', 'checkrole:admin'])->name('ruangan.update');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('ruangan.update');
 
 Route::delete('/data_ruangan/hapus/{id}', [AdmRuanganController::class, 'destroy'])
-    ->middleware(['auth', 'checkrole:admin'])->name('ruangan.hapus');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('ruangan.hapus');
 
-// Data Reservasi
 Route::get('/data_reservasi', [ReservasiController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_reservasi');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_reservasi');
 
 Route::delete('/data_reservasi/{id}', [ReservasiController::class, 'destroy'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_reservasi.destroy');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_reservasi.destroy');
 
-// Data Pembayaran
 Route::get('/data_pembayaran', [AdmPembayaranController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_pembayaran');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_pembayaran');
 
 Route::post('/data_pembayaran/{id}/update-status', [AdmPembayaranController::class, 'updateStatus'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_pembayaran.update-status');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_pembayaran.update-status');
 
 Route::delete('/data_pembayaran/{id}', [AdmPembayaranController::class, 'destroy'])
-    ->middleware(['auth', 'checkrole:admin'])->name('data_pembayaran.destroy');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('data_pembayaran.destroy');
 
-// Data Ulasan
 Route::get('/ulasan-admin', [AdmUlasanController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('admin.ulasan.index');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('admin.ulasan.index');
 
 Route::post('/ulasan/{id}/approve', [AdmUlasanController::class, 'approve'])
-    ->middleware(['auth', 'checkrole:admin'])->name('admin.ulasan.approve');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('admin.ulasan.approve');
 
 Route::post('/ulasan/{id}/reject', [AdmUlasanController::class, 'reject'])
-    ->middleware(['auth', 'checkrole:admin'])->name('admin.ulasan.reject');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('admin.ulasan.reject');
 
-// Data Pesan
 Route::get('/pesan', [AdmPesanController::class, 'index'])
-    ->middleware(['auth', 'checkrole:admin'])->name('pesan');
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('pesan');
 
 Route::delete('/pesan/hapus/{id}', [AdmPesanController::class, 'destroy'])
-    ->middleware(['auth', 'checkrole:admin'])->name('pesan.hapus');
-
-    
+    ->middleware(['auth:admin', 'checkrole:admin'])->name('pesan.hapus');
