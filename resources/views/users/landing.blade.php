@@ -51,24 +51,23 @@
         </p>
 
         <!-- Search Bar -->
-<div class="search-bar relative mx-auto mt-6 max-w-2xl">
-    <form action="{{ route('ruangan.index') }}" method="GET" class="flex w-full">
-        <div class="flex items-center bg-white rounded-l-full overflow-hidden w-full">
-            <span class="flex items-center justify-center px-4 text-gray-500"><i class="fas fa-user"></i></span>
-            <input 
-                type="text" 
-                name="search" 
-                id="landing-search"
-                class="w-full py-2 px-4 focus:outline-none text-gray-700" 
-                placeholder="Cari Ruangan..."
-            >
+        <div class="search-bar relative mx-auto mt-6 max-w-2xl">
+            <form action="{{ route('ruangan.index') }}" method="GET" class="flex w-full">
+                <div class="flex items-center bg-white rounded-l-full overflow-hidden w-full">
+                    <span class="flex items-center justify-center px-4 text-gray-500"><i class="fas fa-user"></i></span>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        id="landing-search"
+                        class="w-full py-2 px-4 focus:outline-none text-gray-700" 
+                        placeholder="Cari Ruangan..."
+                    >
+                </div>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 rounded-r-full">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 rounded-r-full">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
-</div>
-
         </div>
     </div>
     </section>

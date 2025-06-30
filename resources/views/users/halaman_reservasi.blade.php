@@ -68,7 +68,6 @@
                                 class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-200 focus:border-blue-500 appearance-none transition-all">
                             <option value="">Pilih Metode Pembayaran</option>
                             <option value="transfer">Bank Transfer</option>
-                            <option value="e-wallet">E-Wallet</option>
                         </select>
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                             <i class="fas fa-chevron-down text-gray-400"></i>
