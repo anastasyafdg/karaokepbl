@@ -15,6 +15,16 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">NO</th>
+                        <th scope="col" class="px-6 py-3">ID PEMESANAN</th>
+                        <th scope="col" class="px-6 py-3">NAMA USER</th>
+                        <th scope="col" class="px-6 py-3">ID RUANGAN</th>
+                        <th scope="col" class="px-6 py-3">TANGGAL</th>
+                        <th scope="col" class="px-6 py-3">WAKTU MULAI</th>
+                        <th scope="col" class="px-6 py-3">WAKTU SELESAI</th>
+                        <th scope="col" class="px-6 py-3">DURASI</th>
+                        <th scope="col" class="px-6 py-3">CATATAN</th>
+                        <th scope="col" class="px-6 py-3">PEMBAYARAN</th>
+=======
                         <th scope="col" class="px-6 py-3">ID Pemesanan</th>
                         <th scope="col" class="px-6 py-3">Nama Pengunjung</th>
                         <th scope="col" class="px-6 py-3">ID Ruangan</th>
@@ -25,6 +35,7 @@
                         <th scope="col" class="px-6 py-3">Catatan</th>
                         <th scope="col" class="px-6 py-3">Pembayaran</th>
                         <th scope="col" class="px-6 py-3">Aksi</th>
+>>>>>>> d74009cdd37e8aba2e648f2aeca6e76f18f62e64
                     </tr>
                 </thead>
                 <tbody>
@@ -42,15 +53,6 @@
                         <td class="px-6 py-4">{{ $item->durasi }}</td>
                         <td class="px-6 py-4">{{ $item->catatan ?? '-' }}</td>
                         <td class="px-6 py-4 capitalize">{{ str_replace('_', ' ', $item->metode) }}</td>
-                    <td>
-                        <form action="{{ route('data_reservasi.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus reservasi ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded">
-                                Hapus
-                            </button>
-                        </form>
-                    </td>
                     </tr>
                 @endforeach
                 </tbody>

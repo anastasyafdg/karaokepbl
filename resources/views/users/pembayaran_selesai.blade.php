@@ -65,7 +65,7 @@
         <div class="flex items-center space-x-4 mb-6 p-4 bg-white rounded-lg shadow-sm">
           <img src="{{ asset('images/paketA.png') }}" alt="Ruangan" class="h-16 w-16 object-cover rounded-lg border border-gray-200">
           <div>
-            <p class="font-semibold text-gray-800">{{ $paket }} - {{ $room_type }} Room</p>
+            <p class="font-semibold text-gray-800">Paket {{ $paket }} - Ruangan {{ $room_type }}</p>
             <p class="text-sm text-gray-600">Tipe Kamar: {{ $room_type }}</p>
             <div class="flex items-center mt-1">
               <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>

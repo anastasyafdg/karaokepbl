@@ -24,7 +24,7 @@
 
         <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
             <!-- Header dengan Gradient - FIXED -->
-            <div class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-800 p-8 text-white relative overflow-hidden" style="z-index: 10; position: relative;">
+            <div class="bg-gradient-to-r from-blue-800 via-blue-400 to-indigo-800 p-8 text-white relative overflow-hidden" style="z-index: 10; position: relative;">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
                 <div class="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
                 <div class="relative z-10 flex justify-between items-center">
