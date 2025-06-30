@@ -24,22 +24,22 @@ class AdmPembayaranController extends Controller
     {
         try {
             $request->validate([
-                'status' => 'required|in:Menunggu,Terkonfirmasi,Batal'
+                'status' => 'required|in:Terkonfirmasi,Pending,Batal'
             ]);
 
             $pembayaran = Pembayaran::findOrFail($id);
             $pembayaran->status = $request->status;
             $pembayaran->save();
 
-            // Update related reservasi status if needed
+            // Update reservasi jika status Terkonfirmasi
             if ($request->status == 'Terkonfirmasi') {
                 Reservasi::where('id', $pembayaran->reservasi_id)
-                    ->update(['status' => 'Confirmed']);
+                    ->update(['status' => 'Selesai']); 
             }
 
             return redirect()->route('data_pembayaran')->with('success', 'Status pembayaran berhasil diupdate!');
         } catch (Exception $e) {
-            return redirect()->route('data_pembayaran')->with('error', 'Gagal mengupdate status pembayaran!');
+            return redirect()->route('data_pembayaran')->with('error', 'Gagal mengupdate status pembayaran! Pesan: ' . $e->getMessage());
         }
     }
 

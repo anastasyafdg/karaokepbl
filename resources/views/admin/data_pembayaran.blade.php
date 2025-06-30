@@ -15,6 +15,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pengunjung</th>
                         <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Pembayaran</th>
                         <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Pemesanan</th>
                         <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Biaya</th>
@@ -28,6 +29,9 @@
                     @foreach ($pembayarans as $index => $pembayaran)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4">{{ $index + 1 }}</td>
+                        <td class="px-6 py-4">
+                            {{ $pembayaran->user->nama ?? '-' }}
+                        </td>
                         <td class="px-6 py-4">
                             <span class="font-mono bg-gray-100 px-2 py-1 rounded text-xs">
                                 #{{ $pembayaran->id }}
@@ -70,15 +74,15 @@
                         <td class="px-6 py-4">
                             @if($pembayaran->status == 'Terkonfirmasi')
                                 <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                                    {{ $pembayaran->status }}
+                                    Terkonfirmasi
                                 </span>
                             @elseif($pembayaran->status == 'Batal')
                                 <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
-                                    {{ $pembayaran->status }}
+                                    Dibatalkan
                                 </span>
                             @else
                                 <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
-                                    {{ $pembayaran->status }}
+                                    Pending
                                 </span>
                             @endif
                         </td>
@@ -120,8 +124,8 @@
                                     <div class="grid gap-4 mb-4 grid-cols-1">
                                         <div class="col-span-1">
                                             <label for="status-{{ $pembayaran->id }}" class="block mb-2 text-sm font-medium text-gray-900">Status Pembayaran</label>
-                                            <select id="status-{{ $pembayaran->id }}" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                                                <option value="Menunggu" {{ $pembayaran->status == 'Menunggu' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
+                                            <select name="status" class="...">
+                                                <option value="Pending" {{ $pembayaran->status == 'Pending' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
                                                 <option value="Terkonfirmasi" {{ $pembayaran->status == 'Terkonfirmasi' ? 'selected' : '' }}>Terkonfirmasi</option>
                                                 <option value="Batal" {{ $pembayaran->status == 'Batal' ? 'selected' : '' }}>Dibatalkan</option>
                                             </select>

@@ -23,7 +23,7 @@ class Reservasi extends Model
         'metode',
         'bukti_transfer',
         'status',
-        'user_id', // jangan lupa sertakan jika ingin bisa diisi otomatis
+        'user_id', 
     ];
 
     protected static function booted()

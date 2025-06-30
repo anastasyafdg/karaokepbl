@@ -18,7 +18,8 @@ class Pembayaran extends Model
         'total_biaya',
         'tanggal_pembayaran',
         'bukti_pembayaran',
-        'status'
+        'status',
+        'user_id',
     ];
 
     protected $casts = [
@@ -32,12 +33,11 @@ class Pembayaran extends Model
     public function pengunjung() {
     return $this->belongsTo(Pengunjung::class, 'pengunjung_id');
 }
-
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    
+
     protected static function boot()
     {
         parent::boot();
