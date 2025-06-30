@@ -24,7 +24,6 @@
                         <th scope="col" class="px-6 py-3">DURASI</th>
                         <th scope="col" class="px-6 py-3">CATATAN</th>
                         <th scope="col" class="px-6 py-3">PEMBAYARAN</th>
-                        <th scope="col" class="px-6 py-3">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,15 +41,6 @@
                         <td class="px-6 py-4">{{ $item->durasi }}</td>
                         <td class="px-6 py-4">{{ $item->catatan ?? '-' }}</td>
                         <td class="px-6 py-4 capitalize">{{ str_replace('_', ' ', $item->metode) }}</td>
-                    <td>
-                        <form action="{{ route('data_reservasi.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus reservasi ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded">
-                                Hapus
-                            </button>
-                        </form>
-                    </td>
                     </tr>
                 @endforeach
                 </tbody>
