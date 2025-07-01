@@ -45,41 +45,66 @@ class ReservationController extends Controller
         return view('users.halaman_reservasi', [
             'ruangan' => $ruangan,
             'slotWaktu' => $slotWaktu,
-            'slot_tidak_tersedia' => $slotTidakTersedia, // ← ini kuncinya!
+            'slot_tidak_tersedia' => $slotTidakTersedia,
         ]);
     }
 
     public function store(Request $request)
     {
-    $request->validate([
-        'ruangan_id' => 'required|exists:ruangan,id',
-        'tanggal' => 'required|date',
-        'waktu_mulai' => 'required',
-        'waktu_selesai' => 'required',
-        'metode_pembayaran' => 'required|string',
-    ]);
+        $request->validate([
+            'ruangan_id' => 'required|exists:ruangan,id',
+            'tanggal' => 'required|date',
+            'waktu_mulai' => 'required',
+            'waktu_selesai' => 'required',
+            'metode_pembayaran' => 'required|string',
+        ]);
 
-    $user = Auth::user();
+        $user = Auth::user();
+        $ruangan = Ruangan::findOrFail($request->ruangan_id);
 
-    $waktuMulai = Carbon::parse($request->waktu_mulai);
-    $waktuSelesai = Carbon::parse($request->waktu_selesai);
-    $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai)); // durasi minimal 1 jam
+        // Check if room is available
+        if ($ruangan->jumlah_ruangan <= 0) {
+            return back()->with('error', 'Ruangan tidak tersedia!');
+        }
 
+        // Check if time slot is available
+        $existingReservations = reservasi::where('ruangan_id', $request->ruangan_id)
+            ->where('tanggal', $request->tanggal)
+            ->where(function($query) use ($request) {
+                $query->whereBetween('waktu_mulai', [$request->waktu_mulai, $request->waktu_selesai])
+                      ->orWhereBetween('waktu_selesai', [$request->waktu_mulai, $request->waktu_selesai])
+                      ->orWhere(function($q) use ($request) {
+                          $q->where('waktu_mulai', '<=', $request->waktu_mulai)
+                            ->where('waktu_selesai', '>=', $request->waktu_selesai);
+                      });
+            })
+            ->count();
 
-    $reservasi = reservasi::create([
-        'user_id' => $user->id,
-        'ruangan_id' => $request->ruangan_id,
-        'tanggal' => $request->tanggal,
-        'waktu_mulai' => $request->waktu_mulai,
-        'waktu_selesai' => $request->waktu_selesai,
-        'durasi' => $durasi,
-        'metode_pembayaran' => $request->metode_pembayaran,
-        'catatan' => $request->catatan,
-        'status' => 'pending',
-    ]);
+        if ($existingReservations > 0) {
+            return back()->with('error', 'Slot waktu tidak tersedia!');
+        }
 
-    // ✅ Tambahkan redirect ke halaman konfirmasi
-    return redirect()->route('users.konfirmasi_pembayaran', $reservasi->id)
-        ->with('success', 'Reservasi berhasil disimpan, silakan lakukan pembayaran.');
-}
+        $waktuMulai = Carbon::parse($request->waktu_mulai);
+        $waktuSelesai = Carbon::parse($request->waktu_selesai);
+        $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai)); // durasi minimal 1 jam
+
+        // Create reservation
+        $reservasi = reservasi::create([
+            'user_id' => $user->id,
+            'ruangan_id' => $request->ruangan_id,
+            'tanggal' => $request->tanggal,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $request->waktu_selesai,
+            'durasi' => $durasi,
+            'metode_pembayaran' => $request->metode_pembayaran,
+            'catatan' => $request->catatan,
+            'status' => 'pending',
+        ]);
+
+        // Decrease room quantity
+        $ruangan->decrement('jumlah_ruangan');
+
+        return redirect()->route('users.konfirmasi_pembayaran', $reservasi->id)
+            ->with('success', 'Reservasi berhasil disimpan, silakan lakukan pembayaran.');
+    }
 }

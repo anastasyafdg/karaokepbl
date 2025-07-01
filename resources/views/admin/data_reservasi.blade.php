@@ -24,18 +24,6 @@
                         <th scope="col" class="px-6 py-3">DURASI</th>
                         <th scope="col" class="px-6 py-3">CATATAN</th>
                         <th scope="col" class="px-6 py-3">PEMBAYARAN</th>
-=======
-                        <th scope="col" class="px-6 py-3">ID Pemesanan</th>
-                        <th scope="col" class="px-6 py-3">Nama Pengunjung</th>
-                        <th scope="col" class="px-6 py-3">ID Ruangan</th>
-                        <th scope="col" class="px-6 py-3">Tanggal</th>
-                        <th scope="col" class="px-6 py-3">Waktu Mulai</th>
-                        <th scope="col" class="px-6 py-3">Waktu Selesai</th>
-                        <th scope="col" class="px-6 py-3">Durasi</th>
-                        <th scope="col" class="px-6 py-3">Catatan</th>
-                        <th scope="col" class="px-6 py-3">Pembayaran</th>
-                        <th scope="col" class="px-6 py-3">Aksi</th>
->>>>>>> d74009cdd37e8aba2e648f2aeca6e76f18f62e64
                     </tr>
                 </thead>
                 <tbody>
