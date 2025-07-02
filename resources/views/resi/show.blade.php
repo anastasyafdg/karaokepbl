@@ -107,9 +107,10 @@
             <button onclick="window.print()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow transition duration-300">
                 <i class="fas fa-print mr-2"></i>Cetak Resi
             </button>
-            <button onclick="window.close()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg shadow transition duration-300">
-                <i class="fas fa-print mr-2"></i>Kembali
-            </button>
+             <a href="{{ route('riwayat.index') }}" 
+                class="bg-gray-500 hover:bg-gray-600 text-white px-4 sm:px-6 py-2 rounded-lg shadow transition duration-300 transform hover:-translate-y-0.5 inline-block">
+                <i class="fas fa-times mr-2"></i>Tutup
+            </a>
         </div>
     </div>
 

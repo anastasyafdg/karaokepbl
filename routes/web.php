@@ -64,7 +64,8 @@ Route::post('/simpan-reservasi', [ReservationController::class, 'store'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.store');
 
 Route::get('/riwayat', [RiwayatController::class, 'index'])
-    ->middleware(['auth:web', 'checkrole:pengunjung']);
+    ->middleware(['auth:web', 'checkrole:pengunjung'])
+    ->name('riwayat.index'); // <--- Tambahkan ini
 
 Route::get('/resi/{id}', [ResiController::class, 'show'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('resi.show');
