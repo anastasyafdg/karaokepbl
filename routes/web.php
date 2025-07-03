@@ -27,7 +27,7 @@ use App\Http\Controllers\AdmRuanganController;
 use App\Http\Controllers\AdmPesanController;
 use App\Http\Controllers\PengunjungController;
 
-Route::get('/', fn () => view('welcome'));
+Route::get('/', fn() => view('welcome'));
 
 // Umum / Publik
 Route::get('/dashboard1', [Dashboard1Controller::class, 'index']);
@@ -59,6 +59,7 @@ Route::get('/ruangan/search/{paket}', [LandingController::class, 'redirectToRuan
 
 Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.form');
+Route::get('/halaman_reservasi/{id}/check-availability', [ReservationController::class, 'checkAvailability'])->middleware(['auth:web', 'checkrole:pengunjung']);
 
 Route::post('/simpan-reservasi', [ReservationController::class, 'store'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.store');
@@ -95,12 +96,12 @@ Route::post('/ulasan', [UlasanController::class, 'store'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('ulasan.store');
 
 Route::get('/konfirmasi-pembayaran/{id}', [KonfirmasiController::class, 'show'])
-     ->name('users.konfirmasi_pembayaran')
-     ->middleware('auth:web');
+    ->name('users.konfirmasi_pembayaran')
+    ->middleware('auth:web');
 
 Route::post('/konfirmasi-pembayaran/proses', [KonfirmasiController::class, 'proses'])
-     ->name('konfirmasi.proses')
-     ->middleware('auth:web');
+    ->name('konfirmasi.proses')
+    ->middleware('auth:web');
 
 Route::get('/pembayaran-selesai/{id}', [PembayaranSelesaiController::class, 'selesai'])
     ->name('user.pembayaran_selesai')
