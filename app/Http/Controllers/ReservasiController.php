@@ -9,17 +9,18 @@ class ReservasiController extends Controller
 {
     public function index()
     {
-        $data = Reservasi::with('user')->select([
+       $data = Reservasi::with('user')->select([
             'id',
             'user_id',
-            'ruangan_id', 
+            'ruangan_id',
             'tanggal',
             'waktu_mulai',
             'waktu_selesai',
             'durasi',
             'catatan',
             'metode'
-        ])->latest()->get();
+        ])->latest()->paginate(10); // tambahkan paginate
+
         
         return view('admin.data_reservasi', compact('data'));
     }

@@ -16,32 +16,34 @@
 </head>
 <body class="bg-gray-100 font-sans">
 
-  <div class="flex min-h-screen">
+ <div class="flex">
 
-    <!-- Sidebar -->
-    @include('components.sidebar')
+  <!-- Sidebar -->
+  @include('components.sidebar')
 
+  <!-- Konten Utama -->
+  <div class="ml-48 flex-1 min-h-screen">
+
+    <!-- Navbar -->
+    @include('components.navbarAdm')
+
+    <!-- Bar sambutan -->
     @auth
       @if (Auth::user()->role == 'admin') 
-        <div class="text-white text-center py-2 bg-green-600">
-            Selamat datang, {{ Auth::user()->nama }}
+        <div class="mt-20 text-white text-center py-2 bg-green-600">
+          Selamat datang, {{ Auth::user()->nama }}
         </div>
       @endif
     @endauth
 
-    <!-- Konten Utama -->
-    <div class="flex-1 flex flex-col">
+    <!-- Konten -->
+    <main class="p-6 mt-20">
+      @yield('content')
+    </main>
 
-      <!-- Navbar -->
-      @include('components.navbarAdm')
-
-      <!-- Isi Konten -->
-      <main class="p-6">
-        @yield('content')
-      </main>
-
-    </div>
   </div>
+</div>
+
 
   <!-- Flowbite JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>

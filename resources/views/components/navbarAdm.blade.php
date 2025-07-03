@@ -1,4 +1,6 @@
-<div class="flex items-center justify-between bg-white p-4 shadow-md">
+<div class="fixed top-0 left-48 right-0 z-50 flex items-center justify-between bg-white p-4 shadow-md">
+
+
   <!-- Kiri: Logo dan Info Admin -->
   <div class="flex items-center space-x-4">
     <img src="images/logo.png" alt="Logo" class="w-12 h-12 rounded-full object-cover">

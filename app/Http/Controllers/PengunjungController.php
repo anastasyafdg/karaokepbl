@@ -9,12 +9,9 @@ class PengunjungController extends Controller
 {
     public function index()
     {
-        // Ambil semua user yang berperan 'pengunjung'
-        $data = User::where('peran', 'pengunjung')->get();
-
-        $pengunjung = $data->filter(function ($user) {
-            return strtolower($user->nama) !== 'mikeu pangpang';
-        });
+        $pengunjung = User::where('peran', 'pengunjung')
+                        ->whereRaw("LOWER(nama) != ?", ['mikeu pangpang'])
+                        ->paginate(10);
 
         return view('admin.data_pengunjung', compact('pengunjung'));
     }

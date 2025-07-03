@@ -11,14 +11,34 @@ use Exception;
 
 class AdmPembayaranController extends Controller
 {
-    public function index()
-    {
-        $pembayarans = Pembayaran::with('reservasi')->orderBy('created_at', 'desc')->get();
-        
+    public function index(Request $request)
+    {    
+        // Query dasar dengan relasi ke reservasi & user
+        $query = Pembayaran::with(['reservasi', 'user']);
+
+        // Filter: Status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter: Rentang Tanggal
+        if ($request->filled('tanggal_mulai') && $request->filled('tanggal_akhir')) {
+            $query->whereBetween('created_at', [
+                $request->tanggal_mulai . ' 00:00:00',
+                $request->tanggal_akhir . ' 23:59:59'
+            ]);
+        }
+
+        // Ambil data dan urutkan terbaru
+        $pembayarans = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        // Kirim data dan request untuk menampilkan kembali input filter di blade
         return view('admin.data_pembayaran', [
-            'pembayarans' => $pembayarans
+            'pembayarans' => $pembayarans,
+            'request' => $request
         ]);
     }
+
 
     public function updateStatus(Request $request, $id)
     {

@@ -10,9 +10,20 @@ use Exception;
 class AdmRuanganController extends Controller
 {
     // Menampilkan semua data ruangan
-    public function index()
+    public function index(Request $request)
     {
-        $ruangan = Ruangan::all();
+        $query = Ruangan::query();
+
+        if ($request->filled('jenis')) {
+            $query->where('jenis', $request->jenis);
+        }
+
+        if ($request->filled('paket')) {
+            $query->where('paket', $request->paket);
+        }
+
+        $ruangan = $query->paginate(10);
+
         return view('admin.data_ruangan', compact('ruangan'));
     }
 
@@ -20,6 +31,15 @@ class AdmRuanganController extends Controller
     public function simpan(Request $request)
     {
         try {
+            // Cek apakah ID sudah ada terlebih dahulu
+            $existingRuangan = Ruangan::where('id', $request->id)->first();
+            if ($existingRuangan) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'ID Ruangan "' . $request->id . '" sudah ada! Silakan gunakan ID yang berbeda.')
+                    ->withErrors(['id' => 'ID Ruangan sudah digunakan.']);
+            }
+
             // Debug informasi file
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');
@@ -39,11 +59,23 @@ class AdmRuanganController extends Controller
                 'kapasitas' => 'required|string|max:255',
                 'harga' => 'required|numeric|min:0',
                 'fasilitas' => 'required|string|max:1000',
-                'jumlah_ruangan' => 'required|integer|min:0|max:50', // Mengganti status dengan jumlah_ruangan
-                'gambar' => 'required|file|mimes:jpg,jpeg,png,gif,webp|max:10240' // 10MB max, tambah webp
+                'jumlah_ruangan' => 'required|integer|min:0|max:50',
+                'gambar' => 'required|file|mimes:jpg,jpeg,png,gif,webp|max:10240'
             ], [
                 'id.required' => 'ID Ruangan wajib diisi',
-                'id.unique' => 'ID Ruangan sudah ada',
+                'id.unique' => 'ID Ruangan "' . $request->id . '" sudah ada, silakan gunakan ID yang berbeda',
+                'id.max' => 'ID Ruangan maksimal 50 karakter',
+                'jenis.required' => 'Jenis ruangan wajib dipilih',
+                'jenis.in' => 'Jenis ruangan tidak valid',
+                'paket.required' => 'Paket wajib dipilih',
+                'paket.in' => 'Paket tidak valid',
+                'kapasitas.required' => 'Kapasitas wajib diisi',
+                'kapasitas.max' => 'Kapasitas maksimal 255 karakter',
+                'harga.required' => 'Harga wajib diisi',
+                'harga.numeric' => 'Harga harus berupa angka',
+                'harga.min' => 'Harga tidak boleh kurang dari 0',
+                'fasilitas.required' => 'Fasilitas wajib diisi',
+                'fasilitas.max' => 'Fasilitas maksimal 1000 karakter',
                 'jumlah_ruangan.required' => 'Jumlah ruangan wajib diisi',
                 'jumlah_ruangan.integer' => 'Jumlah ruangan harus berupa angka',
                 'jumlah_ruangan.min' => 'Jumlah ruangan minimal 0',
@@ -95,12 +127,19 @@ class AdmRuanganController extends Controller
                 'kapasitas' => $request->kapasitas,
                 'harga' => $request->harga,
                 'fasilitas' => $request->fasilitas,
-                'jumlah_ruangan' => $request->jumlah_ruangan, // Mengganti status dengan jumlah_ruangan
+                'jumlah_ruangan' => $request->jumlah_ruangan,
                 'gambar' => $fileName
             ]);
 
             return redirect()->route('data_ruangan')->with('success', 'Data ruangan berhasil disimpan!');
             
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani error validasi khusus
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($e->validator->errors())
+                ->with('error', 'Terdapat kesalahan dalam data yang dimasukkan. Silakan periksa kembali.');
+                
         } catch (Exception $e) {
             // Log error untuk debugging
             \Log::error('Error saving ruangan: ' . $e->getMessage());
@@ -132,8 +171,21 @@ class AdmRuanganController extends Controller
                 'kapasitas' => 'required|string|max:255',
                 'harga' => 'required|numeric|min:0',
                 'fasilitas' => 'required|string|max:1000',
-                'jumlah_ruangan' => 'required|integer|min:0|max:50', // Mengganti status dengan jumlah_ruangan
+                'jumlah_ruangan' => 'required|integer|min:0|max:50',
                 'gambar' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:10240'
+            ], [
+                'jenis.required' => 'Jenis ruangan wajib dipilih',
+                'paket.required' => 'Paket wajib dipilih',
+                'kapasitas.required' => 'Kapasitas wajib diisi',
+                'harga.required' => 'Harga wajib diisi',
+                'harga.numeric' => 'Harga harus berupa angka',
+                'fasilitas.required' => 'Fasilitas wajib diisi',
+                'jumlah_ruangan.required' => 'Jumlah ruangan wajib diisi',
+                'jumlah_ruangan.integer' => 'Jumlah ruangan harus berupa angka',
+                'jumlah_ruangan.min' => 'Jumlah ruangan minimal 0',
+                'jumlah_ruangan.max' => 'Jumlah ruangan maksimal 50',
+                'gambar.mimes' => 'Format gambar harus jpg, jpeg, png, gif, atau webp',
+                'gambar.max' => 'Ukuran gambar maksimal 10MB'
             ]);
 
             $ruangan = Ruangan::findOrFail($id);
@@ -179,6 +231,12 @@ class AdmRuanganController extends Controller
             
             return redirect()->route('data_ruangan')->with('success', 'Data ruangan berhasil diperbarui!');
             
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($e->validator->errors())
+                ->with('error', 'Terdapat kesalahan dalam data yang dimasukkan. Silakan periksa kembali.');
+                
         } catch (Exception $e) {
             \Log::error('Error updating ruangan: ' . $e->getMessage());
             
@@ -208,5 +266,17 @@ class AdmRuanganController extends Controller
             
             return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
+    }
+
+    // Method untuk mengecek ketersediaan ID via AJAX (opsional)
+    public function checkId(Request $request)
+    {
+        $id = $request->input('id');
+        $exists = Ruangan::where('id', $id)->exists();
+        
+        return response()->json([
+            'exists' => $exists,
+            'message' => $exists ? 'ID sudah digunakan' : 'ID tersedia'
+        ]);
     }
 }

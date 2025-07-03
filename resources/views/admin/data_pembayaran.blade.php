@@ -9,6 +9,55 @@
             <i class="fas fa-credit-card mr-2"></i> Data Pembayaran
         </h2>
         <hr class="mb-6 border-gray-200" />
+
+      <!-- Filter Section -->
+<div class="bg-white p-4 rounded-lg shadow mb-6">
+    <h6 class="text-lg font-semibold mb-4 text-gray-700">
+        <i class="fas fa-filter mr-2"></i> Filter Data
+    </h6>
+    <form method="GET" action="{{ route('data_pembayaran') }}" class="flex flex-wrap gap-4 items-end">
+        <!-- Filter Status -->
+        <div class="flex-1 min-w-[200px]">
+            <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status Pembayaran</label>
+            <select id="status" name="status"
+                class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Semua Status</option>
+                <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
+                <option value="Terkonfirmasi" {{ request('status') == 'Terkonfirmasi' ? 'selected' : '' }}>Terkonfirmasi</option>
+                <option value="Batal" {{ request('status') == 'Batal' ? 'selected' : '' }}>Dibatalkan</option>
+            </select>
+        </div>
+
+        <!-- Tombol -->
+        <div class="flex gap-2">
+            <button type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fas fa-search"></i> Filter
+            </button>
+            <a href="{{ route('data_pembayaran') }}"
+                class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fas fa-undo"></i> Reset
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Info Filter Aktif -->
+@if(request()->has('status'))
+<div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+    <div class="flex items-center gap-2">
+        <i class="fas fa-info-circle text-blue-600"></i>
+        <span class="text-blue-800 font-medium">Filter Aktif:</span>
+
+        @if(request('status'))
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">
+                Status: {{ request('status') }}
+            </span>
+        @endif
+    </div>
+</div>
+@endif
+
             
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -104,43 +153,59 @@
                         </td>
                     </tr>
 
-                    <!-- Edit Modal -->
-                    <div id="editModal-{{ $pembayaran->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 w-full max-w-md max-h-full">
-                            <div class="relative bg-white rounded-lg shadow">
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                    <h3 class="text-lg font-semibold text-gray-900">
-                                        Edit Status Pembayaran
-                                    </h3>
-                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-toggle="editModal-{{ $pembayaran->id }}">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <form class="p-4 md:p-5" action="{{ route('data_pembayaran.update-status', $pembayaran->id) }}" method="POST">
-                                    @csrf
-                                    <div class="grid gap-4 mb-4 grid-cols-1">
-                                        <div class="col-span-1">
-                                            <label for="status-{{ $pembayaran->id }}" class="block mb-2 text-sm font-medium text-gray-900">Status Pembayaran</label>
-                                            <select name="status" class="...">
-                                                <option value="Pending" {{ $pembayaran->status == 'Pending' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
-                                                <option value="Terkonfirmasi" {{ $pembayaran->status == 'Terkonfirmasi' ? 'selected' : '' }}>Terkonfirmasi</option>
-                                                <option value="Batal" {{ $pembayaran->status == 'Batal' ? 'selected' : '' }}>Dibatalkan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                        Update Status
-                                    </button>
-                                </form>
-                            </div>
+                    <!-- Form Edit Status -->
+                    <div id="editModal-{{ $pembayaran->id }}" tabindex="-1" aria-hidden="true"
+                    class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+
+                    <div class="w-full max-w-md mx-auto px-4">
+                        <div class="bg-white rounded-2xl shadow-xl w-full p-6">
+
+                        <!-- Header -->
+                        <div class="mb-4 border-b pb-3">
+                            <h3 class="text-lg font-semibold text-gray-800">Edit Status Pembayaran</h3>
+                            <p class="text-sm text-gray-500 mt-1">ID Pembayaran: #{{ $pembayaran->id }}</p>
                         </div>
+
+                        <!-- Form -->
+                        <form action="{{ route('data_pembayaran.update-status', $pembayaran->id) }}" method="POST" class="space-y-6">
+                            @csrf
+
+                            <!-- Select -->
+                            <div>
+                            <label for="status-{{ $pembayaran->id }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                Status Pembayaran
+                            </label>
+                            <select name="status" id="status-{{ $pembayaran->id }}"
+                                class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="Pending" {{ $pembayaran->status == 'Pending' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
+                                <option value="Terkonfirmasi" {{ $pembayaran->status == 'Terkonfirmasi' ? 'selected' : '' }}>Terkonfirmasi</option>
+                                <option value="Batal" {{ $pembayaran->status == 'Batal' ? 'selected' : '' }}>Dibatalkan</option>
+                            </select>
+                            </div>
+
+                            <!-- Tombol -->
+                            <div class="flex justify-end items-center space-x-3 pt-4 border-t border-gray-200">
+                            <button type="button" data-modal-toggle="editModal-{{ $pembayaran->id }}"
+                                class="px-5 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 transition">
+                                Batal
+                            </button>
+                            <button type="submit"
+                                class="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
+                                Simpan Perubahan
+                            </button>
+                            </div>
+                        </form>
+
+                        </div>
+                    </div>
                     </div>
                     @endforeach
                 </tbody>
             </table>
+                <!-- Pagination -->
+            <div class="mt-6 px-4">
+                {{ $pembayarans->links() }}
+            </div>
         </div>
     </div>
 </div>
@@ -175,5 +240,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+
 
 @endsection
