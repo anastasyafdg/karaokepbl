@@ -71,16 +71,18 @@
                 </div>
 
                 <div class="bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-700 overflow-hidden hover:shadow-2xl transition">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.171230123456!2d104.0453151!3d1.1184859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da1234567890123%3A0x1234567890123456!2sPollux%20Habibie%20International%20Financial%20Center!5e0!3m2!1sen!2sid!4v1631234567890!5m2!1sen!2sid"
-                        width="100%"
-                        height="300"
-                        class="rounded-lg border-0"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                </div>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0934565247945!2d104.03141207505815!3d1.1254109618988788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9892648b9c83f%3A0xb07e31f4f68e86af!2sBorn%20Yesterday%20Karaoke!5e0!3m2!1sid!2sid!4v1720207320671!5m2!1sid!2sid"
+        width="100%"
+        height="300"
+        class="rounded-lg border-0"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+</div>
+
             </div>
 
             <!-- Contact Form -->

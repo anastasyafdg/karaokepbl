@@ -48,7 +48,7 @@
           <div>
             <h2 class="text-white font-bold mb-4">Quick Links:</h2>
             <div class="flex flex-col space-y-2">
-              <a href="https://maps.google.com/?q=Batam+Centre" target="_blank" class="text-gray-400 hover:text-white footer-link">
+              <a href="https://maps.app.goo.gl/5TupvYgrsFtujqoMA" target="_blank" class="text-gray-400 hover:text-white footer-link">
                 <i class="fas fa-map-marker-alt text-yellow-500 mr-2"></i>
                 Mikkeu Pangpang Location
               </a>
