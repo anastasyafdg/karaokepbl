@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -26,27 +27,39 @@ class EditProfileController extends Controller
         $user->alamat = $request->alamat;
         $user->save();
 
-        return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->back()->with('success_modal', 'Profil berhasil diperbarui!');
     }
 
-    // Method untuk update password
     public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed|min:8',
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'old_password' => 'required',
+        'new_password' => 'required|min:8',
+        'new_password_confirmation' => 'required',
+    ]);
 
-        // Cek apakah password lama sesuai
-        if (!Hash::check($request->old_password, Auth::user()->password)) {
-            return back()->withErrors(['old_password' => 'Password lama tidak sesuai.']);
-        }
+    $user = Auth::user();
 
-        // Update password dengan yang baru
-        $user = Auth::user();
-        $user->password = Hash::make($request->new_password);
-        $user->save();
+    // Cek apakah password lama sesuai
+    if (!Hash::check($request->old_password, $user->password)) {
+        return redirect()->back()->with('password_error_modal', 'Password lama tidak sesuai.');
+    }
 
-        return back()->with('success', 'Password berhasil diperbarui.');
+    // Cek apakah password baru dan konfirmasi cocok
+    if ($request->new_password !== $request->new_password_confirmation) {
+        return redirect()->back()->with('password_error_modal', 'Password baru dan konfirmasi tidak cocok.');
+    }
+
+    // Cek apakah password baru sama dengan password lama
+    if (Hash::check($request->new_password, $user->password)) {
+        return redirect()->back()->with('password_error_modal', 'Password baru tidak boleh sama dengan password lama.');
+    }
+
+    // Update password dengan yang baru
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+ 
+        return redirect()->back()->with('success_modal', 'Kata Sandi berhasil diperbarui!');
     }
 }
