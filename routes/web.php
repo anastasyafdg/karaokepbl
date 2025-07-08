@@ -60,7 +60,8 @@ Route::get('/ruangan/search/{paket}', [LandingController::class, 'redirectToRuan
 Route::get('/halaman_reservasi/{id}', [ReservationController::class, 'showForm'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.form');
 Route::get('/halaman_reservasi/{id}/check-availability', [ReservationController::class, 'checkAvailability'])->middleware(['auth:web', 'checkrole:pengunjung']);
-
+Route::post('/reservasi/{id}/cancel-timeout', [KonfirmasiController::class, 'handleTimeout'])
+     ->name('reservasi.cancel-timeout');
 Route::post('/simpan-reservasi', [ReservationController::class, 'store'])
     ->middleware(['auth:web', 'checkrole:pengunjung'])->name('reservasi.store');
 
@@ -98,6 +99,7 @@ Route::post('/ulasan', [UlasanController::class, 'store'])
 Route::get('/konfirmasi-pembayaran/{id}', [KonfirmasiController::class, 'show'])
     ->name('users.konfirmasi_pembayaran')
     ->middleware('auth:web');
+    Route::post('/reservasi/{id}/cancel-timeout', [KonfirmasiController::class, 'handleTimeout'])->name('reservasi.cancel-timeout');
 
 Route::post('/konfirmasi-pembayaran/proses', [KonfirmasiController::class, 'proses'])
     ->name('konfirmasi.proses')

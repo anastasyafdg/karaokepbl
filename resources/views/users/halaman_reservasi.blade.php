@@ -245,28 +245,47 @@
             }
 
             function handleSlotClick() {
-    const slot = this.dataset.slot;
-    
-    if (this.disabled) return;
+        const slot = this.dataset.slot;
+        
+        if (this.disabled) return;
 
-    if (this.classList.contains('bg-green-400')) {
-        // Deselect
-        const index = selectedSlots.indexOf(slot);
-        if (index > -1) {
-            selectedSlots.splice(index, 1);
+        const slotIndex = slotWaktu.indexOf(slot);
+        
+        if (this.classList.contains('bg-green-400')) {
+            // Deselect
+            const index = selectedSlots.indexOf(slot);
+            if (index > -1) {
+                selectedSlots.splice(index, 1);
+            }
+            this.classList.remove('bg-green-400', 'text-white');
+            this.classList.add('bg-gray-100', 'hover:bg-green-200', 'text-gray-700');
+        } else {
+            // Check if this is a consecutive selection
+            if (selectedSlots.length === 0) {
+                // First selection is always allowed
+                selectedSlots.push(slot);
+            } else {
+                const firstIndex = slotWaktu.indexOf(selectedSlots[0]);
+                const lastIndex = slotWaktu.indexOf(selectedSlots[selectedSlots.length - 1]);
+                
+                // Check if the new slot is immediately before the first selected or after the last selected
+                if (slotIndex === firstIndex - 1 || slotIndex === lastIndex + 1) {
+                    selectedSlots.push(slot);
+                    selectedSlots.sort((a, b) => slotWaktu.indexOf(a) - slotWaktu.indexOf(b));
+                } else {
+                    // Not consecutive - show alert or simply return without selecting
+                    alert('Harap pilih slot waktu yang berurutan');
+                    return;
+                }
+            }
+            
+            this.classList.remove('bg-gray-100', 'hover:bg-green-200', 'text-gray-700');
+            this.classList.add('bg-green-400', 'text-white');
         }
-        this.classList.remove('bg-green-400', 'text-white');
-        this.classList.add('bg-gray-100', 'hover:bg-green-200', 'text-gray-700');
-    } else {
-        // Allow selection of adjacent slots
-        selectedSlots.push(slot);
-        selectedSlots.sort((a, b) => slotWaktu.indexOf(a) - slotWaktu.indexOf(b));
-        this.classList.remove('bg-gray-100', 'hover:bg-green-200', 'text-gray-700');
-        this.classList.add('bg-green-400', 'text-white');
+
+        updateSelectedTimes();
     }
 
-    updateSelectedTimes();
-}
 
 function updateSelectedTimes() {
     if (selectedSlots.length > 0) {

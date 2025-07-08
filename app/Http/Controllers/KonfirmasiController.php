@@ -7,6 +7,7 @@ use App\Models\Pembayaran;
 use App\Models\Reservasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class KonfirmasiController extends Controller
 {
@@ -14,15 +15,29 @@ class KonfirmasiController extends Controller
     {
         $reservasi = Reservasi::with('ruangan')->findOrFail($id);
         
-        $waktuMulai = \Carbon\Carbon::parse($reservasi->waktu_mulai);
-        $waktuSelesai = \Carbon\Carbon::parse($reservasi->waktu_selesai);
+        // Check if payment time has expired (30 minutes)
+        $createdAt = Carbon::parse($reservasi->created_at);
+        $expiryTime = $createdAt->addMinutes(30);
+        
+        if (Carbon::now()->gt($expiryTime) && $reservasi->status !== 'Pending') {
+            $this->handlePaymentTimeout($reservasi);
+            return redirect()->route('landing')->with('error', 'Waktu pembayaran telah habis. Reservasi dibatalkan.');
+        }
+
+        $waktuMulai = Carbon::parse($reservasi->waktu_mulai);
+        $waktuSelesai = Carbon::parse($reservasi->waktu_selesai);
         $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai));
         $totalPembayaran = $durasi * $reservasi->ruangan->harga;
+
+        // Calculate remaining time in seconds for the frontend timer
+        $remainingTime = Carbon::now()->diffInSeconds($expiryTime, false);
+        $remainingTime = $remainingTime > 0 ? $remainingTime : 0;
 
         return view('users.konfirmasi_pembayaran', [
             'reservasi' => $reservasi,
             'durasi' => $durasi,
-            'totalPembayaran' => $totalPembayaran
+            'totalPembayaran' => $totalPembayaran,
+            'remainingTime' => $remainingTime // Pass remaining time to view
         ]);
     }
 
@@ -35,8 +50,17 @@ class KonfirmasiController extends Controller
 
         $reservasi = Reservasi::findOrFail($request->reservasi_id);
         
-        $waktuMulai = \Carbon\Carbon::parse($reservasi->waktu_mulai);
-        $waktuSelesai = \Carbon\Carbon::parse($reservasi->waktu_selesai);
+        // Check if payment time has expired (30 minutes)
+        $createdAt = Carbon::parse($reservasi->created_at);
+        $expiryTime = $createdAt->addSeconds(1800);
+        
+        if (Carbon::now()->gt($expiryTime)) {
+            $this->handlePaymentTimeout($reservasi);
+            return redirect()->route('landing')->with('error', 'Waktu pembayaran telah habis. Reservasi dibatalkan.');
+        }
+
+        $waktuMulai = Carbon::parse($reservasi->waktu_mulai);
+        $waktuSelesai = Carbon::parse($reservasi->waktu_selesai);
         $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai));
         $totalPembayaran = $durasi * $reservasi->ruangan->harga;
 
@@ -52,7 +76,7 @@ class KonfirmasiController extends Controller
                 'reservasi_id' => $reservasi->id,
                 'user_id' => Auth::id(),
                 'total_biaya' => $totalPembayaran,
-                'bukti_pembayaran' => 'images/' . $imageName, // Store relative path
+                'bukti_pembayaran' => 'images/' . $imageName,
                 'status' => 'waiting_payment_confirmation'
             ]);
 
@@ -64,5 +88,32 @@ class KonfirmasiController extends Controller
 
         return redirect()->back()
                ->with('error', 'Gagal mengupload bukti transfer.');
+    }
+
+    protected function handlePaymentTimeout(Reservasi $reservasi)
+    {
+        $waktuMulai = Carbon::parse($reservasi->waktu_mulai);
+        $waktuSelesai = Carbon::parse($reservasi->waktu_selesai);
+        $durasi = max(1, $waktuMulai->diffInHours($waktuSelesai));
+        $totalPembayaran = $durasi * $reservasi->ruangan->harga;
+
+        Pembayaran::create([
+            'reservasi_id' => $reservasi->id,
+            'user_id' => $reservasi->user_id,
+            'total_biaya' => $totalPembayaran,
+            'bukti_pembayaran' => null,
+            'status' => 'Batal',
+            'keterangan' => 'Pembayaran dibatalkan karena melebihi batas waktu'
+        ]);
+
+        $reservasi->update(['status' => 'Batal']);
+    }
+
+    public function handleTimeout($id)
+    {
+        $reservasi = Reservasi::findOrFail($id);
+        $this->handlePaymentTimeout($reservasi);
+        
+        return response()->json(['success' => true]);
     }
 }

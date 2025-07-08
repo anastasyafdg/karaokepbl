@@ -39,16 +39,12 @@ class Pembayaran extends Model
     }
 
     protected static function boot()
-    {
-        parent::boot();
-    
-        static::creating(function ($model) {
-            // Remove the custom ID generation
-            // Set default status
-            $model->status = 'Pending';
-            
-            // Set tanggal_pembayaran to current time
-            $model->tanggal_pembayaran = now();
-        });
-    }
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        $model->status = 'Pending'; // Matches your enum in pembayaran table
+        $model->tanggal_pembayaran = now();
+    });
+}
 }
