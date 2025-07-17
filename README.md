@@ -1,61 +1,162 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://laravel.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+  </a>
 </p>
 
-## About Laravel
+<p align="center">
+  <a href="https://github.com/laravel/framework/actions">
+    <img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
+  </a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 🎤 Laravel-Based Karaoke Room Reservation Application
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Mikkeu Pangpang Karaoke** — a web-based karaoke room reservation system we developed as part of our Project Based Learning (PBL), focusing on building a modern karaoke room reservation system. 🎯  
+We created this application to meet the needs of users who want to reserve karaoke rooms easily, quickly, and efficiently — all without having to visit the location in person.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🧠 **Why We Built This Application:**
 
-## Learning Laravel
+- Many karaoke venues still use manual systems that make the reservation process inconvenient.  
+- Users often struggle to get real-time information about room availability.  
+- There is also a lack of online booking features with integrated payment and automatic confirmation.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 👨‍💻 Development Team
 
-## Laravel Sponsors
+| Full Name                     | Student ID   |
+|------------------------------|--------------|
+| Anastasya Floresha Ginting   | 3312401068   |
+| Windy Yohana Gurning         | 3312401066   |
+| Saskia Ananda Irawan         | 33120401070  |
+| Erlangga Wiratama            | 3312401072   |
+| Melanie Putri                | 3312401075   |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+## 📬 Contact Information
 
-## Contributing
+If you have any questions, feedback, or suggestions regarding this project, please feel free to contact us via:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Email: anastasyaginting565@gmail.com  
+- WhatsApp: [Click to chat](https://wa.me/6282213806284)
 
-## Code of Conduct
+We would be very happy to hear your input!
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## 📌 Key Features
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- User registration and login
+- Karaoke room booking
+- Upload proof of payment
+- Room management (admin)
+- Review & rating
+- Booking history
+- Edit profile
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 🔗 Important Links
+
+| Description           | Link                                                                 |
+|-----------------------|----------------------------------------------------------------------|
+| 🌐 Demo Website        | [Click here](https://youtu.be/m-Rd70ICE_c?si=0jt0NqTOOLRwxxxR)       |
+| 🎥 Presentation        | [Click here](https://youtu.be/XTfC4ndbkgY?si=FVmWdbl8RJToNRnk)       |
+| 📄 PBL Report (PDF)    | [Click here](https://drive.google.com/file/d/14YXxGrRUxEYF5XWeL_BBslCc97IGYvCM/view?usp=sharing) |
+| 📘 Manual Book         | [Click here](https://drive.google.com/file/d/17wW91VCAJRKyoaQ9b7oD7trhvLk7ie7S/view?usp=sharing) |
+
+---
+
+
+## 📥 How to Download & Open the PDF Report or Manual Book
+
+1. Click on the link of the desired document above.
+2. The file will open in your browser.
+3. Click the "Download" button or the down arrow icon.
+4. Open the PDF file using a browser or a PDF reader like Adobe Reader.
+
+---
+
+
+## ⚙️ System Requirements
+
+- PHP >= 8.1
+- Composer
+- MySQL or MariaDB
+- Node.js & NPM
+- Git (optional)
+
+---
+
+
+## 🚀 How to Install the Application
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/project-name.git
+cd project-name
+
+### 2. Install Dependency Laravel
+
+```bash
+composer install
+```
+
+### 3.  Copy the .env File
+
+```bash
+cp .env.example .env
+```
+
+### 4. Generate App Key
+
+```bash
+php artisan key:generate
+```
+
+### 5. Configure the Database
+Edit the .env file and adjust the following section:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=karaoke
+DB_USERNAME=root
+DB_PASSWORD=        # isi jika ada password
+```
+
+### 6. Migrate and Seed the Database
+
+```bash
+php artisan migrate --seed
+```
+
+### 7. Install Frontend Dependencies
+
+```bash
+npm install
+npm run build
+```
+
+### 8. Run the Server
+
+```bash
+php artisan serve
+```
+
+---
