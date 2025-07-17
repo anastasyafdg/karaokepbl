@@ -39,7 +39,7 @@ We created this application to meet the needs of users who want to reserve karao
 |------------------------------|--------------|
 | Anastasya Floresha Ginting   | 3312401068   |
 | Windy Yohana Gurning         | 3312401066   |
-| Saskia Ananda Irawan         | 33120401070  |
+| Saskia Ananda Irawan         | 3312401070  |
 | Erlangga Wiratama            | 3312401072   |
 | Melanie Putri                | 3312401075   |
 
