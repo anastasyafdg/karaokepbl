@@ -107,8 +107,8 @@ We would be very happy to hear your input!
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/project-name.git
-cd project-name
+git clone https://github.com/your-username/project-name.git](https://github.com/anastasyafdg/karaokepbl.git
+cd karaokepbl
 
 ### 2. Install Dependency Laravel
 
