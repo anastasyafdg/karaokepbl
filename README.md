@@ -109,8 +109,9 @@ We would be very happy to hear your input!
 ```bash
 git clone https://github.com/your-username/project-name.git](https://github.com/anastasyafdg/karaokepbl.git
 cd karaokepbl
+```
 
-### 2. Install Dependency Laravel
+### 2.  Install Dependency Laravel
 
 ```bash
 composer install
