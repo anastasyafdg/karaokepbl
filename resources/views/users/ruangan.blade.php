@@ -53,10 +53,11 @@
                 <div class="text-sm">👥 Kapasitas : {{ $ruangan->kapasitas }}</div>
                 <div class="flex items-center justify-between">
                     <div class="text-sm font-medium">{{ $ruangan->formatted_harga }}/1 jam</div>
-                    <button class="bg-green-500 text-white text-sm px-4 py-1 rounded-full hover:bg-green-600 transition detail-btn" 
-                            onclick="showRoomDetail('{{ $ruangan->id }}')">
-                        Detail
-                    </button>
+                    <button class="bg-green-500 text-white text-sm px-4 py-1 rounded-full hover:bg-green-600 transition detail-btn 
+        {{ $ruangan->jumlah_ruangan <= 0 ? 'opacity-50 cursor-not-allowed' : '' }}" 
+        onclick="{{ $ruangan->jumlah_ruangan > 0 ? "showRoomDetail('{$ruangan->id}')" : 'return false' }}">
+    {{ $ruangan->jumlah_ruangan > 0 ? 'Detail' : 'Tidak Tersedia' }}
+</button>
                 </div>
             </div>
         </div>
